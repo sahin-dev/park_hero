@@ -17,16 +17,16 @@ datasource db {
 model User {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   email       String    @unique
-  fullname    String
-  phone       String
+  fullName    String?
+  phone       String?
   password    String
   fcmToken    String?
-  accessToken String?
+  accessToken String?   @unique
   role        UserRole
   vehicles    Vehicle[]
-
-  createdAt DateTime
-  updatedAt DateTime
+  avatarUrl   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@map("users")
 }
@@ -35,13 +35,14 @@ model Vehicle {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   company    String
   model      String
-  reg_number String
+  reg_number String   @unique
   color      String[]
   ownerId    String   @db.ObjectId
   owner      User     @relation(fields: [ownerId], references: [id])
 
-  createdAt DateTime
-  updatedAt DateTime
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
 
   @@map("vehicles")
 }

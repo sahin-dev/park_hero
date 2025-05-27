@@ -8,5 +8,8 @@ export default {
         secret:process.env.JWT_SECRET as Secret,
         expiresIn:process.env.JWT_EXPIRES_IN
     },
+    bcrypt:{
+        salt:  parseInt(process.env.BCRYPT_SALT!) 
+    },
     port:process.env.PORT
 }

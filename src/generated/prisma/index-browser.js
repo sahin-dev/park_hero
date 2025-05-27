@@ -116,12 +116,13 @@ Prisma.NullTypes = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  fullname: 'fullname',
+  fullName: 'fullName',
   phone: 'phone',
   password: 'password',
   fcmToken: 'fcmToken',
   accessToken: 'accessToken',
   role: 'role',
+  avatarUrl: 'avatarUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

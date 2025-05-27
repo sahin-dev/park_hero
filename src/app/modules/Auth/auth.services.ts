@@ -25,7 +25,18 @@ const signin = async (email:string, password:string) => {
     }
 }
 
+const signOut = async (userId:string) => {
+    const user = await prisma.user.findUnique({where:{id:userId}})
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found')
+    }
+    await prisma.user.update({where:{id:userId}, data:{accessToken:null}})
+    
+    return {message: "User signed out successfully"}
+}
+
 export {
-    signin
+    signin,
+    signOut
 
 }

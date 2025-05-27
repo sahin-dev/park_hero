@@ -974,12 +974,13 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     email: string | null
-    fullname: string | null
+    fullName: string | null
     phone: string | null
     password: string | null
     fcmToken: string | null
     accessToken: string | null
     role: $Enums.UserRole | null
+    avatarUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -987,12 +988,13 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
-    fullname: string | null
+    fullName: string | null
     phone: string | null
     password: string | null
     fcmToken: string | null
     accessToken: string | null
     role: $Enums.UserRole | null
+    avatarUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1000,12 +1002,13 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     email: number
-    fullname: number
+    fullName: number
     phone: number
     password: number
     fcmToken: number
     accessToken: number
     role: number
+    avatarUrl: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1015,12 +1018,13 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
-    fullname?: true
+    fullName?: true
     phone?: true
     password?: true
     fcmToken?: true
     accessToken?: true
     role?: true
+    avatarUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1028,12 +1032,13 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
-    fullname?: true
+    fullName?: true
     phone?: true
     password?: true
     fcmToken?: true
     accessToken?: true
     role?: true
+    avatarUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1041,12 +1046,13 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
-    fullname?: true
+    fullName?: true
     phone?: true
     password?: true
     fcmToken?: true
     accessToken?: true
     role?: true
+    avatarUrl?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1127,12 +1133,13 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     email: string
-    fullname: string
-    phone: string
+    fullName: string | null
+    phone: string | null
     password: string
     fcmToken: string | null
     accessToken: string | null
     role: $Enums.UserRole
+    avatarUrl: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1157,12 +1164,13 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
-    fullname?: boolean
+    fullName?: boolean
     phone?: boolean
     password?: boolean
     fcmToken?: boolean
     accessToken?: boolean
     role?: boolean
+    avatarUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     vehicles?: boolean | User$vehiclesArgs<ExtArgs>
@@ -1174,17 +1182,18 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
-    fullname?: boolean
+    fullName?: boolean
     phone?: boolean
     password?: boolean
     fcmToken?: boolean
     accessToken?: boolean
     role?: boolean
+    avatarUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullname" | "phone" | "password" | "fcmToken" | "accessToken" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "role" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicles?: boolean | User$vehiclesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1198,12 +1207,13 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
-      fullname: string
-      phone: string
+      fullName: string | null
+      phone: string | null
       password: string
       fcmToken: string | null
       accessToken: string | null
       role: $Enums.UserRole
+      avatarUrl: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1601,12 +1611,13 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
-    readonly fullname: FieldRef<"User", 'String'>
+    readonly fullName: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly fcmToken: FieldRef<"User", 'String'>
     readonly accessToken: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly avatarUrl: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3036,12 +3047,13 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
-    fullname: 'fullname',
+    fullName: 'fullName',
     phone: 'phone',
     password: 'password',
     fcmToken: 'fcmToken',
     accessToken: 'accessToken',
     role: 'role',
+    avatarUrl: 'avatarUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3149,12 +3161,13 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    fullname?: StringFilter<"User"> | string
-    phone?: StringFilter<"User"> | string
+    fullName?: StringNullableFilter<"User"> | string | null
+    phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     fcmToken?: StringNullableFilter<"User"> | string | null
     accessToken?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    avatarUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     vehicles?: VehicleListRelationFilter
@@ -3163,12 +3176,13 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
-    fullname?: SortOrder
+    fullName?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
     role?: SortOrder
+    avatarUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vehicles?: VehicleOrderByRelationAggregateInput
@@ -3177,29 +3191,31 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    accessToken?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    fullname?: StringFilter<"User"> | string
-    phone?: StringFilter<"User"> | string
+    fullName?: StringNullableFilter<"User"> | string | null
+    phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     fcmToken?: StringNullableFilter<"User"> | string | null
-    accessToken?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    avatarUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     vehicles?: VehicleListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "accessToken">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
-    fullname?: SortOrder
+    fullName?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
     role?: SortOrder
+    avatarUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -3213,12 +3229,13 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
-    fullname?: StringWithAggregatesFilter<"User"> | string
-    phone?: StringWithAggregatesFilter<"User"> | string
+    fullName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     accessToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -3252,18 +3269,18 @@ export namespace Prisma {
 
   export type VehicleWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    reg_number?: string
     AND?: VehicleWhereInput | VehicleWhereInput[]
     OR?: VehicleWhereInput[]
     NOT?: VehicleWhereInput | VehicleWhereInput[]
     company?: StringFilter<"Vehicle"> | string
     model?: StringFilter<"Vehicle"> | string
-    reg_number?: StringFilter<"Vehicle"> | string
     color?: StringNullableListFilter<"Vehicle">
     ownerId?: StringFilter<"Vehicle"> | string
     createdAt?: DateTimeFilter<"Vehicle"> | Date | string
     updatedAt?: DateTimeFilter<"Vehicle"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "reg_number">
 
   export type VehicleOrderByWithAggregationInput = {
     id?: SortOrder
@@ -3296,39 +3313,42 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     email: string
-    fullname: string
-    phone: string
+    fullName?: string | null
+    phone?: string | null
     password: string
     fcmToken?: string | null
     accessToken?: string | null
     role: $Enums.UserRole
-    createdAt: Date | string
-    updatedAt: Date | string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     vehicles?: VehicleCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     email: string
-    fullname: string
-    phone: string
+    fullName?: string | null
+    phone?: string | null
     password: string
     fcmToken?: string | null
     accessToken?: string | null
     role: $Enums.UserRole
-    createdAt: Date | string
-    updatedAt: Date | string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
@@ -3336,12 +3356,13 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
@@ -3350,36 +3371,39 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: string
     email: string
-    fullname: string
-    phone: string
+    fullName?: string | null
+    phone?: string | null
     password: string
     fcmToken?: string | null
     accessToken?: string | null
     role: $Enums.UserRole
-    createdAt: Date | string
-    updatedAt: Date | string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     email?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3390,8 +3414,8 @@ export namespace Prisma {
     model: string
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutVehiclesInput
   }
 
@@ -3402,8 +3426,8 @@ export namespace Prisma {
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
     ownerId: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VehicleUpdateInput = {
@@ -3433,8 +3457,8 @@ export namespace Prisma {
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
     ownerId: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VehicleUpdateManyMutationInput = {
@@ -3518,12 +3542,13 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    fullname?: SortOrder
+    fullName?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
     role?: SortOrder
+    avatarUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3531,12 +3556,13 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    fullname?: SortOrder
+    fullName?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
     role?: SortOrder
+    avatarUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3544,12 +3570,13 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
-    fullname?: SortOrder
+    fullName?: SortOrder
     phone?: SortOrder
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
     role?: SortOrder
+    avatarUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3876,8 +3903,8 @@ export namespace Prisma {
     model: string
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VehicleUncheckedCreateWithoutOwnerInput = {
@@ -3886,8 +3913,8 @@ export namespace Prisma {
     model: string
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VehicleCreateOrConnectWithoutOwnerInput = {
@@ -3932,27 +3959,29 @@ export namespace Prisma {
   export type UserCreateWithoutVehiclesInput = {
     id?: string
     email: string
-    fullname: string
-    phone: string
+    fullName?: string | null
+    phone?: string | null
     password: string
     fcmToken?: string | null
     accessToken?: string | null
     role: $Enums.UserRole
-    createdAt: Date | string
-    updatedAt: Date | string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUncheckedCreateWithoutVehiclesInput = {
     id?: string
     email: string
-    fullname: string
-    phone: string
+    fullName?: string | null
+    phone?: string | null
     password: string
     fcmToken?: string | null
     accessToken?: string | null
     role: $Enums.UserRole
-    createdAt: Date | string
-    updatedAt: Date | string
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserCreateOrConnectWithoutVehiclesInput = {
@@ -3973,24 +4002,26 @@ export namespace Prisma {
 
   export type UserUpdateWithoutVehiclesInput = {
     email?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateWithoutVehiclesInput = {
     email?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4001,8 +4032,8 @@ export namespace Prisma {
     model: string
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VehicleUpdateWithoutOwnerInput = {
