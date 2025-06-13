@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -121,8 +121,8 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   fcmToken: 'fcmToken',
   accessToken: 'accessToken',
-  role: 'role',
   avatarUrl: 'avatarUrl',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -138,6 +138,47 @@ exports.Prisma.VehicleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ParkingPlaceScalarFieldEnum = {
+  id: 'id',
+  spot_name: 'spot_name',
+  location: 'location',
+  status: 'status',
+  address: 'address',
+  amenities: 'amenities',
+  about: 'about',
+  gallery: 'gallery',
+  owner_id: 'owner_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ParkingSpotScalarFieldEnum = {
+  id: 'id',
+  spot_name: 'spot_name',
+  parking_place_id: 'parking_place_id',
+  availability: 'availability',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  text: 'text',
+  reviewer_id: 'reviewer_id',
+  parking_place_id: 'parking_place_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FavouriteScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  parking_place_id: 'parking_place_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -149,12 +190,28 @@ exports.Prisma.QueryMode = {
 };
 exports.UserRole = exports.$Enums.UserRole = {
   BUYER: 'BUYER',
-  SELLER: 'SELLER'
+  SELLER: 'SELLER',
+  ADMIN: 'ADMIN'
+};
+
+exports.cords = exports.$Enums.cords = {
+  lat: 'lat',
+  long: 'long'
+};
+
+exports.PlaceStatus = exports.$Enums.PlaceStatus = {
+  Pending: 'Pending',
+  Accepted: 'Accepted',
+  Rejected: 'Rejected'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Vehicle: 'Vehicle'
+  Vehicle: 'Vehicle',
+  ParkingPlace: 'ParkingPlace',
+  ParkingSpot: 'ParkingSpot',
+  Review: 'Review',
+  Favourite: 'Favourite'
 };
 
 /**

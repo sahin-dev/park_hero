@@ -23,19 +23,65 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Vehicle = $Result.DefaultSelection<Prisma.$VehiclePayload>
+/**
+ * Model ParkingPlace
+ * 
+ */
+export type ParkingPlace = $Result.DefaultSelection<Prisma.$ParkingPlacePayload>
+/**
+ * Model ParkingSpot
+ * 
+ */
+export type ParkingSpot = $Result.DefaultSelection<Prisma.$ParkingSpotPayload>
+/**
+ * Model Review
+ * 
+ */
+export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
+/**
+ * Model Favourite
+ * 
+ */
+export type Favourite = $Result.DefaultSelection<Prisma.$FavouritePayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const UserRole: {
+  export const cords: {
+  lat: 'lat',
+  long: 'long'
+};
+
+export type cords = (typeof cords)[keyof typeof cords]
+
+
+export const PlaceStatus: {
+  Pending: 'Pending',
+  Accepted: 'Accepted',
+  Rejected: 'Rejected'
+};
+
+export type PlaceStatus = (typeof PlaceStatus)[keyof typeof PlaceStatus]
+
+
+export const UserRole: {
   BUYER: 'BUYER',
-  SELLER: 'SELLER'
+  SELLER: 'SELLER',
+  ADMIN: 'ADMIN'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 }
+
+export type cords = $Enums.cords
+
+export const cords: typeof $Enums.cords
+
+export type PlaceStatus = $Enums.PlaceStatus
+
+export const PlaceStatus: typeof $Enums.PlaceStatus
 
 export type UserRole = $Enums.UserRole
 
@@ -152,6 +198,46 @@ export class PrismaClient<
     * ```
     */
   get vehicle(): Prisma.VehicleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.parkingPlace`: Exposes CRUD operations for the **ParkingPlace** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ParkingPlaces
+    * const parkingPlaces = await prisma.parkingPlace.findMany()
+    * ```
+    */
+  get parkingPlace(): Prisma.ParkingPlaceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.parkingSpot`: Exposes CRUD operations for the **ParkingSpot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ParkingSpots
+    * const parkingSpots = await prisma.parkingSpot.findMany()
+    * ```
+    */
+  get parkingSpot(): Prisma.ParkingSpotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.review`: Exposes CRUD operations for the **Review** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reviews
+    * const reviews = await prisma.review.findMany()
+    * ```
+    */
+  get review(): Prisma.ReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.favourite`: Exposes CRUD operations for the **Favourite** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Favourites
+    * const favourites = await prisma.favourite.findMany()
+    * ```
+    */
+  get favourite(): Prisma.FavouriteDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -210,8 +296,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.9.0
+   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
    */
   export type PrismaVersion = {
     client: string
@@ -593,7 +679,11 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Vehicle: 'Vehicle'
+    Vehicle: 'Vehicle',
+    ParkingPlace: 'ParkingPlace',
+    ParkingSpot: 'ParkingSpot',
+    Review: 'Review',
+    Favourite: 'Favourite'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +702,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "vehicle"
+      modelProps: "user" | "vehicle" | "parkingPlace" | "parkingSpot" | "review" | "favourite"
       txIsolationLevel: never
     }
     model: {
@@ -764,6 +854,302 @@ export namespace Prisma {
           }
         }
       }
+      ParkingPlace: {
+        payload: Prisma.$ParkingPlacePayload<ExtArgs>
+        fields: Prisma.ParkingPlaceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ParkingPlaceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ParkingPlaceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>
+          }
+          findFirst: {
+            args: Prisma.ParkingPlaceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ParkingPlaceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>
+          }
+          findMany: {
+            args: Prisma.ParkingPlaceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>[]
+          }
+          create: {
+            args: Prisma.ParkingPlaceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>
+          }
+          createMany: {
+            args: Prisma.ParkingPlaceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ParkingPlaceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>
+          }
+          update: {
+            args: Prisma.ParkingPlaceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>
+          }
+          deleteMany: {
+            args: Prisma.ParkingPlaceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ParkingPlaceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ParkingPlaceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingPlacePayload>
+          }
+          aggregate: {
+            args: Prisma.ParkingPlaceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateParkingPlace>
+          }
+          groupBy: {
+            args: Prisma.ParkingPlaceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ParkingPlaceGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ParkingPlaceFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ParkingPlaceAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ParkingPlaceCountArgs<ExtArgs>
+            result: $Utils.Optional<ParkingPlaceCountAggregateOutputType> | number
+          }
+        }
+      }
+      ParkingSpot: {
+        payload: Prisma.$ParkingSpotPayload<ExtArgs>
+        fields: Prisma.ParkingSpotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ParkingSpotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ParkingSpotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>
+          }
+          findFirst: {
+            args: Prisma.ParkingSpotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ParkingSpotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>
+          }
+          findMany: {
+            args: Prisma.ParkingSpotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>[]
+          }
+          create: {
+            args: Prisma.ParkingSpotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>
+          }
+          createMany: {
+            args: Prisma.ParkingSpotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ParkingSpotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>
+          }
+          update: {
+            args: Prisma.ParkingSpotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>
+          }
+          deleteMany: {
+            args: Prisma.ParkingSpotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ParkingSpotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ParkingSpotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ParkingSpotPayload>
+          }
+          aggregate: {
+            args: Prisma.ParkingSpotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateParkingSpot>
+          }
+          groupBy: {
+            args: Prisma.ParkingSpotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ParkingSpotGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ParkingSpotFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ParkingSpotAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ParkingSpotCountArgs<ExtArgs>
+            result: $Utils.Optional<ParkingSpotCountAggregateOutputType> | number
+          }
+        }
+      }
+      Review: {
+        payload: Prisma.$ReviewPayload<ExtArgs>
+        fields: Prisma.ReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.ReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          findMany: {
+            args: Prisma.ReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+          }
+          create: {
+            args: Prisma.ReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          createMany: {
+            args: Prisma.ReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          update: {
+            args: Prisma.ReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.ReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReview>
+          }
+          groupBy: {
+            args: Prisma.ReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReviewGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ReviewFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ReviewAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<ReviewCountAggregateOutputType> | number
+          }
+        }
+      }
+      Favourite: {
+        payload: Prisma.$FavouritePayload<ExtArgs>
+        fields: Prisma.FavouriteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FavouriteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FavouriteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>
+          }
+          findFirst: {
+            args: Prisma.FavouriteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FavouriteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>
+          }
+          findMany: {
+            args: Prisma.FavouriteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>[]
+          }
+          create: {
+            args: Prisma.FavouriteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>
+          }
+          createMany: {
+            args: Prisma.FavouriteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.FavouriteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>
+          }
+          update: {
+            args: Prisma.FavouriteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>
+          }
+          deleteMany: {
+            args: Prisma.FavouriteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FavouriteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FavouriteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavouritePayload>
+          }
+          aggregate: {
+            args: Prisma.FavouriteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFavourite>
+          }
+          groupBy: {
+            args: Prisma.FavouriteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FavouriteGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.FavouriteFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.FavouriteAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.FavouriteCountArgs<ExtArgs>
+            result: $Utils.Optional<FavouriteCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -837,6 +1223,10 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     vehicle?: VehicleOmit
+    parkingPlace?: ParkingPlaceOmit
+    parkingSpot?: ParkingSpotOmit
+    review?: ReviewOmit
+    favourite?: FavouriteOmit
   }
 
   /* Types for Logging */
@@ -932,10 +1322,16 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     vehicles: number
+    reviews: number
+    favourites: number
+    parkingPlaces: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicles?: boolean | UserCountOutputTypeCountVehiclesArgs
+    reviews?: boolean | UserCountOutputTypeCountReviewsArgs
+    favourites?: boolean | UserCountOutputTypeCountFavouritesArgs
+    parkingPlaces?: boolean | UserCountOutputTypeCountParkingPlacesArgs
   }
 
   // Custom InputTypes
@@ -954,6 +1350,76 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountVehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VehicleWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFavouritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavouriteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountParkingPlacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParkingPlaceWhereInput
+  }
+
+
+  /**
+   * Count Type ParkingPlaceCountOutputType
+   */
+
+  export type ParkingPlaceCountOutputType = {
+    reviews: number
+    favourites: number
+    parking_spots: number
+  }
+
+  export type ParkingPlaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | ParkingPlaceCountOutputTypeCountReviewsArgs
+    favourites?: boolean | ParkingPlaceCountOutputTypeCountFavouritesArgs
+    parking_spots?: boolean | ParkingPlaceCountOutputTypeCountParking_spotsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ParkingPlaceCountOutputType without action
+   */
+  export type ParkingPlaceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlaceCountOutputType
+     */
+    select?: ParkingPlaceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ParkingPlaceCountOutputType without action
+   */
+  export type ParkingPlaceCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
+  }
+
+  /**
+   * ParkingPlaceCountOutputType without action
+   */
+  export type ParkingPlaceCountOutputTypeCountFavouritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavouriteWhereInput
+  }
+
+  /**
+   * ParkingPlaceCountOutputType without action
+   */
+  export type ParkingPlaceCountOutputTypeCountParking_spotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParkingSpotWhereInput
   }
 
 
@@ -979,8 +1445,8 @@ export namespace Prisma {
     password: string | null
     fcmToken: string | null
     accessToken: string | null
-    role: $Enums.UserRole | null
     avatarUrl: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -993,8 +1459,8 @@ export namespace Prisma {
     password: string | null
     fcmToken: string | null
     accessToken: string | null
-    role: $Enums.UserRole | null
     avatarUrl: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1007,8 +1473,8 @@ export namespace Prisma {
     password: number
     fcmToken: number
     accessToken: number
-    role: number
     avatarUrl: number
+    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1023,8 +1489,8 @@ export namespace Prisma {
     password?: true
     fcmToken?: true
     accessToken?: true
-    role?: true
     avatarUrl?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1037,8 +1503,8 @@ export namespace Prisma {
     password?: true
     fcmToken?: true
     accessToken?: true
-    role?: true
     avatarUrl?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1051,8 +1517,8 @@ export namespace Prisma {
     password?: true
     fcmToken?: true
     accessToken?: true
-    role?: true
     avatarUrl?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1138,8 +1604,8 @@ export namespace Prisma {
     password: string
     fcmToken: string | null
     accessToken: string | null
-    role: $Enums.UserRole
     avatarUrl: string | null
+    role: $Enums.UserRole
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1169,11 +1635,14 @@ export namespace Prisma {
     password?: boolean
     fcmToken?: boolean
     accessToken?: boolean
-    role?: boolean
     avatarUrl?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     vehicles?: boolean | User$vehiclesArgs<ExtArgs>
+    reviews?: boolean | User$reviewsArgs<ExtArgs>
+    favourites?: boolean | User$favouritesArgs<ExtArgs>
+    parkingPlaces?: boolean | User$parkingPlacesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1187,15 +1656,18 @@ export namespace Prisma {
     password?: boolean
     fcmToken?: boolean
     accessToken?: boolean
-    role?: boolean
     avatarUrl?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "role" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "avatarUrl" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicles?: boolean | User$vehiclesArgs<ExtArgs>
+    reviews?: boolean | User$reviewsArgs<ExtArgs>
+    favourites?: boolean | User$favouritesArgs<ExtArgs>
+    parkingPlaces?: boolean | User$parkingPlacesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1203,6 +1675,9 @@ export namespace Prisma {
     name: "User"
     objects: {
       vehicles: Prisma.$VehiclePayload<ExtArgs>[]
+      reviews: Prisma.$ReviewPayload<ExtArgs>[]
+      favourites: Prisma.$FavouritePayload<ExtArgs>[]
+      parkingPlaces: Prisma.$ParkingPlacePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1212,8 +1687,8 @@ export namespace Prisma {
       password: string
       fcmToken: string | null
       accessToken: string | null
-      role: $Enums.UserRole
       avatarUrl: string | null
+      role: $Enums.UserRole
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1580,6 +2055,9 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vehicles<T extends User$vehiclesArgs<ExtArgs> = {}>(args?: Subset<T, User$vehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends User$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    favourites<T extends User$favouritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favouritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    parkingPlaces<T extends User$parkingPlacesArgs<ExtArgs> = {}>(args?: Subset<T, User$parkingPlacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1616,8 +2094,8 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly fcmToken: FieldRef<"User", 'String'>
     readonly accessToken: FieldRef<"User", 'String'>
-    readonly role: FieldRef<"User", 'UserRole'>
     readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2011,6 +2489,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
+  }
+
+  /**
+   * User.reviews
+   */
+  export type User$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.favourites
+   */
+  export type User$favouritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    where?: FavouriteWhereInput
+    orderBy?: FavouriteOrderByWithRelationInput | FavouriteOrderByWithRelationInput[]
+    cursor?: FavouriteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavouriteScalarFieldEnum | FavouriteScalarFieldEnum[]
+  }
+
+  /**
+   * User.parkingPlaces
+   */
+  export type User$parkingPlacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    where?: ParkingPlaceWhereInput
+    orderBy?: ParkingPlaceOrderByWithRelationInput | ParkingPlaceOrderByWithRelationInput[]
+    cursor?: ParkingPlaceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParkingPlaceScalarFieldEnum | ParkingPlaceScalarFieldEnum[]
   }
 
   /**
@@ -3041,6 +3591,4141 @@ export namespace Prisma {
 
 
   /**
+   * Model ParkingPlace
+   */
+
+  export type AggregateParkingPlace = {
+    _count: ParkingPlaceCountAggregateOutputType | null
+    _min: ParkingPlaceMinAggregateOutputType | null
+    _max: ParkingPlaceMaxAggregateOutputType | null
+  }
+
+  export type ParkingPlaceMinAggregateOutputType = {
+    id: string | null
+    spot_name: string | null
+    location: $Enums.cords | null
+    status: $Enums.PlaceStatus | null
+    address: string | null
+    about: string | null
+    owner_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ParkingPlaceMaxAggregateOutputType = {
+    id: string | null
+    spot_name: string | null
+    location: $Enums.cords | null
+    status: $Enums.PlaceStatus | null
+    address: string | null
+    about: string | null
+    owner_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ParkingPlaceCountAggregateOutputType = {
+    id: number
+    spot_name: number
+    location: number
+    status: number
+    address: number
+    amenities: number
+    about: number
+    gallery: number
+    owner_id: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ParkingPlaceMinAggregateInputType = {
+    id?: true
+    spot_name?: true
+    location?: true
+    status?: true
+    address?: true
+    about?: true
+    owner_id?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ParkingPlaceMaxAggregateInputType = {
+    id?: true
+    spot_name?: true
+    location?: true
+    status?: true
+    address?: true
+    about?: true
+    owner_id?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ParkingPlaceCountAggregateInputType = {
+    id?: true
+    spot_name?: true
+    location?: true
+    status?: true
+    address?: true
+    amenities?: true
+    about?: true
+    gallery?: true
+    owner_id?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ParkingPlaceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ParkingPlace to aggregate.
+     */
+    where?: ParkingPlaceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingPlaces to fetch.
+     */
+    orderBy?: ParkingPlaceOrderByWithRelationInput | ParkingPlaceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ParkingPlaceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingPlaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingPlaces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ParkingPlaces
+    **/
+    _count?: true | ParkingPlaceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ParkingPlaceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ParkingPlaceMaxAggregateInputType
+  }
+
+  export type GetParkingPlaceAggregateType<T extends ParkingPlaceAggregateArgs> = {
+        [P in keyof T & keyof AggregateParkingPlace]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateParkingPlace[P]>
+      : GetScalarType<T[P], AggregateParkingPlace[P]>
+  }
+
+
+
+
+  export type ParkingPlaceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParkingPlaceWhereInput
+    orderBy?: ParkingPlaceOrderByWithAggregationInput | ParkingPlaceOrderByWithAggregationInput[]
+    by: ParkingPlaceScalarFieldEnum[] | ParkingPlaceScalarFieldEnum
+    having?: ParkingPlaceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ParkingPlaceCountAggregateInputType | true
+    _min?: ParkingPlaceMinAggregateInputType
+    _max?: ParkingPlaceMaxAggregateInputType
+  }
+
+  export type ParkingPlaceGroupByOutputType = {
+    id: string
+    spot_name: string
+    location: $Enums.cords
+    status: $Enums.PlaceStatus
+    address: string
+    amenities: string[]
+    about: string
+    gallery: string[]
+    owner_id: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ParkingPlaceCountAggregateOutputType | null
+    _min: ParkingPlaceMinAggregateOutputType | null
+    _max: ParkingPlaceMaxAggregateOutputType | null
+  }
+
+  type GetParkingPlaceGroupByPayload<T extends ParkingPlaceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ParkingPlaceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ParkingPlaceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ParkingPlaceGroupByOutputType[P]>
+            : GetScalarType<T[P], ParkingPlaceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ParkingPlaceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    spot_name?: boolean
+    location?: boolean
+    status?: boolean
+    address?: boolean
+    amenities?: boolean
+    about?: boolean
+    gallery?: boolean
+    owner_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    reviews?: boolean | ParkingPlace$reviewsArgs<ExtArgs>
+    favourites?: boolean | ParkingPlace$favouritesArgs<ExtArgs>
+    parking_spots?: boolean | ParkingPlace$parking_spotsArgs<ExtArgs>
+    _count?: boolean | ParkingPlaceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["parkingPlace"]>
+
+
+
+  export type ParkingPlaceSelectScalar = {
+    id?: boolean
+    spot_name?: boolean
+    location?: boolean
+    status?: boolean
+    address?: boolean
+    amenities?: boolean
+    about?: boolean
+    gallery?: boolean
+    owner_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ParkingPlaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "spot_name" | "location" | "status" | "address" | "amenities" | "about" | "gallery" | "owner_id" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingPlace"]>
+  export type ParkingPlaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    reviews?: boolean | ParkingPlace$reviewsArgs<ExtArgs>
+    favourites?: boolean | ParkingPlace$favouritesArgs<ExtArgs>
+    parking_spots?: boolean | ParkingPlace$parking_spotsArgs<ExtArgs>
+    _count?: boolean | ParkingPlaceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $ParkingPlacePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ParkingPlace"
+    objects: {
+      owner: Prisma.$UserPayload<ExtArgs>
+      reviews: Prisma.$ReviewPayload<ExtArgs>[]
+      favourites: Prisma.$FavouritePayload<ExtArgs>[]
+      parking_spots: Prisma.$ParkingSpotPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      spot_name: string
+      location: $Enums.cords
+      status: $Enums.PlaceStatus
+      address: string
+      amenities: string[]
+      about: string
+      gallery: string[]
+      owner_id: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["parkingPlace"]>
+    composites: {}
+  }
+
+  type ParkingPlaceGetPayload<S extends boolean | null | undefined | ParkingPlaceDefaultArgs> = $Result.GetResult<Prisma.$ParkingPlacePayload, S>
+
+  type ParkingPlaceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ParkingPlaceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ParkingPlaceCountAggregateInputType | true
+    }
+
+  export interface ParkingPlaceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ParkingPlace'], meta: { name: 'ParkingPlace' } }
+    /**
+     * Find zero or one ParkingPlace that matches the filter.
+     * @param {ParkingPlaceFindUniqueArgs} args - Arguments to find a ParkingPlace
+     * @example
+     * // Get one ParkingPlace
+     * const parkingPlace = await prisma.parkingPlace.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ParkingPlaceFindUniqueArgs>(args: SelectSubset<T, ParkingPlaceFindUniqueArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ParkingPlace that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ParkingPlaceFindUniqueOrThrowArgs} args - Arguments to find a ParkingPlace
+     * @example
+     * // Get one ParkingPlace
+     * const parkingPlace = await prisma.parkingPlace.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ParkingPlaceFindUniqueOrThrowArgs>(args: SelectSubset<T, ParkingPlaceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ParkingPlace that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceFindFirstArgs} args - Arguments to find a ParkingPlace
+     * @example
+     * // Get one ParkingPlace
+     * const parkingPlace = await prisma.parkingPlace.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ParkingPlaceFindFirstArgs>(args?: SelectSubset<T, ParkingPlaceFindFirstArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ParkingPlace that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceFindFirstOrThrowArgs} args - Arguments to find a ParkingPlace
+     * @example
+     * // Get one ParkingPlace
+     * const parkingPlace = await prisma.parkingPlace.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ParkingPlaceFindFirstOrThrowArgs>(args?: SelectSubset<T, ParkingPlaceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ParkingPlaces that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ParkingPlaces
+     * const parkingPlaces = await prisma.parkingPlace.findMany()
+     * 
+     * // Get first 10 ParkingPlaces
+     * const parkingPlaces = await prisma.parkingPlace.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const parkingPlaceWithIdOnly = await prisma.parkingPlace.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ParkingPlaceFindManyArgs>(args?: SelectSubset<T, ParkingPlaceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ParkingPlace.
+     * @param {ParkingPlaceCreateArgs} args - Arguments to create a ParkingPlace.
+     * @example
+     * // Create one ParkingPlace
+     * const ParkingPlace = await prisma.parkingPlace.create({
+     *   data: {
+     *     // ... data to create a ParkingPlace
+     *   }
+     * })
+     * 
+     */
+    create<T extends ParkingPlaceCreateArgs>(args: SelectSubset<T, ParkingPlaceCreateArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ParkingPlaces.
+     * @param {ParkingPlaceCreateManyArgs} args - Arguments to create many ParkingPlaces.
+     * @example
+     * // Create many ParkingPlaces
+     * const parkingPlace = await prisma.parkingPlace.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ParkingPlaceCreateManyArgs>(args?: SelectSubset<T, ParkingPlaceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ParkingPlace.
+     * @param {ParkingPlaceDeleteArgs} args - Arguments to delete one ParkingPlace.
+     * @example
+     * // Delete one ParkingPlace
+     * const ParkingPlace = await prisma.parkingPlace.delete({
+     *   where: {
+     *     // ... filter to delete one ParkingPlace
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ParkingPlaceDeleteArgs>(args: SelectSubset<T, ParkingPlaceDeleteArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ParkingPlace.
+     * @param {ParkingPlaceUpdateArgs} args - Arguments to update one ParkingPlace.
+     * @example
+     * // Update one ParkingPlace
+     * const parkingPlace = await prisma.parkingPlace.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ParkingPlaceUpdateArgs>(args: SelectSubset<T, ParkingPlaceUpdateArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ParkingPlaces.
+     * @param {ParkingPlaceDeleteManyArgs} args - Arguments to filter ParkingPlaces to delete.
+     * @example
+     * // Delete a few ParkingPlaces
+     * const { count } = await prisma.parkingPlace.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ParkingPlaceDeleteManyArgs>(args?: SelectSubset<T, ParkingPlaceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ParkingPlaces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ParkingPlaces
+     * const parkingPlace = await prisma.parkingPlace.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ParkingPlaceUpdateManyArgs>(args: SelectSubset<T, ParkingPlaceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ParkingPlace.
+     * @param {ParkingPlaceUpsertArgs} args - Arguments to update or create a ParkingPlace.
+     * @example
+     * // Update or create a ParkingPlace
+     * const parkingPlace = await prisma.parkingPlace.upsert({
+     *   create: {
+     *     // ... data to create a ParkingPlace
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ParkingPlace we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ParkingPlaceUpsertArgs>(args: SelectSubset<T, ParkingPlaceUpsertArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ParkingPlaces that matches the filter.
+     * @param {ParkingPlaceFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const parkingPlace = await prisma.parkingPlace.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ParkingPlaceFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ParkingPlace.
+     * @param {ParkingPlaceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const parkingPlace = await prisma.parkingPlace.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ParkingPlaceAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ParkingPlaces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceCountArgs} args - Arguments to filter ParkingPlaces to count.
+     * @example
+     * // Count the number of ParkingPlaces
+     * const count = await prisma.parkingPlace.count({
+     *   where: {
+     *     // ... the filter for the ParkingPlaces we want to count
+     *   }
+     * })
+    **/
+    count<T extends ParkingPlaceCountArgs>(
+      args?: Subset<T, ParkingPlaceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ParkingPlaceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ParkingPlace.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ParkingPlaceAggregateArgs>(args: Subset<T, ParkingPlaceAggregateArgs>): Prisma.PrismaPromise<GetParkingPlaceAggregateType<T>>
+
+    /**
+     * Group by ParkingPlace.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingPlaceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ParkingPlaceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ParkingPlaceGroupByArgs['orderBy'] }
+        : { orderBy?: ParkingPlaceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ParkingPlaceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetParkingPlaceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ParkingPlace model
+   */
+  readonly fields: ParkingPlaceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ParkingPlace.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ParkingPlaceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviews<T extends ParkingPlace$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlace$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    favourites<T extends ParkingPlace$favouritesArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlace$favouritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    parking_spots<T extends ParkingPlace$parking_spotsArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlace$parking_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ParkingPlace model
+   */
+  interface ParkingPlaceFieldRefs {
+    readonly id: FieldRef<"ParkingPlace", 'String'>
+    readonly spot_name: FieldRef<"ParkingPlace", 'String'>
+    readonly location: FieldRef<"ParkingPlace", 'cords'>
+    readonly status: FieldRef<"ParkingPlace", 'PlaceStatus'>
+    readonly address: FieldRef<"ParkingPlace", 'String'>
+    readonly amenities: FieldRef<"ParkingPlace", 'String[]'>
+    readonly about: FieldRef<"ParkingPlace", 'String'>
+    readonly gallery: FieldRef<"ParkingPlace", 'String[]'>
+    readonly owner_id: FieldRef<"ParkingPlace", 'String'>
+    readonly createdAt: FieldRef<"ParkingPlace", 'DateTime'>
+    readonly updatedAt: FieldRef<"ParkingPlace", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ParkingPlace findUnique
+   */
+  export type ParkingPlaceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingPlace to fetch.
+     */
+    where: ParkingPlaceWhereUniqueInput
+  }
+
+  /**
+   * ParkingPlace findUniqueOrThrow
+   */
+  export type ParkingPlaceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingPlace to fetch.
+     */
+    where: ParkingPlaceWhereUniqueInput
+  }
+
+  /**
+   * ParkingPlace findFirst
+   */
+  export type ParkingPlaceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingPlace to fetch.
+     */
+    where?: ParkingPlaceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingPlaces to fetch.
+     */
+    orderBy?: ParkingPlaceOrderByWithRelationInput | ParkingPlaceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ParkingPlaces.
+     */
+    cursor?: ParkingPlaceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingPlaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingPlaces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ParkingPlaces.
+     */
+    distinct?: ParkingPlaceScalarFieldEnum | ParkingPlaceScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingPlace findFirstOrThrow
+   */
+  export type ParkingPlaceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingPlace to fetch.
+     */
+    where?: ParkingPlaceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingPlaces to fetch.
+     */
+    orderBy?: ParkingPlaceOrderByWithRelationInput | ParkingPlaceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ParkingPlaces.
+     */
+    cursor?: ParkingPlaceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingPlaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingPlaces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ParkingPlaces.
+     */
+    distinct?: ParkingPlaceScalarFieldEnum | ParkingPlaceScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingPlace findMany
+   */
+  export type ParkingPlaceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingPlaces to fetch.
+     */
+    where?: ParkingPlaceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingPlaces to fetch.
+     */
+    orderBy?: ParkingPlaceOrderByWithRelationInput | ParkingPlaceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ParkingPlaces.
+     */
+    cursor?: ParkingPlaceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingPlaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingPlaces.
+     */
+    skip?: number
+    distinct?: ParkingPlaceScalarFieldEnum | ParkingPlaceScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingPlace create
+   */
+  export type ParkingPlaceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ParkingPlace.
+     */
+    data: XOR<ParkingPlaceCreateInput, ParkingPlaceUncheckedCreateInput>
+  }
+
+  /**
+   * ParkingPlace createMany
+   */
+  export type ParkingPlaceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ParkingPlaces.
+     */
+    data: ParkingPlaceCreateManyInput | ParkingPlaceCreateManyInput[]
+  }
+
+  /**
+   * ParkingPlace update
+   */
+  export type ParkingPlaceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ParkingPlace.
+     */
+    data: XOR<ParkingPlaceUpdateInput, ParkingPlaceUncheckedUpdateInput>
+    /**
+     * Choose, which ParkingPlace to update.
+     */
+    where: ParkingPlaceWhereUniqueInput
+  }
+
+  /**
+   * ParkingPlace updateMany
+   */
+  export type ParkingPlaceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ParkingPlaces.
+     */
+    data: XOR<ParkingPlaceUpdateManyMutationInput, ParkingPlaceUncheckedUpdateManyInput>
+    /**
+     * Filter which ParkingPlaces to update
+     */
+    where?: ParkingPlaceWhereInput
+    /**
+     * Limit how many ParkingPlaces to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ParkingPlace upsert
+   */
+  export type ParkingPlaceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ParkingPlace to update in case it exists.
+     */
+    where: ParkingPlaceWhereUniqueInput
+    /**
+     * In case the ParkingPlace found by the `where` argument doesn't exist, create a new ParkingPlace with this data.
+     */
+    create: XOR<ParkingPlaceCreateInput, ParkingPlaceUncheckedCreateInput>
+    /**
+     * In case the ParkingPlace was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ParkingPlaceUpdateInput, ParkingPlaceUncheckedUpdateInput>
+  }
+
+  /**
+   * ParkingPlace delete
+   */
+  export type ParkingPlaceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+    /**
+     * Filter which ParkingPlace to delete.
+     */
+    where: ParkingPlaceWhereUniqueInput
+  }
+
+  /**
+   * ParkingPlace deleteMany
+   */
+  export type ParkingPlaceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ParkingPlaces to delete
+     */
+    where?: ParkingPlaceWhereInput
+    /**
+     * Limit how many ParkingPlaces to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ParkingPlace findRaw
+   */
+  export type ParkingPlaceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ParkingPlace aggregateRaw
+   */
+  export type ParkingPlaceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ParkingPlace.reviews
+   */
+  export type ParkingPlace$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingPlace.favourites
+   */
+  export type ParkingPlace$favouritesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    where?: FavouriteWhereInput
+    orderBy?: FavouriteOrderByWithRelationInput | FavouriteOrderByWithRelationInput[]
+    cursor?: FavouriteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FavouriteScalarFieldEnum | FavouriteScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingPlace.parking_spots
+   */
+  export type ParkingPlace$parking_spotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    where?: ParkingSpotWhereInput
+    orderBy?: ParkingSpotOrderByWithRelationInput | ParkingSpotOrderByWithRelationInput[]
+    cursor?: ParkingSpotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ParkingSpotScalarFieldEnum | ParkingSpotScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingPlace without action
+   */
+  export type ParkingPlaceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingPlace
+     */
+    select?: ParkingPlaceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingPlace
+     */
+    omit?: ParkingPlaceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingPlaceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ParkingSpot
+   */
+
+  export type AggregateParkingSpot = {
+    _count: ParkingSpotCountAggregateOutputType | null
+    _min: ParkingSpotMinAggregateOutputType | null
+    _max: ParkingSpotMaxAggregateOutputType | null
+  }
+
+  export type ParkingSpotMinAggregateOutputType = {
+    id: string | null
+    spot_name: string | null
+    parking_place_id: string | null
+    availability: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ParkingSpotMaxAggregateOutputType = {
+    id: string | null
+    spot_name: string | null
+    parking_place_id: string | null
+    availability: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ParkingSpotCountAggregateOutputType = {
+    id: number
+    spot_name: number
+    parking_place_id: number
+    availability: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ParkingSpotMinAggregateInputType = {
+    id?: true
+    spot_name?: true
+    parking_place_id?: true
+    availability?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ParkingSpotMaxAggregateInputType = {
+    id?: true
+    spot_name?: true
+    parking_place_id?: true
+    availability?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ParkingSpotCountAggregateInputType = {
+    id?: true
+    spot_name?: true
+    parking_place_id?: true
+    availability?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ParkingSpotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ParkingSpot to aggregate.
+     */
+    where?: ParkingSpotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingSpots to fetch.
+     */
+    orderBy?: ParkingSpotOrderByWithRelationInput | ParkingSpotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ParkingSpotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingSpots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingSpots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ParkingSpots
+    **/
+    _count?: true | ParkingSpotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ParkingSpotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ParkingSpotMaxAggregateInputType
+  }
+
+  export type GetParkingSpotAggregateType<T extends ParkingSpotAggregateArgs> = {
+        [P in keyof T & keyof AggregateParkingSpot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateParkingSpot[P]>
+      : GetScalarType<T[P], AggregateParkingSpot[P]>
+  }
+
+
+
+
+  export type ParkingSpotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ParkingSpotWhereInput
+    orderBy?: ParkingSpotOrderByWithAggregationInput | ParkingSpotOrderByWithAggregationInput[]
+    by: ParkingSpotScalarFieldEnum[] | ParkingSpotScalarFieldEnum
+    having?: ParkingSpotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ParkingSpotCountAggregateInputType | true
+    _min?: ParkingSpotMinAggregateInputType
+    _max?: ParkingSpotMaxAggregateInputType
+  }
+
+  export type ParkingSpotGroupByOutputType = {
+    id: string
+    spot_name: string
+    parking_place_id: string
+    availability: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ParkingSpotCountAggregateOutputType | null
+    _min: ParkingSpotMinAggregateOutputType | null
+    _max: ParkingSpotMaxAggregateOutputType | null
+  }
+
+  type GetParkingSpotGroupByPayload<T extends ParkingSpotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ParkingSpotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ParkingSpotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ParkingSpotGroupByOutputType[P]>
+            : GetScalarType<T[P], ParkingSpotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ParkingSpotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    spot_name?: boolean
+    parking_place_id?: boolean
+    availability?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    parkingPlace?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["parkingSpot"]>
+
+
+
+  export type ParkingSpotSelectScalar = {
+    id?: boolean
+    spot_name?: boolean
+    parking_place_id?: boolean
+    availability?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ParkingSpotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "spot_name" | "parking_place_id" | "availability" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingSpot"]>
+  export type ParkingSpotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parkingPlace?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+  }
+
+  export type $ParkingSpotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ParkingSpot"
+    objects: {
+      parkingPlace: Prisma.$ParkingPlacePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      spot_name: string
+      parking_place_id: string
+      availability: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["parkingSpot"]>
+    composites: {}
+  }
+
+  type ParkingSpotGetPayload<S extends boolean | null | undefined | ParkingSpotDefaultArgs> = $Result.GetResult<Prisma.$ParkingSpotPayload, S>
+
+  type ParkingSpotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ParkingSpotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ParkingSpotCountAggregateInputType | true
+    }
+
+  export interface ParkingSpotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ParkingSpot'], meta: { name: 'ParkingSpot' } }
+    /**
+     * Find zero or one ParkingSpot that matches the filter.
+     * @param {ParkingSpotFindUniqueArgs} args - Arguments to find a ParkingSpot
+     * @example
+     * // Get one ParkingSpot
+     * const parkingSpot = await prisma.parkingSpot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ParkingSpotFindUniqueArgs>(args: SelectSubset<T, ParkingSpotFindUniqueArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ParkingSpot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ParkingSpotFindUniqueOrThrowArgs} args - Arguments to find a ParkingSpot
+     * @example
+     * // Get one ParkingSpot
+     * const parkingSpot = await prisma.parkingSpot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ParkingSpotFindUniqueOrThrowArgs>(args: SelectSubset<T, ParkingSpotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ParkingSpot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotFindFirstArgs} args - Arguments to find a ParkingSpot
+     * @example
+     * // Get one ParkingSpot
+     * const parkingSpot = await prisma.parkingSpot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ParkingSpotFindFirstArgs>(args?: SelectSubset<T, ParkingSpotFindFirstArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ParkingSpot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotFindFirstOrThrowArgs} args - Arguments to find a ParkingSpot
+     * @example
+     * // Get one ParkingSpot
+     * const parkingSpot = await prisma.parkingSpot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ParkingSpotFindFirstOrThrowArgs>(args?: SelectSubset<T, ParkingSpotFindFirstOrThrowArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ParkingSpots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ParkingSpots
+     * const parkingSpots = await prisma.parkingSpot.findMany()
+     * 
+     * // Get first 10 ParkingSpots
+     * const parkingSpots = await prisma.parkingSpot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const parkingSpotWithIdOnly = await prisma.parkingSpot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ParkingSpotFindManyArgs>(args?: SelectSubset<T, ParkingSpotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ParkingSpot.
+     * @param {ParkingSpotCreateArgs} args - Arguments to create a ParkingSpot.
+     * @example
+     * // Create one ParkingSpot
+     * const ParkingSpot = await prisma.parkingSpot.create({
+     *   data: {
+     *     // ... data to create a ParkingSpot
+     *   }
+     * })
+     * 
+     */
+    create<T extends ParkingSpotCreateArgs>(args: SelectSubset<T, ParkingSpotCreateArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ParkingSpots.
+     * @param {ParkingSpotCreateManyArgs} args - Arguments to create many ParkingSpots.
+     * @example
+     * // Create many ParkingSpots
+     * const parkingSpot = await prisma.parkingSpot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ParkingSpotCreateManyArgs>(args?: SelectSubset<T, ParkingSpotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ParkingSpot.
+     * @param {ParkingSpotDeleteArgs} args - Arguments to delete one ParkingSpot.
+     * @example
+     * // Delete one ParkingSpot
+     * const ParkingSpot = await prisma.parkingSpot.delete({
+     *   where: {
+     *     // ... filter to delete one ParkingSpot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ParkingSpotDeleteArgs>(args: SelectSubset<T, ParkingSpotDeleteArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ParkingSpot.
+     * @param {ParkingSpotUpdateArgs} args - Arguments to update one ParkingSpot.
+     * @example
+     * // Update one ParkingSpot
+     * const parkingSpot = await prisma.parkingSpot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ParkingSpotUpdateArgs>(args: SelectSubset<T, ParkingSpotUpdateArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ParkingSpots.
+     * @param {ParkingSpotDeleteManyArgs} args - Arguments to filter ParkingSpots to delete.
+     * @example
+     * // Delete a few ParkingSpots
+     * const { count } = await prisma.parkingSpot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ParkingSpotDeleteManyArgs>(args?: SelectSubset<T, ParkingSpotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ParkingSpots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ParkingSpots
+     * const parkingSpot = await prisma.parkingSpot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ParkingSpotUpdateManyArgs>(args: SelectSubset<T, ParkingSpotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ParkingSpot.
+     * @param {ParkingSpotUpsertArgs} args - Arguments to update or create a ParkingSpot.
+     * @example
+     * // Update or create a ParkingSpot
+     * const parkingSpot = await prisma.parkingSpot.upsert({
+     *   create: {
+     *     // ... data to create a ParkingSpot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ParkingSpot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ParkingSpotUpsertArgs>(args: SelectSubset<T, ParkingSpotUpsertArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ParkingSpots that matches the filter.
+     * @param {ParkingSpotFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const parkingSpot = await prisma.parkingSpot.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ParkingSpotFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ParkingSpot.
+     * @param {ParkingSpotAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const parkingSpot = await prisma.parkingSpot.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ParkingSpotAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ParkingSpots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotCountArgs} args - Arguments to filter ParkingSpots to count.
+     * @example
+     * // Count the number of ParkingSpots
+     * const count = await prisma.parkingSpot.count({
+     *   where: {
+     *     // ... the filter for the ParkingSpots we want to count
+     *   }
+     * })
+    **/
+    count<T extends ParkingSpotCountArgs>(
+      args?: Subset<T, ParkingSpotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ParkingSpotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ParkingSpot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ParkingSpotAggregateArgs>(args: Subset<T, ParkingSpotAggregateArgs>): Prisma.PrismaPromise<GetParkingSpotAggregateType<T>>
+
+    /**
+     * Group by ParkingSpot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ParkingSpotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ParkingSpotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ParkingSpotGroupByArgs['orderBy'] }
+        : { orderBy?: ParkingSpotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ParkingSpotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetParkingSpotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ParkingSpot model
+   */
+  readonly fields: ParkingSpotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ParkingSpot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ParkingSpotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    parkingPlace<T extends ParkingPlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlaceDefaultArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ParkingSpot model
+   */
+  interface ParkingSpotFieldRefs {
+    readonly id: FieldRef<"ParkingSpot", 'String'>
+    readonly spot_name: FieldRef<"ParkingSpot", 'String'>
+    readonly parking_place_id: FieldRef<"ParkingSpot", 'String'>
+    readonly availability: FieldRef<"ParkingSpot", 'Boolean'>
+    readonly createdAt: FieldRef<"ParkingSpot", 'DateTime'>
+    readonly updatedAt: FieldRef<"ParkingSpot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ParkingSpot findUnique
+   */
+  export type ParkingSpotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingSpot to fetch.
+     */
+    where: ParkingSpotWhereUniqueInput
+  }
+
+  /**
+   * ParkingSpot findUniqueOrThrow
+   */
+  export type ParkingSpotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingSpot to fetch.
+     */
+    where: ParkingSpotWhereUniqueInput
+  }
+
+  /**
+   * ParkingSpot findFirst
+   */
+  export type ParkingSpotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingSpot to fetch.
+     */
+    where?: ParkingSpotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingSpots to fetch.
+     */
+    orderBy?: ParkingSpotOrderByWithRelationInput | ParkingSpotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ParkingSpots.
+     */
+    cursor?: ParkingSpotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingSpots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingSpots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ParkingSpots.
+     */
+    distinct?: ParkingSpotScalarFieldEnum | ParkingSpotScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingSpot findFirstOrThrow
+   */
+  export type ParkingSpotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingSpot to fetch.
+     */
+    where?: ParkingSpotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingSpots to fetch.
+     */
+    orderBy?: ParkingSpotOrderByWithRelationInput | ParkingSpotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ParkingSpots.
+     */
+    cursor?: ParkingSpotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingSpots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingSpots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ParkingSpots.
+     */
+    distinct?: ParkingSpotScalarFieldEnum | ParkingSpotScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingSpot findMany
+   */
+  export type ParkingSpotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * Filter, which ParkingSpots to fetch.
+     */
+    where?: ParkingSpotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ParkingSpots to fetch.
+     */
+    orderBy?: ParkingSpotOrderByWithRelationInput | ParkingSpotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ParkingSpots.
+     */
+    cursor?: ParkingSpotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ParkingSpots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ParkingSpots.
+     */
+    skip?: number
+    distinct?: ParkingSpotScalarFieldEnum | ParkingSpotScalarFieldEnum[]
+  }
+
+  /**
+   * ParkingSpot create
+   */
+  export type ParkingSpotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ParkingSpot.
+     */
+    data: XOR<ParkingSpotCreateInput, ParkingSpotUncheckedCreateInput>
+  }
+
+  /**
+   * ParkingSpot createMany
+   */
+  export type ParkingSpotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ParkingSpots.
+     */
+    data: ParkingSpotCreateManyInput | ParkingSpotCreateManyInput[]
+  }
+
+  /**
+   * ParkingSpot update
+   */
+  export type ParkingSpotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ParkingSpot.
+     */
+    data: XOR<ParkingSpotUpdateInput, ParkingSpotUncheckedUpdateInput>
+    /**
+     * Choose, which ParkingSpot to update.
+     */
+    where: ParkingSpotWhereUniqueInput
+  }
+
+  /**
+   * ParkingSpot updateMany
+   */
+  export type ParkingSpotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ParkingSpots.
+     */
+    data: XOR<ParkingSpotUpdateManyMutationInput, ParkingSpotUncheckedUpdateManyInput>
+    /**
+     * Filter which ParkingSpots to update
+     */
+    where?: ParkingSpotWhereInput
+    /**
+     * Limit how many ParkingSpots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ParkingSpot upsert
+   */
+  export type ParkingSpotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ParkingSpot to update in case it exists.
+     */
+    where: ParkingSpotWhereUniqueInput
+    /**
+     * In case the ParkingSpot found by the `where` argument doesn't exist, create a new ParkingSpot with this data.
+     */
+    create: XOR<ParkingSpotCreateInput, ParkingSpotUncheckedCreateInput>
+    /**
+     * In case the ParkingSpot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ParkingSpotUpdateInput, ParkingSpotUncheckedUpdateInput>
+  }
+
+  /**
+   * ParkingSpot delete
+   */
+  export type ParkingSpotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+    /**
+     * Filter which ParkingSpot to delete.
+     */
+    where: ParkingSpotWhereUniqueInput
+  }
+
+  /**
+   * ParkingSpot deleteMany
+   */
+  export type ParkingSpotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ParkingSpots to delete
+     */
+    where?: ParkingSpotWhereInput
+    /**
+     * Limit how many ParkingSpots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ParkingSpot findRaw
+   */
+  export type ParkingSpotFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ParkingSpot aggregateRaw
+   */
+  export type ParkingSpotAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ParkingSpot without action
+   */
+  export type ParkingSpotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpot
+     */
+    select?: ParkingSpotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ParkingSpot
+     */
+    omit?: ParkingSpotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ParkingSpotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Review
+   */
+
+  export type AggregateReview = {
+    _count: ReviewCountAggregateOutputType | null
+    _avg: ReviewAvgAggregateOutputType | null
+    _sum: ReviewSumAggregateOutputType | null
+    _min: ReviewMinAggregateOutputType | null
+    _max: ReviewMaxAggregateOutputType | null
+  }
+
+  export type ReviewAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewSumAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type ReviewMinAggregateOutputType = {
+    id: string | null
+    rating: number | null
+    text: string | null
+    reviewer_id: string | null
+    parking_place_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ReviewMaxAggregateOutputType = {
+    id: string | null
+    rating: number | null
+    text: string | null
+    reviewer_id: string | null
+    parking_place_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ReviewCountAggregateOutputType = {
+    id: number
+    rating: number
+    text: number
+    reviewer_id: number
+    parking_place_id: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ReviewAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewSumAggregateInputType = {
+    rating?: true
+  }
+
+  export type ReviewMinAggregateInputType = {
+    id?: true
+    rating?: true
+    text?: true
+    reviewer_id?: true
+    parking_place_id?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ReviewMaxAggregateInputType = {
+    id?: true
+    rating?: true
+    text?: true
+    reviewer_id?: true
+    parking_place_id?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ReviewCountAggregateInputType = {
+    id?: true
+    rating?: true
+    text?: true
+    reviewer_id?: true
+    parking_place_id?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Review to aggregate.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Reviews
+    **/
+    _count?: true | ReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReviewMaxAggregateInputType
+  }
+
+  export type GetReviewAggregateType<T extends ReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReview[P]>
+      : GetScalarType<T[P], AggregateReview[P]>
+  }
+
+
+
+
+  export type ReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithAggregationInput | ReviewOrderByWithAggregationInput[]
+    by: ReviewScalarFieldEnum[] | ReviewScalarFieldEnum
+    having?: ReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReviewCountAggregateInputType | true
+    _avg?: ReviewAvgAggregateInputType
+    _sum?: ReviewSumAggregateInputType
+    _min?: ReviewMinAggregateInputType
+    _max?: ReviewMaxAggregateInputType
+  }
+
+  export type ReviewGroupByOutputType = {
+    id: string
+    rating: number
+    text: string
+    reviewer_id: string
+    parking_place_id: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ReviewCountAggregateOutputType | null
+    _avg: ReviewAvgAggregateOutputType | null
+    _sum: ReviewSumAggregateOutputType | null
+    _min: ReviewMinAggregateOutputType | null
+    _max: ReviewMaxAggregateOutputType | null
+  }
+
+  type GetReviewGroupByPayload<T extends ReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], ReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rating?: boolean
+    text?: boolean
+    reviewer_id?: boolean
+    parking_place_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    parkingPlace?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["review"]>
+
+
+
+  export type ReviewSelectScalar = {
+    id?: boolean
+    rating?: boolean
+    text?: boolean
+    reviewer_id?: boolean
+    parking_place_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "text" | "reviewer_id" | "parking_place_id" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
+  export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewer?: boolean | UserDefaultArgs<ExtArgs>
+    parkingPlace?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+  }
+
+  export type $ReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Review"
+    objects: {
+      reviewer: Prisma.$UserPayload<ExtArgs>
+      parkingPlace: Prisma.$ParkingPlacePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      rating: number
+      text: string
+      reviewer_id: string
+      parking_place_id: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["review"]>
+    composites: {}
+  }
+
+  type ReviewGetPayload<S extends boolean | null | undefined | ReviewDefaultArgs> = $Result.GetResult<Prisma.$ReviewPayload, S>
+
+  type ReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReviewCountAggregateInputType | true
+    }
+
+  export interface ReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Review'], meta: { name: 'Review' } }
+    /**
+     * Find zero or one Review that matches the filter.
+     * @param {ReviewFindUniqueArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReviewFindUniqueArgs>(args: SelectSubset<T, ReviewFindUniqueArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Review that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReviewFindUniqueOrThrowArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, ReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Review that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewFindFirstArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReviewFindFirstArgs>(args?: SelectSubset<T, ReviewFindFirstArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Review that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewFindFirstOrThrowArgs} args - Arguments to find a Review
+     * @example
+     * // Get one Review
+     * const review = await prisma.review.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, ReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reviews
+     * const reviews = await prisma.review.findMany()
+     * 
+     * // Get first 10 Reviews
+     * const reviews = await prisma.review.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reviewWithIdOnly = await prisma.review.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReviewFindManyArgs>(args?: SelectSubset<T, ReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Review.
+     * @param {ReviewCreateArgs} args - Arguments to create a Review.
+     * @example
+     * // Create one Review
+     * const Review = await prisma.review.create({
+     *   data: {
+     *     // ... data to create a Review
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReviewCreateArgs>(args: SelectSubset<T, ReviewCreateArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reviews.
+     * @param {ReviewCreateManyArgs} args - Arguments to create many Reviews.
+     * @example
+     * // Create many Reviews
+     * const review = await prisma.review.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReviewCreateManyArgs>(args?: SelectSubset<T, ReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Review.
+     * @param {ReviewDeleteArgs} args - Arguments to delete one Review.
+     * @example
+     * // Delete one Review
+     * const Review = await prisma.review.delete({
+     *   where: {
+     *     // ... filter to delete one Review
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReviewDeleteArgs>(args: SelectSubset<T, ReviewDeleteArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Review.
+     * @param {ReviewUpdateArgs} args - Arguments to update one Review.
+     * @example
+     * // Update one Review
+     * const review = await prisma.review.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReviewUpdateArgs>(args: SelectSubset<T, ReviewUpdateArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reviews.
+     * @param {ReviewDeleteManyArgs} args - Arguments to filter Reviews to delete.
+     * @example
+     * // Delete a few Reviews
+     * const { count } = await prisma.review.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReviewDeleteManyArgs>(args?: SelectSubset<T, ReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reviews
+     * const review = await prisma.review.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReviewUpdateManyArgs>(args: SelectSubset<T, ReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Review.
+     * @param {ReviewUpsertArgs} args - Arguments to update or create a Review.
+     * @example
+     * // Update or create a Review
+     * const review = await prisma.review.upsert({
+     *   create: {
+     *     // ... data to create a Review
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Review we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReviewUpsertArgs>(args: SelectSubset<T, ReviewUpsertArgs<ExtArgs>>): Prisma__ReviewClient<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reviews that matches the filter.
+     * @param {ReviewFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const review = await prisma.review.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ReviewFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Review.
+     * @param {ReviewAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const review = await prisma.review.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ReviewAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewCountArgs} args - Arguments to filter Reviews to count.
+     * @example
+     * // Count the number of Reviews
+     * const count = await prisma.review.count({
+     *   where: {
+     *     // ... the filter for the Reviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReviewCountArgs>(
+      args?: Subset<T, ReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Review.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReviewAggregateArgs>(args: Subset<T, ReviewAggregateArgs>): Prisma.PrismaPromise<GetReviewAggregateType<T>>
+
+    /**
+     * Group by Review.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReviewGroupByArgs['orderBy'] }
+        : { orderBy?: ReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Review model
+   */
+  readonly fields: ReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Review.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reviewer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parkingPlace<T extends ParkingPlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlaceDefaultArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Review model
+   */
+  interface ReviewFieldRefs {
+    readonly id: FieldRef<"Review", 'String'>
+    readonly rating: FieldRef<"Review", 'Int'>
+    readonly text: FieldRef<"Review", 'String'>
+    readonly reviewer_id: FieldRef<"Review", 'String'>
+    readonly parking_place_id: FieldRef<"Review", 'String'>
+    readonly createdAt: FieldRef<"Review", 'DateTime'>
+    readonly updatedAt: FieldRef<"Review", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Review findUnique
+   */
+  export type ReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review findUniqueOrThrow
+   */
+  export type ReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review findFirst
+   */
+  export type ReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reviews.
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reviews.
+     */
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Review findFirstOrThrow
+   */
+  export type ReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Review to fetch.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reviews.
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reviews.
+     */
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Review findMany
+   */
+  export type ReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which Reviews to fetch.
+     */
+    where?: ReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reviews to fetch.
+     */
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Reviews.
+     */
+    cursor?: ReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reviews.
+     */
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * Review create
+   */
+  export type ReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Review.
+     */
+    data: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+  }
+
+  /**
+   * Review createMany
+   */
+  export type ReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Reviews.
+     */
+    data: ReviewCreateManyInput | ReviewCreateManyInput[]
+  }
+
+  /**
+   * Review update
+   */
+  export type ReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Review.
+     */
+    data: XOR<ReviewUpdateInput, ReviewUncheckedUpdateInput>
+    /**
+     * Choose, which Review to update.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review updateMany
+   */
+  export type ReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Reviews.
+     */
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which Reviews to update
+     */
+    where?: ReviewWhereInput
+    /**
+     * Limit how many Reviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Review upsert
+   */
+  export type ReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Review to update in case it exists.
+     */
+    where: ReviewWhereUniqueInput
+    /**
+     * In case the Review found by the `where` argument doesn't exist, create a new Review with this data.
+     */
+    create: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+    /**
+     * In case the Review was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReviewUpdateInput, ReviewUncheckedUpdateInput>
+  }
+
+  /**
+   * Review delete
+   */
+  export type ReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    /**
+     * Filter which Review to delete.
+     */
+    where: ReviewWhereUniqueInput
+  }
+
+  /**
+   * Review deleteMany
+   */
+  export type ReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reviews to delete
+     */
+    where?: ReviewWhereInput
+    /**
+     * Limit how many Reviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Review findRaw
+   */
+  export type ReviewFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Review aggregateRaw
+   */
+  export type ReviewAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Review without action
+   */
+  export type ReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Favourite
+   */
+
+  export type AggregateFavourite = {
+    _count: FavouriteCountAggregateOutputType | null
+    _min: FavouriteMinAggregateOutputType | null
+    _max: FavouriteMaxAggregateOutputType | null
+  }
+
+  export type FavouriteMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    parking_place_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FavouriteMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    parking_place_id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FavouriteCountAggregateOutputType = {
+    id: number
+    user_id: number
+    parking_place_id: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FavouriteMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    parking_place_id?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FavouriteMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    parking_place_id?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FavouriteCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    parking_place_id?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FavouriteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Favourite to aggregate.
+     */
+    where?: FavouriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favourites to fetch.
+     */
+    orderBy?: FavouriteOrderByWithRelationInput | FavouriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FavouriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favourites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favourites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Favourites
+    **/
+    _count?: true | FavouriteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FavouriteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FavouriteMaxAggregateInputType
+  }
+
+  export type GetFavouriteAggregateType<T extends FavouriteAggregateArgs> = {
+        [P in keyof T & keyof AggregateFavourite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFavourite[P]>
+      : GetScalarType<T[P], AggregateFavourite[P]>
+  }
+
+
+
+
+  export type FavouriteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavouriteWhereInput
+    orderBy?: FavouriteOrderByWithAggregationInput | FavouriteOrderByWithAggregationInput[]
+    by: FavouriteScalarFieldEnum[] | FavouriteScalarFieldEnum
+    having?: FavouriteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FavouriteCountAggregateInputType | true
+    _min?: FavouriteMinAggregateInputType
+    _max?: FavouriteMaxAggregateInputType
+  }
+
+  export type FavouriteGroupByOutputType = {
+    id: string
+    user_id: string
+    parking_place_id: string
+    createdAt: Date
+    updatedAt: Date
+    _count: FavouriteCountAggregateOutputType | null
+    _min: FavouriteMinAggregateOutputType | null
+    _max: FavouriteMaxAggregateOutputType | null
+  }
+
+  type GetFavouriteGroupByPayload<T extends FavouriteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FavouriteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FavouriteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FavouriteGroupByOutputType[P]>
+            : GetScalarType<T[P], FavouriteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FavouriteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    parking_place_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    spot?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["favourite"]>
+
+
+
+  export type FavouriteSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    parking_place_id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FavouriteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "parking_place_id" | "createdAt" | "updatedAt", ExtArgs["result"]["favourite"]>
+  export type FavouriteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    spot?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+  }
+
+  export type $FavouritePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Favourite"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      spot: Prisma.$ParkingPlacePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      parking_place_id: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["favourite"]>
+    composites: {}
+  }
+
+  type FavouriteGetPayload<S extends boolean | null | undefined | FavouriteDefaultArgs> = $Result.GetResult<Prisma.$FavouritePayload, S>
+
+  type FavouriteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FavouriteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FavouriteCountAggregateInputType | true
+    }
+
+  export interface FavouriteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Favourite'], meta: { name: 'Favourite' } }
+    /**
+     * Find zero or one Favourite that matches the filter.
+     * @param {FavouriteFindUniqueArgs} args - Arguments to find a Favourite
+     * @example
+     * // Get one Favourite
+     * const favourite = await prisma.favourite.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FavouriteFindUniqueArgs>(args: SelectSubset<T, FavouriteFindUniqueArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Favourite that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FavouriteFindUniqueOrThrowArgs} args - Arguments to find a Favourite
+     * @example
+     * // Get one Favourite
+     * const favourite = await prisma.favourite.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FavouriteFindUniqueOrThrowArgs>(args: SelectSubset<T, FavouriteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Favourite that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteFindFirstArgs} args - Arguments to find a Favourite
+     * @example
+     * // Get one Favourite
+     * const favourite = await prisma.favourite.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FavouriteFindFirstArgs>(args?: SelectSubset<T, FavouriteFindFirstArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Favourite that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteFindFirstOrThrowArgs} args - Arguments to find a Favourite
+     * @example
+     * // Get one Favourite
+     * const favourite = await prisma.favourite.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FavouriteFindFirstOrThrowArgs>(args?: SelectSubset<T, FavouriteFindFirstOrThrowArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Favourites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Favourites
+     * const favourites = await prisma.favourite.findMany()
+     * 
+     * // Get first 10 Favourites
+     * const favourites = await prisma.favourite.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const favouriteWithIdOnly = await prisma.favourite.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FavouriteFindManyArgs>(args?: SelectSubset<T, FavouriteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Favourite.
+     * @param {FavouriteCreateArgs} args - Arguments to create a Favourite.
+     * @example
+     * // Create one Favourite
+     * const Favourite = await prisma.favourite.create({
+     *   data: {
+     *     // ... data to create a Favourite
+     *   }
+     * })
+     * 
+     */
+    create<T extends FavouriteCreateArgs>(args: SelectSubset<T, FavouriteCreateArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Favourites.
+     * @param {FavouriteCreateManyArgs} args - Arguments to create many Favourites.
+     * @example
+     * // Create many Favourites
+     * const favourite = await prisma.favourite.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FavouriteCreateManyArgs>(args?: SelectSubset<T, FavouriteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Favourite.
+     * @param {FavouriteDeleteArgs} args - Arguments to delete one Favourite.
+     * @example
+     * // Delete one Favourite
+     * const Favourite = await prisma.favourite.delete({
+     *   where: {
+     *     // ... filter to delete one Favourite
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FavouriteDeleteArgs>(args: SelectSubset<T, FavouriteDeleteArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Favourite.
+     * @param {FavouriteUpdateArgs} args - Arguments to update one Favourite.
+     * @example
+     * // Update one Favourite
+     * const favourite = await prisma.favourite.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FavouriteUpdateArgs>(args: SelectSubset<T, FavouriteUpdateArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Favourites.
+     * @param {FavouriteDeleteManyArgs} args - Arguments to filter Favourites to delete.
+     * @example
+     * // Delete a few Favourites
+     * const { count } = await prisma.favourite.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FavouriteDeleteManyArgs>(args?: SelectSubset<T, FavouriteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Favourites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Favourites
+     * const favourite = await prisma.favourite.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FavouriteUpdateManyArgs>(args: SelectSubset<T, FavouriteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Favourite.
+     * @param {FavouriteUpsertArgs} args - Arguments to update or create a Favourite.
+     * @example
+     * // Update or create a Favourite
+     * const favourite = await prisma.favourite.upsert({
+     *   create: {
+     *     // ... data to create a Favourite
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Favourite we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FavouriteUpsertArgs>(args: SelectSubset<T, FavouriteUpsertArgs<ExtArgs>>): Prisma__FavouriteClient<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Favourites that matches the filter.
+     * @param {FavouriteFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const favourite = await prisma.favourite.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: FavouriteFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Favourite.
+     * @param {FavouriteAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const favourite = await prisma.favourite.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: FavouriteAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Favourites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteCountArgs} args - Arguments to filter Favourites to count.
+     * @example
+     * // Count the number of Favourites
+     * const count = await prisma.favourite.count({
+     *   where: {
+     *     // ... the filter for the Favourites we want to count
+     *   }
+     * })
+    **/
+    count<T extends FavouriteCountArgs>(
+      args?: Subset<T, FavouriteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FavouriteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Favourite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FavouriteAggregateArgs>(args: Subset<T, FavouriteAggregateArgs>): Prisma.PrismaPromise<GetFavouriteAggregateType<T>>
+
+    /**
+     * Group by Favourite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavouriteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FavouriteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FavouriteGroupByArgs['orderBy'] }
+        : { orderBy?: FavouriteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FavouriteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFavouriteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Favourite model
+   */
+  readonly fields: FavouriteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Favourite.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FavouriteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    spot<T extends ParkingPlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlaceDefaultArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Favourite model
+   */
+  interface FavouriteFieldRefs {
+    readonly id: FieldRef<"Favourite", 'String'>
+    readonly user_id: FieldRef<"Favourite", 'String'>
+    readonly parking_place_id: FieldRef<"Favourite", 'String'>
+    readonly createdAt: FieldRef<"Favourite", 'DateTime'>
+    readonly updatedAt: FieldRef<"Favourite", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Favourite findUnique
+   */
+  export type FavouriteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favourite to fetch.
+     */
+    where: FavouriteWhereUniqueInput
+  }
+
+  /**
+   * Favourite findUniqueOrThrow
+   */
+  export type FavouriteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favourite to fetch.
+     */
+    where: FavouriteWhereUniqueInput
+  }
+
+  /**
+   * Favourite findFirst
+   */
+  export type FavouriteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favourite to fetch.
+     */
+    where?: FavouriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favourites to fetch.
+     */
+    orderBy?: FavouriteOrderByWithRelationInput | FavouriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Favourites.
+     */
+    cursor?: FavouriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favourites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favourites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Favourites.
+     */
+    distinct?: FavouriteScalarFieldEnum | FavouriteScalarFieldEnum[]
+  }
+
+  /**
+   * Favourite findFirstOrThrow
+   */
+  export type FavouriteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favourite to fetch.
+     */
+    where?: FavouriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favourites to fetch.
+     */
+    orderBy?: FavouriteOrderByWithRelationInput | FavouriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Favourites.
+     */
+    cursor?: FavouriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favourites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favourites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Favourites.
+     */
+    distinct?: FavouriteScalarFieldEnum | FavouriteScalarFieldEnum[]
+  }
+
+  /**
+   * Favourite findMany
+   */
+  export type FavouriteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * Filter, which Favourites to fetch.
+     */
+    where?: FavouriteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Favourites to fetch.
+     */
+    orderBy?: FavouriteOrderByWithRelationInput | FavouriteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Favourites.
+     */
+    cursor?: FavouriteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Favourites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Favourites.
+     */
+    skip?: number
+    distinct?: FavouriteScalarFieldEnum | FavouriteScalarFieldEnum[]
+  }
+
+  /**
+   * Favourite create
+   */
+  export type FavouriteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Favourite.
+     */
+    data: XOR<FavouriteCreateInput, FavouriteUncheckedCreateInput>
+  }
+
+  /**
+   * Favourite createMany
+   */
+  export type FavouriteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Favourites.
+     */
+    data: FavouriteCreateManyInput | FavouriteCreateManyInput[]
+  }
+
+  /**
+   * Favourite update
+   */
+  export type FavouriteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Favourite.
+     */
+    data: XOR<FavouriteUpdateInput, FavouriteUncheckedUpdateInput>
+    /**
+     * Choose, which Favourite to update.
+     */
+    where: FavouriteWhereUniqueInput
+  }
+
+  /**
+   * Favourite updateMany
+   */
+  export type FavouriteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Favourites.
+     */
+    data: XOR<FavouriteUpdateManyMutationInput, FavouriteUncheckedUpdateManyInput>
+    /**
+     * Filter which Favourites to update
+     */
+    where?: FavouriteWhereInput
+    /**
+     * Limit how many Favourites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Favourite upsert
+   */
+  export type FavouriteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Favourite to update in case it exists.
+     */
+    where: FavouriteWhereUniqueInput
+    /**
+     * In case the Favourite found by the `where` argument doesn't exist, create a new Favourite with this data.
+     */
+    create: XOR<FavouriteCreateInput, FavouriteUncheckedCreateInput>
+    /**
+     * In case the Favourite was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FavouriteUpdateInput, FavouriteUncheckedUpdateInput>
+  }
+
+  /**
+   * Favourite delete
+   */
+  export type FavouriteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+    /**
+     * Filter which Favourite to delete.
+     */
+    where: FavouriteWhereUniqueInput
+  }
+
+  /**
+   * Favourite deleteMany
+   */
+  export type FavouriteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Favourites to delete
+     */
+    where?: FavouriteWhereInput
+    /**
+     * Limit how many Favourites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Favourite findRaw
+   */
+  export type FavouriteFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Favourite aggregateRaw
+   */
+  export type FavouriteAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Favourite without action
+   */
+  export type FavouriteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Favourite
+     */
+    select?: FavouriteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Favourite
+     */
+    omit?: FavouriteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FavouriteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3052,8 +7737,8 @@ export namespace Prisma {
     password: 'password',
     fcmToken: 'fcmToken',
     accessToken: 'accessToken',
-    role: 'role',
     avatarUrl: 'avatarUrl',
+    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3073,6 +7758,59 @@ export namespace Prisma {
   };
 
   export type VehicleScalarFieldEnum = (typeof VehicleScalarFieldEnum)[keyof typeof VehicleScalarFieldEnum]
+
+
+  export const ParkingPlaceScalarFieldEnum: {
+    id: 'id',
+    spot_name: 'spot_name',
+    location: 'location',
+    status: 'status',
+    address: 'address',
+    amenities: 'amenities',
+    about: 'about',
+    gallery: 'gallery',
+    owner_id: 'owner_id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ParkingPlaceScalarFieldEnum = (typeof ParkingPlaceScalarFieldEnum)[keyof typeof ParkingPlaceScalarFieldEnum]
+
+
+  export const ParkingSpotScalarFieldEnum: {
+    id: 'id',
+    spot_name: 'spot_name',
+    parking_place_id: 'parking_place_id',
+    availability: 'availability',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ParkingSpotScalarFieldEnum = (typeof ParkingSpotScalarFieldEnum)[keyof typeof ParkingSpotScalarFieldEnum]
+
+
+  export const ReviewScalarFieldEnum: {
+    id: 'id',
+    rating: 'rating',
+    text: 'text',
+    reviewer_id: 'reviewer_id',
+    parking_place_id: 'parking_place_id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+  export const FavouriteScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    parking_place_id: 'parking_place_id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FavouriteScalarFieldEnum = (typeof FavouriteScalarFieldEnum)[keyof typeof FavouriteScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3139,6 +7877,41 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'cords'
+   */
+  export type EnumcordsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'cords'>
+    
+
+
+  /**
+   * Reference to a field of type 'cords[]'
+   */
+  export type ListEnumcordsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'cords[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PlaceStatus'
+   */
+  export type EnumPlaceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlaceStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PlaceStatus[]'
+   */
+  export type ListEnumPlaceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlaceStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3149,6 +7922,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -3166,11 +7953,14 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     fcmToken?: StringNullableFilter<"User"> | string | null
     accessToken?: StringNullableFilter<"User"> | string | null
-    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     vehicles?: VehicleListRelationFilter
+    reviews?: ReviewListRelationFilter
+    favourites?: FavouriteListRelationFilter
+    parkingPlaces?: ParkingPlaceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3181,11 +7971,14 @@ export namespace Prisma {
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
-    role?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vehicles?: VehicleOrderByRelationAggregateInput
+    reviews?: ReviewOrderByRelationAggregateInput
+    favourites?: FavouriteOrderByRelationAggregateInput
+    parkingPlaces?: ParkingPlaceOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3199,11 +7992,14 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     fcmToken?: StringNullableFilter<"User"> | string | null
-    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     vehicles?: VehicleListRelationFilter
+    reviews?: ReviewListRelationFilter
+    favourites?: FavouriteListRelationFilter
+    parkingPlaces?: ParkingPlaceListRelationFilter
   }, "id" | "email" | "accessToken">
 
   export type UserOrderByWithAggregationInput = {
@@ -3214,8 +8010,8 @@ export namespace Prisma {
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
-    role?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -3234,8 +8030,8 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     accessToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -3310,6 +8106,288 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
   }
 
+  export type ParkingPlaceWhereInput = {
+    AND?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
+    OR?: ParkingPlaceWhereInput[]
+    NOT?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
+    id?: StringFilter<"ParkingPlace"> | string
+    spot_name?: StringFilter<"ParkingPlace"> | string
+    location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
+    status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
+    address?: StringFilter<"ParkingPlace"> | string
+    amenities?: StringNullableListFilter<"ParkingPlace">
+    about?: StringFilter<"ParkingPlace"> | string
+    gallery?: StringNullableListFilter<"ParkingPlace">
+    owner_id?: StringFilter<"ParkingPlace"> | string
+    createdAt?: DateTimeFilter<"ParkingPlace"> | Date | string
+    updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviews?: ReviewListRelationFilter
+    favourites?: FavouriteListRelationFilter
+    parking_spots?: ParkingSpotListRelationFilter
+  }
+
+  export type ParkingPlaceOrderByWithRelationInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    amenities?: SortOrder
+    about?: SortOrder
+    gallery?: SortOrder
+    owner_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    owner?: UserOrderByWithRelationInput
+    reviews?: ReviewOrderByRelationAggregateInput
+    favourites?: FavouriteOrderByRelationAggregateInput
+    parking_spots?: ParkingSpotOrderByRelationAggregateInput
+  }
+
+  export type ParkingPlaceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
+    OR?: ParkingPlaceWhereInput[]
+    NOT?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
+    spot_name?: StringFilter<"ParkingPlace"> | string
+    location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
+    status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
+    address?: StringFilter<"ParkingPlace"> | string
+    amenities?: StringNullableListFilter<"ParkingPlace">
+    about?: StringFilter<"ParkingPlace"> | string
+    gallery?: StringNullableListFilter<"ParkingPlace">
+    owner_id?: StringFilter<"ParkingPlace"> | string
+    createdAt?: DateTimeFilter<"ParkingPlace"> | Date | string
+    updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reviews?: ReviewListRelationFilter
+    favourites?: FavouriteListRelationFilter
+    parking_spots?: ParkingSpotListRelationFilter
+  }, "id">
+
+  export type ParkingPlaceOrderByWithAggregationInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    amenities?: SortOrder
+    about?: SortOrder
+    gallery?: SortOrder
+    owner_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ParkingPlaceCountOrderByAggregateInput
+    _max?: ParkingPlaceMaxOrderByAggregateInput
+    _min?: ParkingPlaceMinOrderByAggregateInput
+  }
+
+  export type ParkingPlaceScalarWhereWithAggregatesInput = {
+    AND?: ParkingPlaceScalarWhereWithAggregatesInput | ParkingPlaceScalarWhereWithAggregatesInput[]
+    OR?: ParkingPlaceScalarWhereWithAggregatesInput[]
+    NOT?: ParkingPlaceScalarWhereWithAggregatesInput | ParkingPlaceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    spot_name?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    location?: EnumcordsWithAggregatesFilter<"ParkingPlace"> | $Enums.cords
+    status?: EnumPlaceStatusWithAggregatesFilter<"ParkingPlace"> | $Enums.PlaceStatus
+    address?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    amenities?: StringNullableListFilter<"ParkingPlace">
+    about?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    gallery?: StringNullableListFilter<"ParkingPlace">
+    owner_id?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ParkingPlace"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ParkingPlace"> | Date | string
+  }
+
+  export type ParkingSpotWhereInput = {
+    AND?: ParkingSpotWhereInput | ParkingSpotWhereInput[]
+    OR?: ParkingSpotWhereInput[]
+    NOT?: ParkingSpotWhereInput | ParkingSpotWhereInput[]
+    id?: StringFilter<"ParkingSpot"> | string
+    spot_name?: StringFilter<"ParkingSpot"> | string
+    parking_place_id?: StringFilter<"ParkingSpot"> | string
+    availability?: BoolFilter<"ParkingSpot"> | boolean
+    createdAt?: DateTimeFilter<"ParkingSpot"> | Date | string
+    updatedAt?: DateTimeFilter<"ParkingSpot"> | Date | string
+    parkingPlace?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+  }
+
+  export type ParkingSpotOrderByWithRelationInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    parking_place_id?: SortOrder
+    availability?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    parkingPlace?: ParkingPlaceOrderByWithRelationInput
+  }
+
+  export type ParkingSpotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ParkingSpotWhereInput | ParkingSpotWhereInput[]
+    OR?: ParkingSpotWhereInput[]
+    NOT?: ParkingSpotWhereInput | ParkingSpotWhereInput[]
+    spot_name?: StringFilter<"ParkingSpot"> | string
+    parking_place_id?: StringFilter<"ParkingSpot"> | string
+    availability?: BoolFilter<"ParkingSpot"> | boolean
+    createdAt?: DateTimeFilter<"ParkingSpot"> | Date | string
+    updatedAt?: DateTimeFilter<"ParkingSpot"> | Date | string
+    parkingPlace?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+  }, "id">
+
+  export type ParkingSpotOrderByWithAggregationInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    parking_place_id?: SortOrder
+    availability?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ParkingSpotCountOrderByAggregateInput
+    _max?: ParkingSpotMaxOrderByAggregateInput
+    _min?: ParkingSpotMinOrderByAggregateInput
+  }
+
+  export type ParkingSpotScalarWhereWithAggregatesInput = {
+    AND?: ParkingSpotScalarWhereWithAggregatesInput | ParkingSpotScalarWhereWithAggregatesInput[]
+    OR?: ParkingSpotScalarWhereWithAggregatesInput[]
+    NOT?: ParkingSpotScalarWhereWithAggregatesInput | ParkingSpotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ParkingSpot"> | string
+    spot_name?: StringWithAggregatesFilter<"ParkingSpot"> | string
+    parking_place_id?: StringWithAggregatesFilter<"ParkingSpot"> | string
+    availability?: BoolWithAggregatesFilter<"ParkingSpot"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ParkingSpot"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ParkingSpot"> | Date | string
+  }
+
+  export type ReviewWhereInput = {
+    AND?: ReviewWhereInput | ReviewWhereInput[]
+    OR?: ReviewWhereInput[]
+    NOT?: ReviewWhereInput | ReviewWhereInput[]
+    id?: StringFilter<"Review"> | string
+    rating?: IntFilter<"Review"> | number
+    text?: StringFilter<"Review"> | string
+    reviewer_id?: StringFilter<"Review"> | string
+    parking_place_id?: StringFilter<"Review"> | string
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    updatedAt?: DateTimeFilter<"Review"> | Date | string
+    reviewer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parkingPlace?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+  }
+
+  export type ReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    text?: SortOrder
+    reviewer_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewer?: UserOrderByWithRelationInput
+    parkingPlace?: ParkingPlaceOrderByWithRelationInput
+  }
+
+  export type ReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ReviewWhereInput | ReviewWhereInput[]
+    OR?: ReviewWhereInput[]
+    NOT?: ReviewWhereInput | ReviewWhereInput[]
+    rating?: IntFilter<"Review"> | number
+    text?: StringFilter<"Review"> | string
+    reviewer_id?: StringFilter<"Review"> | string
+    parking_place_id?: StringFilter<"Review"> | string
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    updatedAt?: DateTimeFilter<"Review"> | Date | string
+    reviewer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    parkingPlace?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+  }, "id">
+
+  export type ReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    text?: SortOrder
+    reviewer_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ReviewCountOrderByAggregateInput
+    _avg?: ReviewAvgOrderByAggregateInput
+    _max?: ReviewMaxOrderByAggregateInput
+    _min?: ReviewMinOrderByAggregateInput
+    _sum?: ReviewSumOrderByAggregateInput
+  }
+
+  export type ReviewScalarWhereWithAggregatesInput = {
+    AND?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
+    OR?: ReviewScalarWhereWithAggregatesInput[]
+    NOT?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Review"> | string
+    rating?: IntWithAggregatesFilter<"Review"> | number
+    text?: StringWithAggregatesFilter<"Review"> | string
+    reviewer_id?: StringWithAggregatesFilter<"Review"> | string
+    parking_place_id?: StringWithAggregatesFilter<"Review"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
+  }
+
+  export type FavouriteWhereInput = {
+    AND?: FavouriteWhereInput | FavouriteWhereInput[]
+    OR?: FavouriteWhereInput[]
+    NOT?: FavouriteWhereInput | FavouriteWhereInput[]
+    id?: StringFilter<"Favourite"> | string
+    user_id?: StringFilter<"Favourite"> | string
+    parking_place_id?: StringFilter<"Favourite"> | string
+    createdAt?: DateTimeFilter<"Favourite"> | Date | string
+    updatedAt?: DateTimeFilter<"Favourite"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    spot?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+  }
+
+  export type FavouriteOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    spot?: ParkingPlaceOrderByWithRelationInput
+  }
+
+  export type FavouriteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FavouriteWhereInput | FavouriteWhereInput[]
+    OR?: FavouriteWhereInput[]
+    NOT?: FavouriteWhereInput | FavouriteWhereInput[]
+    user_id?: StringFilter<"Favourite"> | string
+    parking_place_id?: StringFilter<"Favourite"> | string
+    createdAt?: DateTimeFilter<"Favourite"> | Date | string
+    updatedAt?: DateTimeFilter<"Favourite"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    spot?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+  }, "id">
+
+  export type FavouriteOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FavouriteCountOrderByAggregateInput
+    _max?: FavouriteMaxOrderByAggregateInput
+    _min?: FavouriteMinOrderByAggregateInput
+  }
+
+  export type FavouriteScalarWhereWithAggregatesInput = {
+    AND?: FavouriteScalarWhereWithAggregatesInput | FavouriteScalarWhereWithAggregatesInput[]
+    OR?: FavouriteScalarWhereWithAggregatesInput[]
+    NOT?: FavouriteScalarWhereWithAggregatesInput | FavouriteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Favourite"> | string
+    user_id?: StringWithAggregatesFilter<"Favourite"> | string
+    parking_place_id?: StringWithAggregatesFilter<"Favourite"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Favourite"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Favourite"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -3318,11 +8396,14 @@ export namespace Prisma {
     password: string
     fcmToken?: string | null
     accessToken?: string | null
-    role: $Enums.UserRole
     avatarUrl?: string | null
+    role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     vehicles?: VehicleCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3333,11 +8414,14 @@ export namespace Prisma {
     password: string
     fcmToken?: string | null
     accessToken?: string | null
-    role: $Enums.UserRole
     avatarUrl?: string | null
+    role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
     vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUpdateInput = {
@@ -3347,11 +8431,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3361,11 +8448,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3376,8 +8466,8 @@ export namespace Prisma {
     password: string
     fcmToken?: string | null
     accessToken?: string | null
-    role: $Enums.UserRole
     avatarUrl?: string | null
+    role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3389,8 +8479,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3402,8 +8492,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3480,6 +8570,283 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ParkingPlaceCreateInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutParkingPlacesInput
+    reviews?: ReviewCreateNestedManyWithoutParkingPlaceInput
+    favourites?: FavouriteCreateNestedManyWithoutSpotInput
+    parking_spots?: ParkingSpotCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceUncheckedCreateInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    owner_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutSpotInput
+    parking_spots?: ParkingSpotUncheckedCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceUpdateInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
+    reviews?: ReviewUpdateManyWithoutParkingPlaceNestedInput
+    favourites?: FavouriteUpdateManyWithoutSpotNestedInput
+    parking_spots?: ParkingSpotUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type ParkingPlaceUncheckedUpdateInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    owner_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutSpotNestedInput
+    parking_spots?: ParkingSpotUncheckedUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type ParkingPlaceCreateManyInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    owner_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingPlaceUpdateManyMutationInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingPlaceUncheckedUpdateManyInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    owner_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingSpotCreateInput = {
+    id?: string
+    spot_name: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parkingPlace: ParkingPlaceCreateNestedOneWithoutParking_spotsInput
+  }
+
+  export type ParkingSpotUncheckedCreateInput = {
+    id?: string
+    spot_name: string
+    parking_place_id: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingSpotUpdateInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parkingPlace?: ParkingPlaceUpdateOneRequiredWithoutParking_spotsNestedInput
+  }
+
+  export type ParkingSpotUncheckedUpdateInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingSpotCreateManyInput = {
+    id?: string
+    spot_name: string
+    parking_place_id: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingSpotUpdateManyMutationInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingSpotUncheckedUpdateManyInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewCreateInput = {
+    id?: string
+    rating: number
+    text: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewer: UserCreateNestedOneWithoutReviewsInput
+    parkingPlace: ParkingPlaceCreateNestedOneWithoutReviewsInput
+  }
+
+  export type ReviewUncheckedCreateInput = {
+    id?: string
+    rating: number
+    text: string
+    reviewer_id: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReviewUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewer?: UserUpdateOneRequiredWithoutReviewsNestedInput
+    parkingPlace?: ParkingPlaceUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type ReviewUncheckedUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    reviewer_id?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewCreateManyInput = {
+    id?: string
+    rating: number
+    text: string
+    reviewer_id: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReviewUpdateManyMutationInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    reviewer_id?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutFavouritesInput
+    spot: ParkingPlaceCreateNestedOneWithoutFavouritesInput
+  }
+
+  export type FavouriteUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FavouriteUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavouritesNestedInput
+    spot?: ParkingPlaceUpdateOneRequiredWithoutFavouritesNestedInput
+  }
+
+  export type FavouriteUncheckedUpdateInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteCreateManyInput = {
+    id?: string
+    user_id: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FavouriteUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteUncheckedUpdateManyInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3535,7 +8902,37 @@ export namespace Prisma {
     none?: VehicleWhereInput
   }
 
+  export type ReviewListRelationFilter = {
+    every?: ReviewWhereInput
+    some?: ReviewWhereInput
+    none?: ReviewWhereInput
+  }
+
+  export type FavouriteListRelationFilter = {
+    every?: FavouriteWhereInput
+    some?: FavouriteWhereInput
+    none?: FavouriteWhereInput
+  }
+
+  export type ParkingPlaceListRelationFilter = {
+    every?: ParkingPlaceWhereInput
+    some?: ParkingPlaceWhereInput
+    none?: ParkingPlaceWhereInput
+  }
+
   export type VehicleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FavouriteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ParkingPlaceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3547,8 +8944,8 @@ export namespace Prisma {
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
-    role?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3561,8 +8958,8 @@ export namespace Prisma {
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
-    role?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3575,8 +8972,8 @@ export namespace Prisma {
     password?: SortOrder
     fcmToken?: SortOrder
     accessToken?: SortOrder
-    role?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -3686,6 +9083,222 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumcordsFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel>
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    not?: NestedEnumcordsFilter<$PrismaModel> | $Enums.cords
+  }
+
+  export type EnumPlaceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaceStatus | EnumPlaceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaceStatusFilter<$PrismaModel> | $Enums.PlaceStatus
+  }
+
+  export type ParkingSpotListRelationFilter = {
+    every?: ParkingSpotWhereInput
+    some?: ParkingSpotWhereInput
+    none?: ParkingSpotWhereInput
+  }
+
+  export type ParkingSpotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ParkingPlaceCountOrderByAggregateInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    amenities?: SortOrder
+    about?: SortOrder
+    gallery?: SortOrder
+    owner_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ParkingPlaceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    about?: SortOrder
+    owner_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ParkingPlaceMinOrderByAggregateInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    address?: SortOrder
+    about?: SortOrder
+    owner_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumcordsWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel>
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    not?: NestedEnumcordsWithAggregatesFilter<$PrismaModel> | $Enums.cords
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumcordsFilter<$PrismaModel>
+    _max?: NestedEnumcordsFilter<$PrismaModel>
+  }
+
+  export type EnumPlaceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaceStatus | EnumPlaceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaceStatusWithAggregatesFilter<$PrismaModel> | $Enums.PlaceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPlaceStatusFilter<$PrismaModel>
+    _max?: NestedEnumPlaceStatusFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type ParkingPlaceScalarRelationFilter = {
+    is?: ParkingPlaceWhereInput
+    isNot?: ParkingPlaceWhereInput
+  }
+
+  export type ParkingSpotCountOrderByAggregateInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    parking_place_id?: SortOrder
+    availability?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ParkingSpotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    parking_place_id?: SortOrder
+    availability?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ParkingSpotMinOrderByAggregateInput = {
+    id?: SortOrder
+    spot_name?: SortOrder
+    parking_place_id?: SortOrder
+    availability?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    text?: SortOrder
+    reviewer_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReviewAvgOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type ReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    text?: SortOrder
+    reviewer_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    text?: SortOrder
+    reviewer_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReviewSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type FavouriteCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FavouriteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FavouriteMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    parking_place_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type VehicleCreateNestedManyWithoutOwnerInput = {
     create?: XOR<VehicleCreateWithoutOwnerInput, VehicleUncheckedCreateWithoutOwnerInput> | VehicleCreateWithoutOwnerInput[] | VehicleUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutOwnerInput | VehicleCreateOrConnectWithoutOwnerInput[]
@@ -3693,11 +9306,53 @@ export namespace Prisma {
     connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
   }
 
+  export type ReviewCreateNestedManyWithoutReviewerInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type FavouriteCreateNestedManyWithoutUserInput = {
+    create?: XOR<FavouriteCreateWithoutUserInput, FavouriteUncheckedCreateWithoutUserInput> | FavouriteCreateWithoutUserInput[] | FavouriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutUserInput | FavouriteCreateOrConnectWithoutUserInput[]
+    createMany?: FavouriteCreateManyUserInputEnvelope
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+  }
+
+  export type ParkingPlaceCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ParkingPlaceCreateWithoutOwnerInput, ParkingPlaceUncheckedCreateWithoutOwnerInput> | ParkingPlaceCreateWithoutOwnerInput[] | ParkingPlaceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutOwnerInput | ParkingPlaceCreateOrConnectWithoutOwnerInput[]
+    createMany?: ParkingPlaceCreateManyOwnerInputEnvelope
+    connect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+  }
+
   export type VehicleUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<VehicleCreateWithoutOwnerInput, VehicleUncheckedCreateWithoutOwnerInput> | VehicleCreateWithoutOwnerInput[] | VehicleUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutOwnerInput | VehicleCreateOrConnectWithoutOwnerInput[]
     createMany?: VehicleCreateManyOwnerInputEnvelope
     connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+  }
+
+  export type ReviewUncheckedCreateNestedManyWithoutReviewerInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type FavouriteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FavouriteCreateWithoutUserInput, FavouriteUncheckedCreateWithoutUserInput> | FavouriteCreateWithoutUserInput[] | FavouriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutUserInput | FavouriteCreateOrConnectWithoutUserInput[]
+    createMany?: FavouriteCreateManyUserInputEnvelope
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+  }
+
+  export type ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ParkingPlaceCreateWithoutOwnerInput, ParkingPlaceUncheckedCreateWithoutOwnerInput> | ParkingPlaceCreateWithoutOwnerInput[] | ParkingPlaceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutOwnerInput | ParkingPlaceCreateOrConnectWithoutOwnerInput[]
+    createMany?: ParkingPlaceCreateManyOwnerInputEnvelope
+    connect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3731,6 +9386,48 @@ export namespace Prisma {
     deleteMany?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
   }
 
+  export type ReviewUpdateManyWithoutReviewerNestedInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutReviewerInput | ReviewUpsertWithWhereUniqueWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutReviewerInput | ReviewUpdateWithWhereUniqueWithoutReviewerInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutReviewerInput | ReviewUpdateManyWithWhereWithoutReviewerInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type FavouriteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FavouriteCreateWithoutUserInput, FavouriteUncheckedCreateWithoutUserInput> | FavouriteCreateWithoutUserInput[] | FavouriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutUserInput | FavouriteCreateOrConnectWithoutUserInput[]
+    upsert?: FavouriteUpsertWithWhereUniqueWithoutUserInput | FavouriteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FavouriteCreateManyUserInputEnvelope
+    set?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    disconnect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    delete?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    update?: FavouriteUpdateWithWhereUniqueWithoutUserInput | FavouriteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FavouriteUpdateManyWithWhereWithoutUserInput | FavouriteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FavouriteScalarWhereInput | FavouriteScalarWhereInput[]
+  }
+
+  export type ParkingPlaceUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ParkingPlaceCreateWithoutOwnerInput, ParkingPlaceUncheckedCreateWithoutOwnerInput> | ParkingPlaceCreateWithoutOwnerInput[] | ParkingPlaceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutOwnerInput | ParkingPlaceCreateOrConnectWithoutOwnerInput[]
+    upsert?: ParkingPlaceUpsertWithWhereUniqueWithoutOwnerInput | ParkingPlaceUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ParkingPlaceCreateManyOwnerInputEnvelope
+    set?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    disconnect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    delete?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    connect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    update?: ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput | ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ParkingPlaceUpdateManyWithWhereWithoutOwnerInput | ParkingPlaceUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
+  }
+
   export type VehicleUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<VehicleCreateWithoutOwnerInput, VehicleUncheckedCreateWithoutOwnerInput> | VehicleCreateWithoutOwnerInput[] | VehicleUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutOwnerInput | VehicleCreateOrConnectWithoutOwnerInput[]
@@ -3743,6 +9440,48 @@ export namespace Prisma {
     update?: VehicleUpdateWithWhereUniqueWithoutOwnerInput | VehicleUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: VehicleUpdateManyWithWhereWithoutOwnerInput | VehicleUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutReviewerNestedInput = {
+    create?: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput> | ReviewCreateWithoutReviewerInput[] | ReviewUncheckedCreateWithoutReviewerInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutReviewerInput | ReviewCreateOrConnectWithoutReviewerInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutReviewerInput | ReviewUpsertWithWhereUniqueWithoutReviewerInput[]
+    createMany?: ReviewCreateManyReviewerInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutReviewerInput | ReviewUpdateWithWhereUniqueWithoutReviewerInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutReviewerInput | ReviewUpdateManyWithWhereWithoutReviewerInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type FavouriteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FavouriteCreateWithoutUserInput, FavouriteUncheckedCreateWithoutUserInput> | FavouriteCreateWithoutUserInput[] | FavouriteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutUserInput | FavouriteCreateOrConnectWithoutUserInput[]
+    upsert?: FavouriteUpsertWithWhereUniqueWithoutUserInput | FavouriteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FavouriteCreateManyUserInputEnvelope
+    set?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    disconnect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    delete?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    update?: FavouriteUpdateWithWhereUniqueWithoutUserInput | FavouriteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FavouriteUpdateManyWithWhereWithoutUserInput | FavouriteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FavouriteScalarWhereInput | FavouriteScalarWhereInput[]
+  }
+
+  export type ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ParkingPlaceCreateWithoutOwnerInput, ParkingPlaceUncheckedCreateWithoutOwnerInput> | ParkingPlaceCreateWithoutOwnerInput[] | ParkingPlaceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutOwnerInput | ParkingPlaceCreateOrConnectWithoutOwnerInput[]
+    upsert?: ParkingPlaceUpsertWithWhereUniqueWithoutOwnerInput | ParkingPlaceUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ParkingPlaceCreateManyOwnerInputEnvelope
+    set?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    disconnect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    delete?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    connect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
+    update?: ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput | ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ParkingPlaceUpdateManyWithWhereWithoutOwnerInput | ParkingPlaceUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
   }
 
   export type VehicleCreatecolorInput = {
@@ -3766,6 +9505,254 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutVehiclesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVehiclesInput, UserUpdateWithoutVehiclesInput>, UserUncheckedUpdateWithoutVehiclesInput>
+  }
+
+  export type ParkingPlaceCreateamenitiesInput = {
+    set: string[]
+  }
+
+  export type ParkingPlaceCreategalleryInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutParkingPlacesInput = {
+    create?: XOR<UserCreateWithoutParkingPlacesInput, UserUncheckedCreateWithoutParkingPlacesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutParkingPlacesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ReviewCreateNestedManyWithoutParkingPlaceInput = {
+    create?: XOR<ReviewCreateWithoutParkingPlaceInput, ReviewUncheckedCreateWithoutParkingPlaceInput> | ReviewCreateWithoutParkingPlaceInput[] | ReviewUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutParkingPlaceInput | ReviewCreateOrConnectWithoutParkingPlaceInput[]
+    createMany?: ReviewCreateManyParkingPlaceInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type FavouriteCreateNestedManyWithoutSpotInput = {
+    create?: XOR<FavouriteCreateWithoutSpotInput, FavouriteUncheckedCreateWithoutSpotInput> | FavouriteCreateWithoutSpotInput[] | FavouriteUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutSpotInput | FavouriteCreateOrConnectWithoutSpotInput[]
+    createMany?: FavouriteCreateManySpotInputEnvelope
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+  }
+
+  export type ParkingSpotCreateNestedManyWithoutParkingPlaceInput = {
+    create?: XOR<ParkingSpotCreateWithoutParkingPlaceInput, ParkingSpotUncheckedCreateWithoutParkingPlaceInput> | ParkingSpotCreateWithoutParkingPlaceInput[] | ParkingSpotUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ParkingSpotCreateOrConnectWithoutParkingPlaceInput | ParkingSpotCreateOrConnectWithoutParkingPlaceInput[]
+    createMany?: ParkingSpotCreateManyParkingPlaceInputEnvelope
+    connect?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+  }
+
+  export type ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput = {
+    create?: XOR<ReviewCreateWithoutParkingPlaceInput, ReviewUncheckedCreateWithoutParkingPlaceInput> | ReviewCreateWithoutParkingPlaceInput[] | ReviewUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutParkingPlaceInput | ReviewCreateOrConnectWithoutParkingPlaceInput[]
+    createMany?: ReviewCreateManyParkingPlaceInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type FavouriteUncheckedCreateNestedManyWithoutSpotInput = {
+    create?: XOR<FavouriteCreateWithoutSpotInput, FavouriteUncheckedCreateWithoutSpotInput> | FavouriteCreateWithoutSpotInput[] | FavouriteUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutSpotInput | FavouriteCreateOrConnectWithoutSpotInput[]
+    createMany?: FavouriteCreateManySpotInputEnvelope
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+  }
+
+  export type ParkingSpotUncheckedCreateNestedManyWithoutParkingPlaceInput = {
+    create?: XOR<ParkingSpotCreateWithoutParkingPlaceInput, ParkingSpotUncheckedCreateWithoutParkingPlaceInput> | ParkingSpotCreateWithoutParkingPlaceInput[] | ParkingSpotUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ParkingSpotCreateOrConnectWithoutParkingPlaceInput | ParkingSpotCreateOrConnectWithoutParkingPlaceInput[]
+    createMany?: ParkingSpotCreateManyParkingPlaceInputEnvelope
+    connect?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+  }
+
+  export type EnumcordsFieldUpdateOperationsInput = {
+    set?: $Enums.cords
+  }
+
+  export type EnumPlaceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PlaceStatus
+  }
+
+  export type ParkingPlaceUpdateamenitiesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ParkingPlaceUpdategalleryInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutParkingPlacesNestedInput = {
+    create?: XOR<UserCreateWithoutParkingPlacesInput, UserUncheckedCreateWithoutParkingPlacesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutParkingPlacesInput
+    upsert?: UserUpsertWithoutParkingPlacesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutParkingPlacesInput, UserUpdateWithoutParkingPlacesInput>, UserUncheckedUpdateWithoutParkingPlacesInput>
+  }
+
+  export type ReviewUpdateManyWithoutParkingPlaceNestedInput = {
+    create?: XOR<ReviewCreateWithoutParkingPlaceInput, ReviewUncheckedCreateWithoutParkingPlaceInput> | ReviewCreateWithoutParkingPlaceInput[] | ReviewUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutParkingPlaceInput | ReviewCreateOrConnectWithoutParkingPlaceInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutParkingPlaceInput | ReviewUpsertWithWhereUniqueWithoutParkingPlaceInput[]
+    createMany?: ReviewCreateManyParkingPlaceInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutParkingPlaceInput | ReviewUpdateWithWhereUniqueWithoutParkingPlaceInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutParkingPlaceInput | ReviewUpdateManyWithWhereWithoutParkingPlaceInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type FavouriteUpdateManyWithoutSpotNestedInput = {
+    create?: XOR<FavouriteCreateWithoutSpotInput, FavouriteUncheckedCreateWithoutSpotInput> | FavouriteCreateWithoutSpotInput[] | FavouriteUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutSpotInput | FavouriteCreateOrConnectWithoutSpotInput[]
+    upsert?: FavouriteUpsertWithWhereUniqueWithoutSpotInput | FavouriteUpsertWithWhereUniqueWithoutSpotInput[]
+    createMany?: FavouriteCreateManySpotInputEnvelope
+    set?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    disconnect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    delete?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    update?: FavouriteUpdateWithWhereUniqueWithoutSpotInput | FavouriteUpdateWithWhereUniqueWithoutSpotInput[]
+    updateMany?: FavouriteUpdateManyWithWhereWithoutSpotInput | FavouriteUpdateManyWithWhereWithoutSpotInput[]
+    deleteMany?: FavouriteScalarWhereInput | FavouriteScalarWhereInput[]
+  }
+
+  export type ParkingSpotUpdateManyWithoutParkingPlaceNestedInput = {
+    create?: XOR<ParkingSpotCreateWithoutParkingPlaceInput, ParkingSpotUncheckedCreateWithoutParkingPlaceInput> | ParkingSpotCreateWithoutParkingPlaceInput[] | ParkingSpotUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ParkingSpotCreateOrConnectWithoutParkingPlaceInput | ParkingSpotCreateOrConnectWithoutParkingPlaceInput[]
+    upsert?: ParkingSpotUpsertWithWhereUniqueWithoutParkingPlaceInput | ParkingSpotUpsertWithWhereUniqueWithoutParkingPlaceInput[]
+    createMany?: ParkingSpotCreateManyParkingPlaceInputEnvelope
+    set?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    disconnect?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    delete?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    connect?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    update?: ParkingSpotUpdateWithWhereUniqueWithoutParkingPlaceInput | ParkingSpotUpdateWithWhereUniqueWithoutParkingPlaceInput[]
+    updateMany?: ParkingSpotUpdateManyWithWhereWithoutParkingPlaceInput | ParkingSpotUpdateManyWithWhereWithoutParkingPlaceInput[]
+    deleteMany?: ParkingSpotScalarWhereInput | ParkingSpotScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput = {
+    create?: XOR<ReviewCreateWithoutParkingPlaceInput, ReviewUncheckedCreateWithoutParkingPlaceInput> | ReviewCreateWithoutParkingPlaceInput[] | ReviewUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutParkingPlaceInput | ReviewCreateOrConnectWithoutParkingPlaceInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutParkingPlaceInput | ReviewUpsertWithWhereUniqueWithoutParkingPlaceInput[]
+    createMany?: ReviewCreateManyParkingPlaceInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutParkingPlaceInput | ReviewUpdateWithWhereUniqueWithoutParkingPlaceInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutParkingPlaceInput | ReviewUpdateManyWithWhereWithoutParkingPlaceInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type FavouriteUncheckedUpdateManyWithoutSpotNestedInput = {
+    create?: XOR<FavouriteCreateWithoutSpotInput, FavouriteUncheckedCreateWithoutSpotInput> | FavouriteCreateWithoutSpotInput[] | FavouriteUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: FavouriteCreateOrConnectWithoutSpotInput | FavouriteCreateOrConnectWithoutSpotInput[]
+    upsert?: FavouriteUpsertWithWhereUniqueWithoutSpotInput | FavouriteUpsertWithWhereUniqueWithoutSpotInput[]
+    createMany?: FavouriteCreateManySpotInputEnvelope
+    set?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    disconnect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    delete?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    connect?: FavouriteWhereUniqueInput | FavouriteWhereUniqueInput[]
+    update?: FavouriteUpdateWithWhereUniqueWithoutSpotInput | FavouriteUpdateWithWhereUniqueWithoutSpotInput[]
+    updateMany?: FavouriteUpdateManyWithWhereWithoutSpotInput | FavouriteUpdateManyWithWhereWithoutSpotInput[]
+    deleteMany?: FavouriteScalarWhereInput | FavouriteScalarWhereInput[]
+  }
+
+  export type ParkingSpotUncheckedUpdateManyWithoutParkingPlaceNestedInput = {
+    create?: XOR<ParkingSpotCreateWithoutParkingPlaceInput, ParkingSpotUncheckedCreateWithoutParkingPlaceInput> | ParkingSpotCreateWithoutParkingPlaceInput[] | ParkingSpotUncheckedCreateWithoutParkingPlaceInput[]
+    connectOrCreate?: ParkingSpotCreateOrConnectWithoutParkingPlaceInput | ParkingSpotCreateOrConnectWithoutParkingPlaceInput[]
+    upsert?: ParkingSpotUpsertWithWhereUniqueWithoutParkingPlaceInput | ParkingSpotUpsertWithWhereUniqueWithoutParkingPlaceInput[]
+    createMany?: ParkingSpotCreateManyParkingPlaceInputEnvelope
+    set?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    disconnect?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    delete?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    connect?: ParkingSpotWhereUniqueInput | ParkingSpotWhereUniqueInput[]
+    update?: ParkingSpotUpdateWithWhereUniqueWithoutParkingPlaceInput | ParkingSpotUpdateWithWhereUniqueWithoutParkingPlaceInput[]
+    updateMany?: ParkingSpotUpdateManyWithWhereWithoutParkingPlaceInput | ParkingSpotUpdateManyWithWhereWithoutParkingPlaceInput[]
+    deleteMany?: ParkingSpotScalarWhereInput | ParkingSpotScalarWhereInput[]
+  }
+
+  export type ParkingPlaceCreateNestedOneWithoutParking_spotsInput = {
+    create?: XOR<ParkingPlaceCreateWithoutParking_spotsInput, ParkingPlaceUncheckedCreateWithoutParking_spotsInput>
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutParking_spotsInput
+    connect?: ParkingPlaceWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type ParkingPlaceUpdateOneRequiredWithoutParking_spotsNestedInput = {
+    create?: XOR<ParkingPlaceCreateWithoutParking_spotsInput, ParkingPlaceUncheckedCreateWithoutParking_spotsInput>
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutParking_spotsInput
+    upsert?: ParkingPlaceUpsertWithoutParking_spotsInput
+    connect?: ParkingPlaceWhereUniqueInput
+    update?: XOR<XOR<ParkingPlaceUpdateToOneWithWhereWithoutParking_spotsInput, ParkingPlaceUpdateWithoutParking_spotsInput>, ParkingPlaceUncheckedUpdateWithoutParking_spotsInput>
+  }
+
+  export type UserCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<UserCreateWithoutReviewsInput, UserUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ParkingPlaceCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<ParkingPlaceCreateWithoutReviewsInput, ParkingPlaceUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutReviewsInput
+    connect?: ParkingPlaceWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<UserCreateWithoutReviewsInput, UserUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewsInput
+    upsert?: UserUpsertWithoutReviewsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewsInput, UserUpdateWithoutReviewsInput>, UserUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ParkingPlaceUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<ParkingPlaceCreateWithoutReviewsInput, ParkingPlaceUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutReviewsInput
+    upsert?: ParkingPlaceUpsertWithoutReviewsInput
+    connect?: ParkingPlaceWhereUniqueInput
+    update?: XOR<XOR<ParkingPlaceUpdateToOneWithWhereWithoutReviewsInput, ParkingPlaceUpdateWithoutReviewsInput>, ParkingPlaceUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type UserCreateNestedOneWithoutFavouritesInput = {
+    create?: XOR<UserCreateWithoutFavouritesInput, UserUncheckedCreateWithoutFavouritesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFavouritesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ParkingPlaceCreateNestedOneWithoutFavouritesInput = {
+    create?: XOR<ParkingPlaceCreateWithoutFavouritesInput, ParkingPlaceUncheckedCreateWithoutFavouritesInput>
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutFavouritesInput
+    connect?: ParkingPlaceWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutFavouritesNestedInput = {
+    create?: XOR<UserCreateWithoutFavouritesInput, UserUncheckedCreateWithoutFavouritesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFavouritesInput
+    upsert?: UserUpsertWithoutFavouritesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFavouritesInput, UserUpdateWithoutFavouritesInput>, UserUncheckedUpdateWithoutFavouritesInput>
+  }
+
+  export type ParkingPlaceUpdateOneRequiredWithoutFavouritesNestedInput = {
+    create?: XOR<ParkingPlaceCreateWithoutFavouritesInput, ParkingPlaceUncheckedCreateWithoutFavouritesInput>
+    connectOrCreate?: ParkingPlaceCreateOrConnectWithoutFavouritesInput
+    upsert?: ParkingPlaceUpsertWithoutFavouritesInput
+    connect?: ParkingPlaceWhereUniqueInput
+    update?: XOR<XOR<ParkingPlaceUpdateToOneWithWhereWithoutFavouritesInput, ParkingPlaceUpdateWithoutFavouritesInput>, ParkingPlaceUncheckedUpdateWithoutFavouritesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3897,6 +9884,80 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumcordsFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel>
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    not?: NestedEnumcordsFilter<$PrismaModel> | $Enums.cords
+  }
+
+  export type NestedEnumPlaceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaceStatus | EnumPlaceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaceStatusFilter<$PrismaModel> | $Enums.PlaceStatus
+  }
+
+  export type NestedEnumcordsWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel>
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
+    not?: NestedEnumcordsWithAggregatesFilter<$PrismaModel> | $Enums.cords
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumcordsFilter<$PrismaModel>
+    _max?: NestedEnumcordsFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPlaceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PlaceStatus | EnumPlaceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPlaceStatusWithAggregatesFilter<$PrismaModel> | $Enums.PlaceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPlaceStatusFilter<$PrismaModel>
+    _max?: NestedEnumPlaceStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type VehicleCreateWithoutOwnerInput = {
     id?: string
     company: string
@@ -3924,6 +9985,97 @@ export namespace Prisma {
 
   export type VehicleCreateManyOwnerInputEnvelope = {
     data: VehicleCreateManyOwnerInput | VehicleCreateManyOwnerInput[]
+  }
+
+  export type ReviewCreateWithoutReviewerInput = {
+    id?: string
+    rating: number
+    text: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parkingPlace: ParkingPlaceCreateNestedOneWithoutReviewsInput
+  }
+
+  export type ReviewUncheckedCreateWithoutReviewerInput = {
+    id?: string
+    rating: number
+    text: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutReviewerInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput>
+  }
+
+  export type ReviewCreateManyReviewerInputEnvelope = {
+    data: ReviewCreateManyReviewerInput | ReviewCreateManyReviewerInput[]
+  }
+
+  export type FavouriteCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    spot: ParkingPlaceCreateNestedOneWithoutFavouritesInput
+  }
+
+  export type FavouriteUncheckedCreateWithoutUserInput = {
+    id?: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FavouriteCreateOrConnectWithoutUserInput = {
+    where: FavouriteWhereUniqueInput
+    create: XOR<FavouriteCreateWithoutUserInput, FavouriteUncheckedCreateWithoutUserInput>
+  }
+
+  export type FavouriteCreateManyUserInputEnvelope = {
+    data: FavouriteCreateManyUserInput | FavouriteCreateManyUserInput[]
+  }
+
+  export type ParkingPlaceCreateWithoutOwnerInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ReviewCreateNestedManyWithoutParkingPlaceInput
+    favourites?: FavouriteCreateNestedManyWithoutSpotInput
+    parking_spots?: ParkingSpotCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutSpotInput
+    parking_spots?: ParkingSpotUncheckedCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceCreateOrConnectWithoutOwnerInput = {
+    where: ParkingPlaceWhereUniqueInput
+    create: XOR<ParkingPlaceCreateWithoutOwnerInput, ParkingPlaceUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ParkingPlaceCreateManyOwnerInputEnvelope = {
+    data: ParkingPlaceCreateManyOwnerInput | ParkingPlaceCreateManyOwnerInput[]
   }
 
   export type VehicleUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -3956,6 +10108,95 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Vehicle"> | Date | string
   }
 
+  export type ReviewUpsertWithWhereUniqueWithoutReviewerInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutReviewerInput, ReviewUncheckedUpdateWithoutReviewerInput>
+    create: XOR<ReviewCreateWithoutReviewerInput, ReviewUncheckedCreateWithoutReviewerInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutReviewerInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutReviewerInput, ReviewUncheckedUpdateWithoutReviewerInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutReviewerInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutReviewerInput>
+  }
+
+  export type ReviewScalarWhereInput = {
+    AND?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+    OR?: ReviewScalarWhereInput[]
+    NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+    id?: StringFilter<"Review"> | string
+    rating?: IntFilter<"Review"> | number
+    text?: StringFilter<"Review"> | string
+    reviewer_id?: StringFilter<"Review"> | string
+    parking_place_id?: StringFilter<"Review"> | string
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    updatedAt?: DateTimeFilter<"Review"> | Date | string
+  }
+
+  export type FavouriteUpsertWithWhereUniqueWithoutUserInput = {
+    where: FavouriteWhereUniqueInput
+    update: XOR<FavouriteUpdateWithoutUserInput, FavouriteUncheckedUpdateWithoutUserInput>
+    create: XOR<FavouriteCreateWithoutUserInput, FavouriteUncheckedCreateWithoutUserInput>
+  }
+
+  export type FavouriteUpdateWithWhereUniqueWithoutUserInput = {
+    where: FavouriteWhereUniqueInput
+    data: XOR<FavouriteUpdateWithoutUserInput, FavouriteUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FavouriteUpdateManyWithWhereWithoutUserInput = {
+    where: FavouriteScalarWhereInput
+    data: XOR<FavouriteUpdateManyMutationInput, FavouriteUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FavouriteScalarWhereInput = {
+    AND?: FavouriteScalarWhereInput | FavouriteScalarWhereInput[]
+    OR?: FavouriteScalarWhereInput[]
+    NOT?: FavouriteScalarWhereInput | FavouriteScalarWhereInput[]
+    id?: StringFilter<"Favourite"> | string
+    user_id?: StringFilter<"Favourite"> | string
+    parking_place_id?: StringFilter<"Favourite"> | string
+    createdAt?: DateTimeFilter<"Favourite"> | Date | string
+    updatedAt?: DateTimeFilter<"Favourite"> | Date | string
+  }
+
+  export type ParkingPlaceUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: ParkingPlaceWhereUniqueInput
+    update: XOR<ParkingPlaceUpdateWithoutOwnerInput, ParkingPlaceUncheckedUpdateWithoutOwnerInput>
+    create: XOR<ParkingPlaceCreateWithoutOwnerInput, ParkingPlaceUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: ParkingPlaceWhereUniqueInput
+    data: XOR<ParkingPlaceUpdateWithoutOwnerInput, ParkingPlaceUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type ParkingPlaceUpdateManyWithWhereWithoutOwnerInput = {
+    where: ParkingPlaceScalarWhereInput
+    data: XOR<ParkingPlaceUpdateManyMutationInput, ParkingPlaceUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type ParkingPlaceScalarWhereInput = {
+    AND?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
+    OR?: ParkingPlaceScalarWhereInput[]
+    NOT?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
+    id?: StringFilter<"ParkingPlace"> | string
+    spot_name?: StringFilter<"ParkingPlace"> | string
+    location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
+    status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
+    address?: StringFilter<"ParkingPlace"> | string
+    amenities?: StringNullableListFilter<"ParkingPlace">
+    about?: StringFilter<"ParkingPlace"> | string
+    gallery?: StringNullableListFilter<"ParkingPlace">
+    owner_id?: StringFilter<"ParkingPlace"> | string
+    createdAt?: DateTimeFilter<"ParkingPlace"> | Date | string
+    updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
+  }
+
   export type UserCreateWithoutVehiclesInput = {
     id?: string
     email: string
@@ -3964,10 +10205,13 @@ export namespace Prisma {
     password: string
     fcmToken?: string | null
     accessToken?: string | null
-    role: $Enums.UserRole
     avatarUrl?: string | null
+    role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    reviews?: ReviewCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutVehiclesInput = {
@@ -3978,10 +10222,13 @@ export namespace Prisma {
     password: string
     fcmToken?: string | null
     accessToken?: string | null
-    role: $Enums.UserRole
     avatarUrl?: string | null
+    role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutVehiclesInput = {
@@ -4007,10 +10254,13 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVehiclesInput = {
@@ -4020,10 +10270,628 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserCreateWithoutParkingPlacesInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutParkingPlacesInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutParkingPlacesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutParkingPlacesInput, UserUncheckedCreateWithoutParkingPlacesInput>
+  }
+
+  export type ReviewCreateWithoutParkingPlaceInput = {
+    id?: string
+    rating: number
+    text: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewer: UserCreateNestedOneWithoutReviewsInput
+  }
+
+  export type ReviewUncheckedCreateWithoutParkingPlaceInput = {
+    id?: string
+    rating: number
+    text: string
+    reviewer_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutParkingPlaceInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutParkingPlaceInput, ReviewUncheckedCreateWithoutParkingPlaceInput>
+  }
+
+  export type ReviewCreateManyParkingPlaceInputEnvelope = {
+    data: ReviewCreateManyParkingPlaceInput | ReviewCreateManyParkingPlaceInput[]
+  }
+
+  export type FavouriteCreateWithoutSpotInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutFavouritesInput
+  }
+
+  export type FavouriteUncheckedCreateWithoutSpotInput = {
+    id?: string
+    user_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FavouriteCreateOrConnectWithoutSpotInput = {
+    where: FavouriteWhereUniqueInput
+    create: XOR<FavouriteCreateWithoutSpotInput, FavouriteUncheckedCreateWithoutSpotInput>
+  }
+
+  export type FavouriteCreateManySpotInputEnvelope = {
+    data: FavouriteCreateManySpotInput | FavouriteCreateManySpotInput[]
+  }
+
+  export type ParkingSpotCreateWithoutParkingPlaceInput = {
+    id?: string
+    spot_name: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingSpotUncheckedCreateWithoutParkingPlaceInput = {
+    id?: string
+    spot_name: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingSpotCreateOrConnectWithoutParkingPlaceInput = {
+    where: ParkingSpotWhereUniqueInput
+    create: XOR<ParkingSpotCreateWithoutParkingPlaceInput, ParkingSpotUncheckedCreateWithoutParkingPlaceInput>
+  }
+
+  export type ParkingSpotCreateManyParkingPlaceInputEnvelope = {
+    data: ParkingSpotCreateManyParkingPlaceInput | ParkingSpotCreateManyParkingPlaceInput[]
+  }
+
+  export type UserUpsertWithoutParkingPlacesInput = {
+    update: XOR<UserUpdateWithoutParkingPlacesInput, UserUncheckedUpdateWithoutParkingPlacesInput>
+    create: XOR<UserCreateWithoutParkingPlacesInput, UserUncheckedCreateWithoutParkingPlacesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutParkingPlacesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutParkingPlacesInput, UserUncheckedUpdateWithoutParkingPlacesInput>
+  }
+
+  export type UserUpdateWithoutParkingPlacesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutParkingPlacesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ReviewUpsertWithWhereUniqueWithoutParkingPlaceInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutParkingPlaceInput, ReviewUncheckedUpdateWithoutParkingPlaceInput>
+    create: XOR<ReviewCreateWithoutParkingPlaceInput, ReviewUncheckedCreateWithoutParkingPlaceInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutParkingPlaceInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutParkingPlaceInput, ReviewUncheckedUpdateWithoutParkingPlaceInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutParkingPlaceInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutParkingPlaceInput>
+  }
+
+  export type FavouriteUpsertWithWhereUniqueWithoutSpotInput = {
+    where: FavouriteWhereUniqueInput
+    update: XOR<FavouriteUpdateWithoutSpotInput, FavouriteUncheckedUpdateWithoutSpotInput>
+    create: XOR<FavouriteCreateWithoutSpotInput, FavouriteUncheckedCreateWithoutSpotInput>
+  }
+
+  export type FavouriteUpdateWithWhereUniqueWithoutSpotInput = {
+    where: FavouriteWhereUniqueInput
+    data: XOR<FavouriteUpdateWithoutSpotInput, FavouriteUncheckedUpdateWithoutSpotInput>
+  }
+
+  export type FavouriteUpdateManyWithWhereWithoutSpotInput = {
+    where: FavouriteScalarWhereInput
+    data: XOR<FavouriteUpdateManyMutationInput, FavouriteUncheckedUpdateManyWithoutSpotInput>
+  }
+
+  export type ParkingSpotUpsertWithWhereUniqueWithoutParkingPlaceInput = {
+    where: ParkingSpotWhereUniqueInput
+    update: XOR<ParkingSpotUpdateWithoutParkingPlaceInput, ParkingSpotUncheckedUpdateWithoutParkingPlaceInput>
+    create: XOR<ParkingSpotCreateWithoutParkingPlaceInput, ParkingSpotUncheckedCreateWithoutParkingPlaceInput>
+  }
+
+  export type ParkingSpotUpdateWithWhereUniqueWithoutParkingPlaceInput = {
+    where: ParkingSpotWhereUniqueInput
+    data: XOR<ParkingSpotUpdateWithoutParkingPlaceInput, ParkingSpotUncheckedUpdateWithoutParkingPlaceInput>
+  }
+
+  export type ParkingSpotUpdateManyWithWhereWithoutParkingPlaceInput = {
+    where: ParkingSpotScalarWhereInput
+    data: XOR<ParkingSpotUpdateManyMutationInput, ParkingSpotUncheckedUpdateManyWithoutParkingPlaceInput>
+  }
+
+  export type ParkingSpotScalarWhereInput = {
+    AND?: ParkingSpotScalarWhereInput | ParkingSpotScalarWhereInput[]
+    OR?: ParkingSpotScalarWhereInput[]
+    NOT?: ParkingSpotScalarWhereInput | ParkingSpotScalarWhereInput[]
+    id?: StringFilter<"ParkingSpot"> | string
+    spot_name?: StringFilter<"ParkingSpot"> | string
+    parking_place_id?: StringFilter<"ParkingSpot"> | string
+    availability?: BoolFilter<"ParkingSpot"> | boolean
+    createdAt?: DateTimeFilter<"ParkingSpot"> | Date | string
+    updatedAt?: DateTimeFilter<"ParkingSpot"> | Date | string
+  }
+
+  export type ParkingPlaceCreateWithoutParking_spotsInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutParkingPlacesInput
+    reviews?: ReviewCreateNestedManyWithoutParkingPlaceInput
+    favourites?: FavouriteCreateNestedManyWithoutSpotInput
+  }
+
+  export type ParkingPlaceUncheckedCreateWithoutParking_spotsInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    owner_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutSpotInput
+  }
+
+  export type ParkingPlaceCreateOrConnectWithoutParking_spotsInput = {
+    where: ParkingPlaceWhereUniqueInput
+    create: XOR<ParkingPlaceCreateWithoutParking_spotsInput, ParkingPlaceUncheckedCreateWithoutParking_spotsInput>
+  }
+
+  export type ParkingPlaceUpsertWithoutParking_spotsInput = {
+    update: XOR<ParkingPlaceUpdateWithoutParking_spotsInput, ParkingPlaceUncheckedUpdateWithoutParking_spotsInput>
+    create: XOR<ParkingPlaceCreateWithoutParking_spotsInput, ParkingPlaceUncheckedCreateWithoutParking_spotsInput>
+    where?: ParkingPlaceWhereInput
+  }
+
+  export type ParkingPlaceUpdateToOneWithWhereWithoutParking_spotsInput = {
+    where?: ParkingPlaceWhereInput
+    data: XOR<ParkingPlaceUpdateWithoutParking_spotsInput, ParkingPlaceUncheckedUpdateWithoutParking_spotsInput>
+  }
+
+  export type ParkingPlaceUpdateWithoutParking_spotsInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
+    reviews?: ReviewUpdateManyWithoutParkingPlaceNestedInput
+    favourites?: FavouriteUpdateManyWithoutSpotNestedInput
+  }
+
+  export type ParkingPlaceUncheckedUpdateWithoutParking_spotsInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    owner_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutSpotNestedInput
+  }
+
+  export type UserCreateWithoutReviewsInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleCreateNestedManyWithoutOwnerInput
+    favourites?: FavouriteCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutReviewsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReviewsInput, UserUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type ParkingPlaceCreateWithoutReviewsInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutParkingPlacesInput
+    favourites?: FavouriteCreateNestedManyWithoutSpotInput
+    parking_spots?: ParkingSpotCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceUncheckedCreateWithoutReviewsInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    owner_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutSpotInput
+    parking_spots?: ParkingSpotUncheckedCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceCreateOrConnectWithoutReviewsInput = {
+    where: ParkingPlaceWhereUniqueInput
+    create: XOR<ParkingPlaceCreateWithoutReviewsInput, ParkingPlaceUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type UserUpsertWithoutReviewsInput = {
+    update: XOR<UserUpdateWithoutReviewsInput, UserUncheckedUpdateWithoutReviewsInput>
+    create: XOR<UserCreateWithoutReviewsInput, UserUncheckedCreateWithoutReviewsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReviewsInput, UserUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type UserUpdateWithoutReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
+    favourites?: FavouriteUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReviewsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type ParkingPlaceUpsertWithoutReviewsInput = {
+    update: XOR<ParkingPlaceUpdateWithoutReviewsInput, ParkingPlaceUncheckedUpdateWithoutReviewsInput>
+    create: XOR<ParkingPlaceCreateWithoutReviewsInput, ParkingPlaceUncheckedCreateWithoutReviewsInput>
+    where?: ParkingPlaceWhereInput
+  }
+
+  export type ParkingPlaceUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: ParkingPlaceWhereInput
+    data: XOR<ParkingPlaceUpdateWithoutReviewsInput, ParkingPlaceUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ParkingPlaceUpdateWithoutReviewsInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
+    favourites?: FavouriteUpdateManyWithoutSpotNestedInput
+    parking_spots?: ParkingSpotUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type ParkingPlaceUncheckedUpdateWithoutReviewsInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    owner_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    favourites?: FavouriteUncheckedUpdateManyWithoutSpotNestedInput
+    parking_spots?: ParkingSpotUncheckedUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type UserCreateWithoutFavouritesInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewCreateNestedManyWithoutReviewerInput
+    parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutFavouritesInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutFavouritesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFavouritesInput, UserUncheckedCreateWithoutFavouritesInput>
+  }
+
+  export type ParkingPlaceCreateWithoutFavouritesInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutParkingPlacesInput
+    reviews?: ReviewCreateNestedManyWithoutParkingPlaceInput
+    parking_spots?: ParkingSpotCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceUncheckedCreateWithoutFavouritesInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
+    owner_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
+    parking_spots?: ParkingSpotUncheckedCreateNestedManyWithoutParkingPlaceInput
+  }
+
+  export type ParkingPlaceCreateOrConnectWithoutFavouritesInput = {
+    where: ParkingPlaceWhereUniqueInput
+    create: XOR<ParkingPlaceCreateWithoutFavouritesInput, ParkingPlaceUncheckedCreateWithoutFavouritesInput>
+  }
+
+  export type UserUpsertWithoutFavouritesInput = {
+    update: XOR<UserUpdateWithoutFavouritesInput, UserUncheckedUpdateWithoutFavouritesInput>
+    create: XOR<UserCreateWithoutFavouritesInput, UserUncheckedCreateWithoutFavouritesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFavouritesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFavouritesInput, UserUncheckedUpdateWithoutFavouritesInput>
+  }
+
+  export type UserUpdateWithoutFavouritesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUpdateManyWithoutReviewerNestedInput
+    parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFavouritesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type ParkingPlaceUpsertWithoutFavouritesInput = {
+    update: XOR<ParkingPlaceUpdateWithoutFavouritesInput, ParkingPlaceUncheckedUpdateWithoutFavouritesInput>
+    create: XOR<ParkingPlaceCreateWithoutFavouritesInput, ParkingPlaceUncheckedCreateWithoutFavouritesInput>
+    where?: ParkingPlaceWhereInput
+  }
+
+  export type ParkingPlaceUpdateToOneWithWhereWithoutFavouritesInput = {
+    where?: ParkingPlaceWhereInput
+    data: XOR<ParkingPlaceUpdateWithoutFavouritesInput, ParkingPlaceUncheckedUpdateWithoutFavouritesInput>
+  }
+
+  export type ParkingPlaceUpdateWithoutFavouritesInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
+    reviews?: ReviewUpdateManyWithoutParkingPlaceNestedInput
+    parking_spots?: ParkingSpotUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type ParkingPlaceUncheckedUpdateWithoutFavouritesInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    owner_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
+    parking_spots?: ParkingSpotUncheckedUpdateManyWithoutParkingPlaceNestedInput
   }
 
   export type VehicleCreateManyOwnerInput = {
@@ -4032,6 +10900,35 @@ export namespace Prisma {
     model: string
     reg_number: string
     color?: VehicleCreatecolorInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReviewCreateManyReviewerInput = {
+    id?: string
+    rating: number
+    text: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FavouriteCreateManyUserInput = {
+    id?: string
+    parking_place_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingPlaceCreateManyOwnerInput = {
+    id?: string
+    spot_name: string
+    location: $Enums.cords
+    status?: $Enums.PlaceStatus
+    address: string
+    amenities?: ParkingPlaceCreateamenitiesInput | string[]
+    about: string
+    gallery?: ParkingPlaceCreategalleryInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4059,6 +10956,177 @@ export namespace Prisma {
     model?: StringFieldUpdateOperationsInput | string
     reg_number?: StringFieldUpdateOperationsInput | string
     color?: VehicleUpdatecolorInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUpdateWithoutReviewerInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parkingPlace?: ParkingPlaceUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutReviewerInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutReviewerInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    spot?: ParkingPlaceUpdateOneRequiredWithoutFavouritesNestedInput
+  }
+
+  export type FavouriteUncheckedUpdateWithoutUserInput = {
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteUncheckedUpdateManyWithoutUserInput = {
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingPlaceUpdateWithoutOwnerInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUpdateManyWithoutParkingPlaceNestedInput
+    favourites?: FavouriteUpdateManyWithoutSpotNestedInput
+    parking_spots?: ParkingSpotUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type ParkingPlaceUncheckedUpdateWithoutOwnerInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutSpotNestedInput
+    parking_spots?: ParkingSpotUncheckedUpdateManyWithoutParkingPlaceNestedInput
+  }
+
+  export type ParkingPlaceUncheckedUpdateManyWithoutOwnerInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
+    address?: StringFieldUpdateOperationsInput | string
+    amenities?: ParkingPlaceUpdateamenitiesInput | string[]
+    about?: StringFieldUpdateOperationsInput | string
+    gallery?: ParkingPlaceUpdategalleryInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewCreateManyParkingPlaceInput = {
+    id?: string
+    rating: number
+    text: string
+    reviewer_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FavouriteCreateManySpotInput = {
+    id?: string
+    user_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingSpotCreateManyParkingPlaceInput = {
+    id?: string
+    spot_name: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReviewUpdateWithoutParkingPlaceInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewer?: UserUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutParkingPlaceInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    reviewer_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutParkingPlaceInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    reviewer_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteUpdateWithoutSpotInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFavouritesNestedInput
+  }
+
+  export type FavouriteUncheckedUpdateWithoutSpotInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FavouriteUncheckedUpdateManyWithoutSpotInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingSpotUpdateWithoutParkingPlaceInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingSpotUncheckedUpdateWithoutParkingPlaceInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ParkingSpotUncheckedUpdateManyWithoutParkingPlaceInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

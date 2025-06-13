@@ -5,6 +5,7 @@ import ApiError from "../../errorr/ApiError";
 import { IUserCreate, IUserInformation, IUserUpdate, IVehicleCreate } from "./user.interfaces";
 import bcrypt from 'bcrypt'
 
+//register user
 
 const registerUser = async (createUserData: IUserCreate) => {
     const user = await prisma.user.findUnique({

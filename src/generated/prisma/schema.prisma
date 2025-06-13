@@ -15,18 +15,23 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  email       String    @unique
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  email       String  @unique
   fullName    String?
   phone       String?
   password    String
   fcmToken    String?
-  accessToken String?   @unique
-  role        UserRole
-  vehicles    Vehicle[]
+  accessToken String? @unique
   avatarUrl   String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+
+  role          UserRole
+  vehicles      Vehicle[]
+  reviews       Review[]
+  favourites    Favourite[]
+  parkingPlaces ParkingPlace[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
@@ -47,7 +52,83 @@ model Vehicle {
   @@map("vehicles")
 }
 
+model ParkingPlace {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  spot_name String
+  location  cords
+  status    PlaceStatus @default(Pending)
+  address   String
+  amenities String[]
+  about     String
+  gallery   String[]
+  owner_id  String      @db.ObjectId
+
+  owner         User          @relation(fields: [owner_id], references: [id])
+  reviews       Review[]
+  favourites    Favourite[]
+  parking_spots ParkingSpot[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("parking_places")
+}
+
+model ParkingSpot {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  spot_name        String
+  parking_place_id String  @db.ObjectId
+  availability     Boolean @default(true)
+
+  parkingPlace ParkingPlace @relation(fields: [parking_place_id], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("parking_spots")
+}
+
+model Review {
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  rating           Int
+  text             String
+  reviewer_id      String       @db.ObjectId
+  parking_place_id String       @db.ObjectId
+  reviewer         User         @relation(fields: [reviewer_id], references: [id])
+  parkingPlace     ParkingPlace @relation(fields: [parking_place_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+model Favourite {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  user_id          String @db.ObjectId
+  parking_place_id String @db.ObjectId
+
+  user User         @relation(fields: [user_id], references: [id])
+  spot ParkingPlace @relation(fields: [parking_place_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("favourites")
+}
+
+enum cords {
+  lat
+  long
+}
+
+enum PlaceStatus {
+  Pending
+  Accepted
+  Rejected
+}
+
 enum UserRole {
   BUYER
   SELLER
+  ADMIN
 }

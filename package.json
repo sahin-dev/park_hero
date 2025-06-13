@@ -7,7 +7,7 @@
     "start": "node ./dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "postinstall": "prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/sahin-dev/park_hero#readme",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.8.2",
+    "@prisma/client": "^6.9.0",
     "@types/express": "^5.0.2",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -30,7 +30,7 @@
     "express": "^5.1.0",
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.8.2",
+    "prisma": "^6.9.0",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
