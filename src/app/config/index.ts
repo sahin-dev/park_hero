@@ -11,5 +11,9 @@ export default {
     bcrypt:{
         salt:  parseInt(process.env.BCRYPT_SALT!) 
     },
+    emailSender: {
+    email: process.env.EMAIL,
+    app_pass: process.env.APP_PASS,
+  },
     port:process.env.PORT
 }

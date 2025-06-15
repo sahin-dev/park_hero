@@ -1,5 +1,18 @@
 import prisma from "../../db/client"
-import { IParkingData } from "./parkingplace.interface"
+import { IParkingCreate, IParkingUpdate } from "./parkingplace.interface"
+
+
+const createParkingPlace = async (userId:string, placeData:IParkingCreate)=>{
+
+    const place = await prisma.parkingPlace.create({data:{...placeData,ownerId:userId}})
+
+    for (let i = 0;i<place.totalSpots;i++){
+        await prisma.parkingSpot.create({data:{parking_place_id:place.id,spot_name:`${i+1}P`}})
+    }
+
+    return place
+
+}
 
 
 const getParkingPlaces  = async ()=>{
@@ -11,12 +24,12 @@ const getParkingPlaces  = async ()=>{
 
 const getUserparkingPlaces = async (userId:string)=>{
 
-    const places  = await prisma.parkingPlace.findMany({where:{owner_id:userId}})
+    const places  = await prisma.parkingPlace.findMany({where:{ownerId:userId}})
 
     return places
 }
 
-const getParkingdetails = async (placeId:string)=>{
+const getParkingDetails = async (placeId:string)=>{
     const details = await prisma.parkingPlace.findUnique({where:{id:placeId}})
 
     return details
@@ -31,7 +44,11 @@ const getParkingSpots = async (placeId:string)=>{
     return spots
 }
 
-const updateParkingDetails = async (placeId:string, data:IParkingData)=>{
+const updateParkingDetails = async (placeId:string, data:IParkingUpdate)=>{
+
+    const updatedPlace = await prisma.parkingPlace.update({where:{id:placeId}, data:{...data}})
+
+    return updatedPlace
 
 }
 

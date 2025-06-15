@@ -21,9 +21,11 @@ model User {
   phone       String?
   password    String
   fcmToken    String?
-  accessToken String? @unique
+  accessToken String? 
   avatarUrl   String?
 
+  googleId    String?
+  appleId     String?
   role       UserRole
   vehicles   Vehicle[]
   reviews    Review[]
@@ -34,6 +36,22 @@ model User {
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+model Otp {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId    String      @db.ObjectId    @unique
+
+  code    String?
+
+  expiry   DateTime?
+
+  createdAt DateTime    @default(now())
+
+  updatedAt DateTime    @updatedAt
+
+  @@map("otps")
 }
 
 model Vehicle {
@@ -54,16 +72,20 @@ model Vehicle {
 
 model ParkingPlace {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  spot_name String
+  title String
   location  cords
   status    PlaceStatus  @default(Pending)
   address   String
   amenities String[]
-  about     String
+  description     String
   gallery   String[]
-  owner_id  String    @db.ObjectId
-
-  owner     User    @relation(fields: [owner_id], references: [id])
+  ownerId  String    @db.ObjectId
+  price     Float
+  priceUnit  String
+  billingCycle  String
+  totalSpots     Int
+  
+  owner     User    @relation(fields: [ownerId], references: [id])
   reviews       Review[]
   favourites    Favourite[]
   parking_spots ParkingSpot[]
@@ -112,6 +134,8 @@ model Favourite {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([user_id, parking_place_id])
 
   @@map("favourites")
 }

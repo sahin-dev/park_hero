@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Otp
+ * 
+ */
+export type Otp = $Result.DefaultSelection<Prisma.$OtpPayload>
+/**
  * Model Vehicle
  * 
  */
@@ -188,6 +193,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.otp`: Exposes CRUD operations for the **Otp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Otps
+    * const otps = await prisma.otp.findMany()
+    * ```
+    */
+  get otp(): Prisma.OtpDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.vehicle`: Exposes CRUD operations for the **Vehicle** model.
@@ -679,6 +694,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Otp: 'Otp',
     Vehicle: 'Vehicle',
     ParkingPlace: 'ParkingPlace',
     ParkingSpot: 'ParkingSpot',
@@ -702,7 +718,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "vehicle" | "parkingPlace" | "parkingSpot" | "review" | "favourite"
+      modelProps: "user" | "otp" | "vehicle" | "parkingPlace" | "parkingSpot" | "review" | "favourite"
       txIsolationLevel: never
     }
     model: {
@@ -777,6 +793,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Otp: {
+        payload: Prisma.$OtpPayload<ExtArgs>
+        fields: Prisma.OtpFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OtpFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OtpFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>
+          }
+          findFirst: {
+            args: Prisma.OtpFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OtpFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>
+          }
+          findMany: {
+            args: Prisma.OtpFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>[]
+          }
+          create: {
+            args: Prisma.OtpCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>
+          }
+          createMany: {
+            args: Prisma.OtpCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.OtpDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>
+          }
+          update: {
+            args: Prisma.OtpUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>
+          }
+          deleteMany: {
+            args: Prisma.OtpDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OtpUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OtpUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OtpPayload>
+          }
+          aggregate: {
+            args: Prisma.OtpAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOtp>
+          }
+          groupBy: {
+            args: Prisma.OtpGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OtpGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.OtpFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.OtpAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.OtpCountArgs<ExtArgs>
+            result: $Utils.Optional<OtpCountAggregateOutputType> | number
           }
         }
       }
@@ -1222,6 +1312,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    otp?: OtpOmit
     vehicle?: VehicleOmit
     parkingPlace?: ParkingPlaceOmit
     parkingSpot?: ParkingSpotOmit
@@ -1446,6 +1537,8 @@ export namespace Prisma {
     fcmToken: string | null
     accessToken: string | null
     avatarUrl: string | null
+    googleId: string | null
+    appleId: string | null
     role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1460,6 +1553,8 @@ export namespace Prisma {
     fcmToken: string | null
     accessToken: string | null
     avatarUrl: string | null
+    googleId: string | null
+    appleId: string | null
     role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1474,6 +1569,8 @@ export namespace Prisma {
     fcmToken: number
     accessToken: number
     avatarUrl: number
+    googleId: number
+    appleId: number
     role: number
     createdAt: number
     updatedAt: number
@@ -1490,6 +1587,8 @@ export namespace Prisma {
     fcmToken?: true
     accessToken?: true
     avatarUrl?: true
+    googleId?: true
+    appleId?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -1504,6 +1603,8 @@ export namespace Prisma {
     fcmToken?: true
     accessToken?: true
     avatarUrl?: true
+    googleId?: true
+    appleId?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -1518,6 +1619,8 @@ export namespace Prisma {
     fcmToken?: true
     accessToken?: true
     avatarUrl?: true
+    googleId?: true
+    appleId?: true
     role?: true
     createdAt?: true
     updatedAt?: true
@@ -1605,6 +1708,8 @@ export namespace Prisma {
     fcmToken: string | null
     accessToken: string | null
     avatarUrl: string | null
+    googleId: string | null
+    appleId: string | null
     role: $Enums.UserRole
     createdAt: Date
     updatedAt: Date
@@ -1636,6 +1741,8 @@ export namespace Prisma {
     fcmToken?: boolean
     accessToken?: boolean
     avatarUrl?: boolean
+    googleId?: boolean
+    appleId?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1657,12 +1764,14 @@ export namespace Prisma {
     fcmToken?: boolean
     accessToken?: boolean
     avatarUrl?: boolean
+    googleId?: boolean
+    appleId?: boolean
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "avatarUrl" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "avatarUrl" | "googleId" | "appleId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicles?: boolean | User$vehiclesArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -1688,6 +1797,8 @@ export namespace Prisma {
       fcmToken: string | null
       accessToken: string | null
       avatarUrl: string | null
+      googleId: string | null
+      appleId: string | null
       role: $Enums.UserRole
       createdAt: Date
       updatedAt: Date
@@ -2095,6 +2206,8 @@ export namespace Prisma {
     readonly fcmToken: FieldRef<"User", 'String'>
     readonly accessToken: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly googleId: FieldRef<"User", 'String'>
+    readonly appleId: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -2579,6 +2692,949 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Otp
+   */
+
+  export type AggregateOtp = {
+    _count: OtpCountAggregateOutputType | null
+    _min: OtpMinAggregateOutputType | null
+    _max: OtpMaxAggregateOutputType | null
+  }
+
+  export type OtpMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    code: string | null
+    expiry: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OtpMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    code: string | null
+    expiry: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OtpCountAggregateOutputType = {
+    id: number
+    userId: number
+    code: number
+    expiry: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OtpMinAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    expiry?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OtpMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    expiry?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OtpCountAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    expiry?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OtpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Otp to aggregate.
+     */
+    where?: OtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Otps to fetch.
+     */
+    orderBy?: OtpOrderByWithRelationInput | OtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Otps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Otps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Otps
+    **/
+    _count?: true | OtpCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OtpMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OtpMaxAggregateInputType
+  }
+
+  export type GetOtpAggregateType<T extends OtpAggregateArgs> = {
+        [P in keyof T & keyof AggregateOtp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOtp[P]>
+      : GetScalarType<T[P], AggregateOtp[P]>
+  }
+
+
+
+
+  export type OtpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OtpWhereInput
+    orderBy?: OtpOrderByWithAggregationInput | OtpOrderByWithAggregationInput[]
+    by: OtpScalarFieldEnum[] | OtpScalarFieldEnum
+    having?: OtpScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OtpCountAggregateInputType | true
+    _min?: OtpMinAggregateInputType
+    _max?: OtpMaxAggregateInputType
+  }
+
+  export type OtpGroupByOutputType = {
+    id: string
+    userId: string
+    code: string | null
+    expiry: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: OtpCountAggregateOutputType | null
+    _min: OtpMinAggregateOutputType | null
+    _max: OtpMaxAggregateOutputType | null
+  }
+
+  type GetOtpGroupByPayload<T extends OtpGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OtpGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OtpGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OtpGroupByOutputType[P]>
+            : GetScalarType<T[P], OtpGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OtpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    expiry?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["otp"]>
+
+
+
+  export type OtpSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    expiry?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OtpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "code" | "expiry" | "createdAt" | "updatedAt", ExtArgs["result"]["otp"]>
+
+  export type $OtpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Otp"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      code: string | null
+      expiry: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["otp"]>
+    composites: {}
+  }
+
+  type OtpGetPayload<S extends boolean | null | undefined | OtpDefaultArgs> = $Result.GetResult<Prisma.$OtpPayload, S>
+
+  type OtpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OtpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OtpCountAggregateInputType | true
+    }
+
+  export interface OtpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Otp'], meta: { name: 'Otp' } }
+    /**
+     * Find zero or one Otp that matches the filter.
+     * @param {OtpFindUniqueArgs} args - Arguments to find a Otp
+     * @example
+     * // Get one Otp
+     * const otp = await prisma.otp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OtpFindUniqueArgs>(args: SelectSubset<T, OtpFindUniqueArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Otp that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OtpFindUniqueOrThrowArgs} args - Arguments to find a Otp
+     * @example
+     * // Get one Otp
+     * const otp = await prisma.otp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OtpFindUniqueOrThrowArgs>(args: SelectSubset<T, OtpFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Otp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpFindFirstArgs} args - Arguments to find a Otp
+     * @example
+     * // Get one Otp
+     * const otp = await prisma.otp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OtpFindFirstArgs>(args?: SelectSubset<T, OtpFindFirstArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Otp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpFindFirstOrThrowArgs} args - Arguments to find a Otp
+     * @example
+     * // Get one Otp
+     * const otp = await prisma.otp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OtpFindFirstOrThrowArgs>(args?: SelectSubset<T, OtpFindFirstOrThrowArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Otps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Otps
+     * const otps = await prisma.otp.findMany()
+     * 
+     * // Get first 10 Otps
+     * const otps = await prisma.otp.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const otpWithIdOnly = await prisma.otp.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OtpFindManyArgs>(args?: SelectSubset<T, OtpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Otp.
+     * @param {OtpCreateArgs} args - Arguments to create a Otp.
+     * @example
+     * // Create one Otp
+     * const Otp = await prisma.otp.create({
+     *   data: {
+     *     // ... data to create a Otp
+     *   }
+     * })
+     * 
+     */
+    create<T extends OtpCreateArgs>(args: SelectSubset<T, OtpCreateArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Otps.
+     * @param {OtpCreateManyArgs} args - Arguments to create many Otps.
+     * @example
+     * // Create many Otps
+     * const otp = await prisma.otp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OtpCreateManyArgs>(args?: SelectSubset<T, OtpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Otp.
+     * @param {OtpDeleteArgs} args - Arguments to delete one Otp.
+     * @example
+     * // Delete one Otp
+     * const Otp = await prisma.otp.delete({
+     *   where: {
+     *     // ... filter to delete one Otp
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OtpDeleteArgs>(args: SelectSubset<T, OtpDeleteArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Otp.
+     * @param {OtpUpdateArgs} args - Arguments to update one Otp.
+     * @example
+     * // Update one Otp
+     * const otp = await prisma.otp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OtpUpdateArgs>(args: SelectSubset<T, OtpUpdateArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Otps.
+     * @param {OtpDeleteManyArgs} args - Arguments to filter Otps to delete.
+     * @example
+     * // Delete a few Otps
+     * const { count } = await prisma.otp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OtpDeleteManyArgs>(args?: SelectSubset<T, OtpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Otps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Otps
+     * const otp = await prisma.otp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OtpUpdateManyArgs>(args: SelectSubset<T, OtpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Otp.
+     * @param {OtpUpsertArgs} args - Arguments to update or create a Otp.
+     * @example
+     * // Update or create a Otp
+     * const otp = await prisma.otp.upsert({
+     *   create: {
+     *     // ... data to create a Otp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Otp we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OtpUpsertArgs>(args: SelectSubset<T, OtpUpsertArgs<ExtArgs>>): Prisma__OtpClient<$Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Otps that matches the filter.
+     * @param {OtpFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const otp = await prisma.otp.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: OtpFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Otp.
+     * @param {OtpAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const otp = await prisma.otp.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: OtpAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Otps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpCountArgs} args - Arguments to filter Otps to count.
+     * @example
+     * // Count the number of Otps
+     * const count = await prisma.otp.count({
+     *   where: {
+     *     // ... the filter for the Otps we want to count
+     *   }
+     * })
+    **/
+    count<T extends OtpCountArgs>(
+      args?: Subset<T, OtpCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OtpCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Otp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OtpAggregateArgs>(args: Subset<T, OtpAggregateArgs>): Prisma.PrismaPromise<GetOtpAggregateType<T>>
+
+    /**
+     * Group by Otp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OtpGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OtpGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OtpGroupByArgs['orderBy'] }
+        : { orderBy?: OtpGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OtpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOtpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Otp model
+   */
+  readonly fields: OtpFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Otp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OtpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Otp model
+   */
+  interface OtpFieldRefs {
+    readonly id: FieldRef<"Otp", 'String'>
+    readonly userId: FieldRef<"Otp", 'String'>
+    readonly code: FieldRef<"Otp", 'String'>
+    readonly expiry: FieldRef<"Otp", 'DateTime'>
+    readonly createdAt: FieldRef<"Otp", 'DateTime'>
+    readonly updatedAt: FieldRef<"Otp", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Otp findUnique
+   */
+  export type OtpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * Filter, which Otp to fetch.
+     */
+    where: OtpWhereUniqueInput
+  }
+
+  /**
+   * Otp findUniqueOrThrow
+   */
+  export type OtpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * Filter, which Otp to fetch.
+     */
+    where: OtpWhereUniqueInput
+  }
+
+  /**
+   * Otp findFirst
+   */
+  export type OtpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * Filter, which Otp to fetch.
+     */
+    where?: OtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Otps to fetch.
+     */
+    orderBy?: OtpOrderByWithRelationInput | OtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Otps.
+     */
+    cursor?: OtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Otps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Otps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Otps.
+     */
+    distinct?: OtpScalarFieldEnum | OtpScalarFieldEnum[]
+  }
+
+  /**
+   * Otp findFirstOrThrow
+   */
+  export type OtpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * Filter, which Otp to fetch.
+     */
+    where?: OtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Otps to fetch.
+     */
+    orderBy?: OtpOrderByWithRelationInput | OtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Otps.
+     */
+    cursor?: OtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Otps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Otps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Otps.
+     */
+    distinct?: OtpScalarFieldEnum | OtpScalarFieldEnum[]
+  }
+
+  /**
+   * Otp findMany
+   */
+  export type OtpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * Filter, which Otps to fetch.
+     */
+    where?: OtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Otps to fetch.
+     */
+    orderBy?: OtpOrderByWithRelationInput | OtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Otps.
+     */
+    cursor?: OtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Otps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Otps.
+     */
+    skip?: number
+    distinct?: OtpScalarFieldEnum | OtpScalarFieldEnum[]
+  }
+
+  /**
+   * Otp create
+   */
+  export type OtpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Otp.
+     */
+    data: XOR<OtpCreateInput, OtpUncheckedCreateInput>
+  }
+
+  /**
+   * Otp createMany
+   */
+  export type OtpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Otps.
+     */
+    data: OtpCreateManyInput | OtpCreateManyInput[]
+  }
+
+  /**
+   * Otp update
+   */
+  export type OtpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Otp.
+     */
+    data: XOR<OtpUpdateInput, OtpUncheckedUpdateInput>
+    /**
+     * Choose, which Otp to update.
+     */
+    where: OtpWhereUniqueInput
+  }
+
+  /**
+   * Otp updateMany
+   */
+  export type OtpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Otps.
+     */
+    data: XOR<OtpUpdateManyMutationInput, OtpUncheckedUpdateManyInput>
+    /**
+     * Filter which Otps to update
+     */
+    where?: OtpWhereInput
+    /**
+     * Limit how many Otps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Otp upsert
+   */
+  export type OtpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Otp to update in case it exists.
+     */
+    where: OtpWhereUniqueInput
+    /**
+     * In case the Otp found by the `where` argument doesn't exist, create a new Otp with this data.
+     */
+    create: XOR<OtpCreateInput, OtpUncheckedCreateInput>
+    /**
+     * In case the Otp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OtpUpdateInput, OtpUncheckedUpdateInput>
+  }
+
+  /**
+   * Otp delete
+   */
+  export type OtpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
+    /**
+     * Filter which Otp to delete.
+     */
+    where: OtpWhereUniqueInput
+  }
+
+  /**
+   * Otp deleteMany
+   */
+  export type OtpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Otps to delete
+     */
+    where?: OtpWhereInput
+    /**
+     * Limit how many Otps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Otp findRaw
+   */
+  export type OtpFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Otp aggregateRaw
+   */
+  export type OtpAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Otp without action
+   */
+  export type OtpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Otp
+     */
+    select?: OtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Otp
+     */
+    omit?: OtpOmit<ExtArgs> | null
   }
 
 
@@ -3596,84 +4652,130 @@ export namespace Prisma {
 
   export type AggregateParkingPlace = {
     _count: ParkingPlaceCountAggregateOutputType | null
+    _avg: ParkingPlaceAvgAggregateOutputType | null
+    _sum: ParkingPlaceSumAggregateOutputType | null
     _min: ParkingPlaceMinAggregateOutputType | null
     _max: ParkingPlaceMaxAggregateOutputType | null
   }
 
+  export type ParkingPlaceAvgAggregateOutputType = {
+    price: number | null
+    totalSpots: number | null
+  }
+
+  export type ParkingPlaceSumAggregateOutputType = {
+    price: number | null
+    totalSpots: number | null
+  }
+
   export type ParkingPlaceMinAggregateOutputType = {
     id: string | null
-    spot_name: string | null
+    title: string | null
     location: $Enums.cords | null
     status: $Enums.PlaceStatus | null
     address: string | null
-    about: string | null
-    owner_id: string | null
+    description: string | null
+    ownerId: string | null
+    price: number | null
+    priceUnit: string | null
+    billingCycle: string | null
+    totalSpots: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type ParkingPlaceMaxAggregateOutputType = {
     id: string | null
-    spot_name: string | null
+    title: string | null
     location: $Enums.cords | null
     status: $Enums.PlaceStatus | null
     address: string | null
-    about: string | null
-    owner_id: string | null
+    description: string | null
+    ownerId: string | null
+    price: number | null
+    priceUnit: string | null
+    billingCycle: string | null
+    totalSpots: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type ParkingPlaceCountAggregateOutputType = {
     id: number
-    spot_name: number
+    title: number
     location: number
     status: number
     address: number
     amenities: number
-    about: number
+    description: number
     gallery: number
-    owner_id: number
+    ownerId: number
+    price: number
+    priceUnit: number
+    billingCycle: number
+    totalSpots: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type ParkingPlaceAvgAggregateInputType = {
+    price?: true
+    totalSpots?: true
+  }
+
+  export type ParkingPlaceSumAggregateInputType = {
+    price?: true
+    totalSpots?: true
+  }
+
   export type ParkingPlaceMinAggregateInputType = {
     id?: true
-    spot_name?: true
+    title?: true
     location?: true
     status?: true
     address?: true
-    about?: true
-    owner_id?: true
+    description?: true
+    ownerId?: true
+    price?: true
+    priceUnit?: true
+    billingCycle?: true
+    totalSpots?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type ParkingPlaceMaxAggregateInputType = {
     id?: true
-    spot_name?: true
+    title?: true
     location?: true
     status?: true
     address?: true
-    about?: true
-    owner_id?: true
+    description?: true
+    ownerId?: true
+    price?: true
+    priceUnit?: true
+    billingCycle?: true
+    totalSpots?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type ParkingPlaceCountAggregateInputType = {
     id?: true
-    spot_name?: true
+    title?: true
     location?: true
     status?: true
     address?: true
     amenities?: true
-    about?: true
+    description?: true
     gallery?: true
-    owner_id?: true
+    ownerId?: true
+    price?: true
+    priceUnit?: true
+    billingCycle?: true
+    totalSpots?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3717,6 +4819,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ParkingPlaceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ParkingPlaceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ParkingPlaceMinAggregateInputType
@@ -3747,23 +4861,31 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ParkingPlaceCountAggregateInputType | true
+    _avg?: ParkingPlaceAvgAggregateInputType
+    _sum?: ParkingPlaceSumAggregateInputType
     _min?: ParkingPlaceMinAggregateInputType
     _max?: ParkingPlaceMaxAggregateInputType
   }
 
   export type ParkingPlaceGroupByOutputType = {
     id: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status: $Enums.PlaceStatus
     address: string
     amenities: string[]
-    about: string
+    description: string
     gallery: string[]
-    owner_id: string
+    ownerId: string
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt: Date
     updatedAt: Date
     _count: ParkingPlaceCountAggregateOutputType | null
+    _avg: ParkingPlaceAvgAggregateOutputType | null
+    _sum: ParkingPlaceSumAggregateOutputType | null
     _min: ParkingPlaceMinAggregateOutputType | null
     _max: ParkingPlaceMaxAggregateOutputType | null
   }
@@ -3784,14 +4906,18 @@ export namespace Prisma {
 
   export type ParkingPlaceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    spot_name?: boolean
+    title?: boolean
     location?: boolean
     status?: boolean
     address?: boolean
     amenities?: boolean
-    about?: boolean
+    description?: boolean
     gallery?: boolean
-    owner_id?: boolean
+    ownerId?: boolean
+    price?: boolean
+    priceUnit?: boolean
+    billingCycle?: boolean
+    totalSpots?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -3805,19 +4931,23 @@ export namespace Prisma {
 
   export type ParkingPlaceSelectScalar = {
     id?: boolean
-    spot_name?: boolean
+    title?: boolean
     location?: boolean
     status?: boolean
     address?: boolean
     amenities?: boolean
-    about?: boolean
+    description?: boolean
     gallery?: boolean
-    owner_id?: boolean
+    ownerId?: boolean
+    price?: boolean
+    priceUnit?: boolean
+    billingCycle?: boolean
+    totalSpots?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ParkingPlaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "spot_name" | "location" | "status" | "address" | "amenities" | "about" | "gallery" | "owner_id" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingPlace"]>
+  export type ParkingPlaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "location" | "status" | "address" | "amenities" | "description" | "gallery" | "ownerId" | "price" | "priceUnit" | "billingCycle" | "totalSpots" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingPlace"]>
   export type ParkingPlaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     reviews?: boolean | ParkingPlace$reviewsArgs<ExtArgs>
@@ -3836,14 +4966,18 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      spot_name: string
+      title: string
       location: $Enums.cords
       status: $Enums.PlaceStatus
       address: string
       amenities: string[]
-      about: string
+      description: string
       gallery: string[]
-      owner_id: string
+      ownerId: string
+      price: number
+      priceUnit: string
+      billingCycle: string
+      totalSpots: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["parkingPlace"]>
@@ -4243,14 +5377,18 @@ export namespace Prisma {
    */
   interface ParkingPlaceFieldRefs {
     readonly id: FieldRef<"ParkingPlace", 'String'>
-    readonly spot_name: FieldRef<"ParkingPlace", 'String'>
+    readonly title: FieldRef<"ParkingPlace", 'String'>
     readonly location: FieldRef<"ParkingPlace", 'cords'>
     readonly status: FieldRef<"ParkingPlace", 'PlaceStatus'>
     readonly address: FieldRef<"ParkingPlace", 'String'>
     readonly amenities: FieldRef<"ParkingPlace", 'String[]'>
-    readonly about: FieldRef<"ParkingPlace", 'String'>
+    readonly description: FieldRef<"ParkingPlace", 'String'>
     readonly gallery: FieldRef<"ParkingPlace", 'String[]'>
-    readonly owner_id: FieldRef<"ParkingPlace", 'String'>
+    readonly ownerId: FieldRef<"ParkingPlace", 'String'>
+    readonly price: FieldRef<"ParkingPlace", 'Float'>
+    readonly priceUnit: FieldRef<"ParkingPlace", 'String'>
+    readonly billingCycle: FieldRef<"ParkingPlace", 'String'>
+    readonly totalSpots: FieldRef<"ParkingPlace", 'Int'>
     readonly createdAt: FieldRef<"ParkingPlace", 'DateTime'>
     readonly updatedAt: FieldRef<"ParkingPlace", 'DateTime'>
   }
@@ -7738,12 +8876,26 @@ export namespace Prisma {
     fcmToken: 'fcmToken',
     accessToken: 'accessToken',
     avatarUrl: 'avatarUrl',
+    googleId: 'googleId',
+    appleId: 'appleId',
     role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const OtpScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    code: 'code',
+    expiry: 'expiry',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OtpScalarFieldEnum = (typeof OtpScalarFieldEnum)[keyof typeof OtpScalarFieldEnum]
 
 
   export const VehicleScalarFieldEnum: {
@@ -7762,14 +8914,18 @@ export namespace Prisma {
 
   export const ParkingPlaceScalarFieldEnum: {
     id: 'id',
-    spot_name: 'spot_name',
+    title: 'title',
     location: 'location',
     status: 'status',
     address: 'address',
     amenities: 'amenities',
-    about: 'about',
+    description: 'description',
     gallery: 'gallery',
-    owner_id: 'owner_id',
+    ownerId: 'ownerId',
+    price: 'price',
+    priceUnit: 'priceUnit',
+    billingCycle: 'billingCycle',
+    totalSpots: 'totalSpots',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7905,9 +9061,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'Float'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -7926,16 +9089,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Boolean'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -7954,6 +9110,8 @@ export namespace Prisma {
     fcmToken?: StringNullableFilter<"User"> | string | null
     accessToken?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    googleId?: StringNullableFilter<"User"> | string | null
+    appleId?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -7972,6 +9130,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    googleId?: SortOrder
+    appleId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7984,7 +9144,6 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    accessToken?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -7992,7 +9151,10 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     fcmToken?: StringNullableFilter<"User"> | string | null
+    accessToken?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    googleId?: StringNullableFilter<"User"> | string | null
+    appleId?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -8000,7 +9162,7 @@ export namespace Prisma {
     reviews?: ReviewListRelationFilter
     favourites?: FavouriteListRelationFilter
     parkingPlaces?: ParkingPlaceListRelationFilter
-  }, "id" | "email" | "accessToken">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -8011,6 +9173,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    googleId?: SortOrder
+    appleId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8031,9 +9195,68 @@ export namespace Prisma {
     fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     accessToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    googleId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    appleId?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type OtpWhereInput = {
+    AND?: OtpWhereInput | OtpWhereInput[]
+    OR?: OtpWhereInput[]
+    NOT?: OtpWhereInput | OtpWhereInput[]
+    id?: StringFilter<"Otp"> | string
+    userId?: StringFilter<"Otp"> | string
+    code?: StringNullableFilter<"Otp"> | string | null
+    expiry?: DateTimeNullableFilter<"Otp"> | Date | string | null
+    createdAt?: DateTimeFilter<"Otp"> | Date | string
+    updatedAt?: DateTimeFilter<"Otp"> | Date | string
+  }
+
+  export type OtpOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    expiry?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OtpWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: OtpWhereInput | OtpWhereInput[]
+    OR?: OtpWhereInput[]
+    NOT?: OtpWhereInput | OtpWhereInput[]
+    code?: StringNullableFilter<"Otp"> | string | null
+    expiry?: DateTimeNullableFilter<"Otp"> | Date | string | null
+    createdAt?: DateTimeFilter<"Otp"> | Date | string
+    updatedAt?: DateTimeFilter<"Otp"> | Date | string
+  }, "id" | "userId">
+
+  export type OtpOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    expiry?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OtpCountOrderByAggregateInput
+    _max?: OtpMaxOrderByAggregateInput
+    _min?: OtpMinOrderByAggregateInput
+  }
+
+  export type OtpScalarWhereWithAggregatesInput = {
+    AND?: OtpScalarWhereWithAggregatesInput | OtpScalarWhereWithAggregatesInput[]
+    OR?: OtpScalarWhereWithAggregatesInput[]
+    NOT?: OtpScalarWhereWithAggregatesInput | OtpScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Otp"> | string
+    userId?: StringWithAggregatesFilter<"Otp"> | string
+    code?: StringNullableWithAggregatesFilter<"Otp"> | string | null
+    expiry?: DateTimeNullableWithAggregatesFilter<"Otp"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Otp"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Otp"> | Date | string
   }
 
   export type VehicleWhereInput = {
@@ -8111,14 +9334,18 @@ export namespace Prisma {
     OR?: ParkingPlaceWhereInput[]
     NOT?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
     id?: StringFilter<"ParkingPlace"> | string
-    spot_name?: StringFilter<"ParkingPlace"> | string
+    title?: StringFilter<"ParkingPlace"> | string
     location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
-    about?: StringFilter<"ParkingPlace"> | string
+    description?: StringFilter<"ParkingPlace"> | string
     gallery?: StringNullableListFilter<"ParkingPlace">
-    owner_id?: StringFilter<"ParkingPlace"> | string
+    ownerId?: StringFilter<"ParkingPlace"> | string
+    price?: FloatFilter<"ParkingPlace"> | number
+    priceUnit?: StringFilter<"ParkingPlace"> | string
+    billingCycle?: StringFilter<"ParkingPlace"> | string
+    totalSpots?: IntFilter<"ParkingPlace"> | number
     createdAt?: DateTimeFilter<"ParkingPlace"> | Date | string
     updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -8129,14 +9356,18 @@ export namespace Prisma {
 
   export type ParkingPlaceOrderByWithRelationInput = {
     id?: SortOrder
-    spot_name?: SortOrder
+    title?: SortOrder
     location?: SortOrder
     status?: SortOrder
     address?: SortOrder
     amenities?: SortOrder
-    about?: SortOrder
+    description?: SortOrder
     gallery?: SortOrder
-    owner_id?: SortOrder
+    ownerId?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    billingCycle?: SortOrder
+    totalSpots?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     owner?: UserOrderByWithRelationInput
@@ -8150,14 +9381,18 @@ export namespace Prisma {
     AND?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
     OR?: ParkingPlaceWhereInput[]
     NOT?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
-    spot_name?: StringFilter<"ParkingPlace"> | string
+    title?: StringFilter<"ParkingPlace"> | string
     location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
-    about?: StringFilter<"ParkingPlace"> | string
+    description?: StringFilter<"ParkingPlace"> | string
     gallery?: StringNullableListFilter<"ParkingPlace">
-    owner_id?: StringFilter<"ParkingPlace"> | string
+    ownerId?: StringFilter<"ParkingPlace"> | string
+    price?: FloatFilter<"ParkingPlace"> | number
+    priceUnit?: StringFilter<"ParkingPlace"> | string
+    billingCycle?: StringFilter<"ParkingPlace"> | string
+    totalSpots?: IntFilter<"ParkingPlace"> | number
     createdAt?: DateTimeFilter<"ParkingPlace"> | Date | string
     updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -8168,19 +9403,25 @@ export namespace Prisma {
 
   export type ParkingPlaceOrderByWithAggregationInput = {
     id?: SortOrder
-    spot_name?: SortOrder
+    title?: SortOrder
     location?: SortOrder
     status?: SortOrder
     address?: SortOrder
     amenities?: SortOrder
-    about?: SortOrder
+    description?: SortOrder
     gallery?: SortOrder
-    owner_id?: SortOrder
+    ownerId?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    billingCycle?: SortOrder
+    totalSpots?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ParkingPlaceCountOrderByAggregateInput
+    _avg?: ParkingPlaceAvgOrderByAggregateInput
     _max?: ParkingPlaceMaxOrderByAggregateInput
     _min?: ParkingPlaceMinOrderByAggregateInput
+    _sum?: ParkingPlaceSumOrderByAggregateInput
   }
 
   export type ParkingPlaceScalarWhereWithAggregatesInput = {
@@ -8188,14 +9429,18 @@ export namespace Prisma {
     OR?: ParkingPlaceScalarWhereWithAggregatesInput[]
     NOT?: ParkingPlaceScalarWhereWithAggregatesInput | ParkingPlaceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ParkingPlace"> | string
-    spot_name?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    title?: StringWithAggregatesFilter<"ParkingPlace"> | string
     location?: EnumcordsWithAggregatesFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusWithAggregatesFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringWithAggregatesFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
-    about?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    description?: StringWithAggregatesFilter<"ParkingPlace"> | string
     gallery?: StringNullableListFilter<"ParkingPlace">
-    owner_id?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    ownerId?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    price?: FloatWithAggregatesFilter<"ParkingPlace"> | number
+    priceUnit?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    billingCycle?: StringWithAggregatesFilter<"ParkingPlace"> | string
+    totalSpots?: IntWithAggregatesFilter<"ParkingPlace"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ParkingPlace"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ParkingPlace"> | Date | string
   }
@@ -8355,6 +9600,7 @@ export namespace Prisma {
 
   export type FavouriteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    user_id_parking_place_id?: FavouriteUser_idParking_place_idCompoundUniqueInput
     AND?: FavouriteWhereInput | FavouriteWhereInput[]
     OR?: FavouriteWhereInput[]
     NOT?: FavouriteWhereInput | FavouriteWhereInput[]
@@ -8364,7 +9610,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Favourite"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     spot?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
-  }, "id">
+  }, "id" | "user_id_parking_place_id">
 
   export type FavouriteOrderByWithAggregationInput = {
     id?: SortOrder
@@ -8397,6 +9643,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8415,6 +9663,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8432,6 +9682,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8449,6 +9701,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8467,6 +9721,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8480,6 +9736,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8493,7 +9751,68 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OtpCreateInput = {
+    id?: string
+    userId: string
+    code?: string | null
+    expiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OtpUncheckedCreateInput = {
+    id?: string
+    userId: string
+    code?: string | null
+    expiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OtpUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OtpUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OtpCreateManyInput = {
+    id?: string
+    userId: string
+    code?: string | null
+    expiry?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OtpUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OtpUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
+    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8572,13 +9891,17 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutParkingPlacesInput
@@ -8589,14 +9912,18 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedCreateInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
-    owner_id: string
+    ownerId: string
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
@@ -8605,13 +9932,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUpdateInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
@@ -8621,14 +9952,18 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUncheckedUpdateInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
-    owner_id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
@@ -8638,39 +9973,51 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateManyInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
-    owner_id: string
+    ownerId: string
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ParkingPlaceUpdateManyMutationInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ParkingPlaceUncheckedUpdateManyInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
-    owner_id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8945,6 +10292,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    googleId?: SortOrder
+    appleId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8959,6 +10308,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    googleId?: SortOrder
+    appleId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8973,6 +10324,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    googleId?: SortOrder
+    appleId?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9039,6 +10392,60 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
+  export type OtpCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    expiry?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OtpMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    expiry?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OtpMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    expiry?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -9097,6 +10504,28 @@ export namespace Prisma {
     not?: NestedEnumPlaceStatusFilter<$PrismaModel> | $Enums.PlaceStatus
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type ParkingSpotListRelationFilter = {
     every?: ParkingSpotWhereInput
     some?: ParkingSpotWhereInput
@@ -9109,40 +10538,62 @@ export namespace Prisma {
 
   export type ParkingPlaceCountOrderByAggregateInput = {
     id?: SortOrder
-    spot_name?: SortOrder
+    title?: SortOrder
     location?: SortOrder
     status?: SortOrder
     address?: SortOrder
     amenities?: SortOrder
-    about?: SortOrder
+    description?: SortOrder
     gallery?: SortOrder
-    owner_id?: SortOrder
+    ownerId?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    billingCycle?: SortOrder
+    totalSpots?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
+  export type ParkingPlaceAvgOrderByAggregateInput = {
+    price?: SortOrder
+    totalSpots?: SortOrder
+  }
+
   export type ParkingPlaceMaxOrderByAggregateInput = {
     id?: SortOrder
-    spot_name?: SortOrder
+    title?: SortOrder
     location?: SortOrder
     status?: SortOrder
     address?: SortOrder
-    about?: SortOrder
-    owner_id?: SortOrder
+    description?: SortOrder
+    ownerId?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    billingCycle?: SortOrder
+    totalSpots?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ParkingPlaceMinOrderByAggregateInput = {
     id?: SortOrder
-    spot_name?: SortOrder
+    title?: SortOrder
     location?: SortOrder
     status?: SortOrder
     address?: SortOrder
-    about?: SortOrder
-    owner_id?: SortOrder
+    description?: SortOrder
+    ownerId?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    billingCycle?: SortOrder
+    totalSpots?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ParkingPlaceSumOrderByAggregateInput = {
+    price?: SortOrder
+    totalSpots?: SortOrder
   }
 
   export type EnumcordsWithAggregatesFilter<$PrismaModel = never> = {
@@ -9163,6 +10614,38 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPlaceStatusFilter<$PrismaModel>
     _max?: NestedEnumPlaceStatusFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -9210,17 +10693,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type ReviewCountOrderByAggregateInput = {
     id?: SortOrder
     rating?: SortOrder
@@ -9259,20 +10731,9 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+  export type FavouriteUser_idParking_place_idCompoundUniqueInput = {
+    user_id: string
+    parking_place_id: string
   }
 
   export type FavouriteCountOrderByAggregateInput = {
@@ -9484,6 +10945,11 @@ export namespace Prisma {
     deleteMany?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
+  }
+
   export type VehicleCreatecolorInput = {
     set: string[]
   }
@@ -9579,6 +11045,22 @@ export namespace Prisma {
   export type ParkingPlaceUpdategalleryInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutParkingPlacesNestedInput = {
@@ -9701,14 +11183,6 @@ export namespace Prisma {
     create?: XOR<ParkingPlaceCreateWithoutReviewsInput, ParkingPlaceUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: ParkingPlaceCreateOrConnectWithoutReviewsInput
     connect?: ParkingPlaceWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
@@ -9884,6 +11358,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type NestedEnumcordsFilter<$PrismaModel = never> = {
     equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel>
     in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel>
@@ -9896,6 +11397,17 @@ export namespace Prisma {
     in?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PlaceStatus[] | ListEnumPlaceStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPlaceStatusFilter<$PrismaModel> | $Enums.PlaceStatus
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedEnumcordsWithAggregatesFilter<$PrismaModel = never> = {
@@ -9918,17 +11430,20 @@ export namespace Prisma {
     _max?: NestedEnumPlaceStatusFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -9947,15 +11462,17 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type VehicleCreateWithoutOwnerInput = {
@@ -10039,13 +11556,17 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateWithoutOwnerInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewCreateNestedManyWithoutParkingPlaceInput
@@ -10055,13 +11576,17 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedCreateWithoutOwnerInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
@@ -10185,14 +11710,18 @@ export namespace Prisma {
     OR?: ParkingPlaceScalarWhereInput[]
     NOT?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
     id?: StringFilter<"ParkingPlace"> | string
-    spot_name?: StringFilter<"ParkingPlace"> | string
+    title?: StringFilter<"ParkingPlace"> | string
     location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
-    about?: StringFilter<"ParkingPlace"> | string
+    description?: StringFilter<"ParkingPlace"> | string
     gallery?: StringNullableListFilter<"ParkingPlace">
-    owner_id?: StringFilter<"ParkingPlace"> | string
+    ownerId?: StringFilter<"ParkingPlace"> | string
+    price?: FloatFilter<"ParkingPlace"> | number
+    priceUnit?: StringFilter<"ParkingPlace"> | string
+    billingCycle?: StringFilter<"ParkingPlace"> | string
+    totalSpots?: IntFilter<"ParkingPlace"> | number
     createdAt?: DateTimeFilter<"ParkingPlace"> | Date | string
     updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
   }
@@ -10206,6 +11735,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10223,6 +11754,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10255,6 +11788,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10271,6 +11806,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10288,6 +11825,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10305,6 +11844,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10412,6 +11953,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10428,6 +11971,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10498,13 +12043,17 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateWithoutParking_spotsInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutParkingPlacesInput
@@ -10514,14 +12063,18 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedCreateWithoutParking_spotsInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
-    owner_id: string
+    ownerId: string
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
@@ -10545,13 +12098,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUpdateWithoutParking_spotsInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
@@ -10560,14 +12117,18 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUncheckedUpdateWithoutParking_spotsInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
-    owner_id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
@@ -10583,6 +12144,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10600,6 +12163,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10615,13 +12180,17 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateWithoutReviewsInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutParkingPlacesInput
@@ -10631,14 +12200,18 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedCreateWithoutReviewsInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
-    owner_id: string
+    ownerId: string
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     favourites?: FavouriteUncheckedCreateNestedManyWithoutSpotInput
@@ -10669,6 +12242,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10685,6 +12260,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10705,13 +12282,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUpdateWithoutReviewsInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
@@ -10720,14 +12301,18 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUncheckedUpdateWithoutReviewsInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
-    owner_id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     favourites?: FavouriteUncheckedUpdateManyWithoutSpotNestedInput
@@ -10743,6 +12328,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10760,6 +12347,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    googleId?: string | null
+    appleId?: string | null
     role: $Enums.UserRole
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10775,13 +12364,17 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateWithoutFavouritesInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     owner: UserCreateNestedOneWithoutParkingPlacesInput
@@ -10791,14 +12384,18 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedCreateWithoutFavouritesInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
-    owner_id: string
+    ownerId: string
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewUncheckedCreateNestedManyWithoutParkingPlaceInput
@@ -10829,6 +12426,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10845,6 +12444,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10865,13 +12466,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUpdateWithoutFavouritesInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutParkingPlacesNestedInput
@@ -10880,14 +12485,18 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUncheckedUpdateWithoutFavouritesInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
-    owner_id?: StringFieldUpdateOperationsInput | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
@@ -10922,13 +12531,17 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateManyOwnerInput = {
     id?: string
-    spot_name: string
+    title: string
     location: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
-    about: string
+    description: string
     gallery?: ParkingPlaceCreategalleryInput | string[]
+    price: number
+    priceUnit: string
+    billingCycle: string
+    totalSpots: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11003,13 +12616,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUpdateWithoutOwnerInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUpdateManyWithoutParkingPlaceNestedInput
@@ -11018,13 +12635,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUncheckedUpdateWithoutOwnerInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewUncheckedUpdateManyWithoutParkingPlaceNestedInput
@@ -11033,13 +12654,17 @@ export namespace Prisma {
   }
 
   export type ParkingPlaceUncheckedUpdateManyWithoutOwnerInput = {
-    spot_name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
-    about?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     gallery?: ParkingPlaceUpdategalleryInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: StringFieldUpdateOperationsInput | string
+    billingCycle?: StringFieldUpdateOperationsInput | string
+    totalSpots?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

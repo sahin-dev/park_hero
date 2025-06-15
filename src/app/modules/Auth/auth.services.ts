@@ -13,13 +13,13 @@ const signin = async (email:string, password:string) => {
         throw new ApiError(httpStatus.NOT_FOUND, 'User not found')
     }
 
-    if (await bcrypt.compare(user.password, password)){
+    if (await bcrypt.compare(password, user.password)){
         const payload = {id:user.id, role:user.role}
 
         const accessToken = generateToken(payload)
 
-        await prisma.user.update({where:{id:user.id}, data:{accessToken:accessToken}})
-        return user
+       const updatedUser =  await prisma.user.update({where:{id:user.id}, data:{accessToken}})
+        return updatedUser
     }else {
         throw new ApiError(httpStatus.BAD_REQUEST, "User creadentials are not matched")
     }

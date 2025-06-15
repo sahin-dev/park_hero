@@ -122,7 +122,18 @@ exports.Prisma.UserScalarFieldEnum = {
   fcmToken: 'fcmToken',
   accessToken: 'accessToken',
   avatarUrl: 'avatarUrl',
+  googleId: 'googleId',
+  appleId: 'appleId',
   role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OtpScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  code: 'code',
+  expiry: 'expiry',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -140,14 +151,18 @@ exports.Prisma.VehicleScalarFieldEnum = {
 
 exports.Prisma.ParkingPlaceScalarFieldEnum = {
   id: 'id',
-  spot_name: 'spot_name',
+  title: 'title',
   location: 'location',
   status: 'status',
   address: 'address',
   amenities: 'amenities',
-  about: 'about',
+  description: 'description',
   gallery: 'gallery',
-  owner_id: 'owner_id',
+  ownerId: 'ownerId',
+  price: 'price',
+  priceUnit: 'priceUnit',
+  billingCycle: 'billingCycle',
+  totalSpots: 'totalSpots',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -207,6 +222,7 @@ exports.PlaceStatus = exports.$Enums.PlaceStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Otp: 'Otp',
   Vehicle: 'Vehicle',
   ParkingPlace: 'ParkingPlace',
   ParkingSpot: 'ParkingSpot',

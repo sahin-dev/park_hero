@@ -5,18 +5,21 @@ export interface IUserCreate {
     email: string,
     password: string,
     confirmPassword: string,
-    role: UserRole
+    role: UserRole,
+    fcmToken:string
 }
 
 export interface IUserInformation {
     fullName: string,
-    phoneNumber: string
+    phone: string
 }
 
 export interface IUserUpdate {
     fullName?: string,
     phoneNumber?: string,
     email?: string,
+    password?:string,
+    confirmPassword?:string
 }
 
 export interface IUser {

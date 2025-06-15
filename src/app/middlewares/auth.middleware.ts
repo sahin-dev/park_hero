@@ -15,19 +15,19 @@ const authMiddleware = (...roles:string[])=>{
         const token = req.headers.authorization;
 
         if (!token) {
-            return res.status(401).json({ success: false, message: "Unauthorized" });
+             res.status(401).json({ success: false, message: "Unauthorized" });
         }
 
-        const requestedUser = await prisma.user.findUnique({
+        const requestedUser = await prisma.user.findFirst({
             where: { accessToken: token }
         });
         if (!requestedUser) {
-            return res.status(401).json({ success: false, message: "Your session is expired. Kindly, login again" });
+             res.status(401).json({ success: false, message: "Your session is expired. Kindly, login again" });
         }
         // You can also verify the token here, e.g., using a JWT library
         const decoded = jwt.verify(token, config.jwt.secret) as {id:string, role:string};
         if (!decoded) {
-            return res.status(401).json({ success: false, message: "Invalid token" });
+             res.status(401).json({ success: false, message: "Invalid token" });
         }
 
         req.user = decoded
