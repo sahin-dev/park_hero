@@ -122,6 +122,8 @@ exports.Prisma.UserScalarFieldEnum = {
   fcmToken: 'fcmToken',
   accessToken: 'accessToken',
   avatarUrl: 'avatarUrl',
+  address: 'address',
+  cords: 'cords',
   googleId: 'googleId',
   appleId: 'appleId',
   role: 'role',
@@ -152,7 +154,7 @@ exports.Prisma.VehicleScalarFieldEnum = {
 exports.Prisma.ParkingPlaceScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  location: 'location',
+  cords: 'cords',
   status: 'status',
   address: 'address',
   amenities: 'amenities',
@@ -186,6 +188,15 @@ exports.Prisma.ReviewScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  spot_id: 'spot_id',
+  user_id: 'user_id',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FavouriteScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -203,21 +214,28 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+exports.cords = exports.$Enums.cords = {
+  lat: 'lat',
+  long: 'long'
+};
+
 exports.UserRole = exports.$Enums.UserRole = {
   BUYER: 'BUYER',
   SELLER: 'SELLER',
   ADMIN: 'ADMIN'
 };
 
-exports.cords = exports.$Enums.cords = {
-  lat: 'lat',
-  long: 'long'
-};
-
 exports.PlaceStatus = exports.$Enums.PlaceStatus = {
   Pending: 'Pending',
   Accepted: 'Accepted',
   Rejected: 'Rejected'
+};
+
+exports.BookingStatus = exports.$Enums.BookingStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELED: 'CANCELED'
 };
 
 exports.Prisma.ModelName = {
@@ -227,6 +245,7 @@ exports.Prisma.ModelName = {
   ParkingPlace: 'ParkingPlace',
   ParkingSpot: 'ParkingSpot',
   Review: 'Review',
+  Booking: 'Booking',
   Favourite: 'Favourite'
 };
 

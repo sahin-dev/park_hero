@@ -9,6 +9,7 @@ export interface IParkingCreate {
     billingCycle:string,
     gallery:string[],
     amenities:string[]
+    cords:cords
     availability:string | string[]
     totalSpots:number,
     location:cords,

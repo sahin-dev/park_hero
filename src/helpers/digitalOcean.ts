@@ -18,7 +18,7 @@ export const uploadToDigitalOcean = async (file: Express.Multer.File) => {
   }
 
   try {
-    const Key = `roady/${Date.now()}_${uuidv4()}_${file.originalname}`;
+    const Key = `parkhero/${Date.now()}_${uuidv4()}_${file.originalname}`;
     const uploadParams = {
       Bucket: process.env.DO_SPACE_BUCKET || "",
       Key,

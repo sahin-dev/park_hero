@@ -1,17 +1,19 @@
+import { PlaceStatus } from "../../../generated/prisma"
 import prisma from "../../db/client"
+import ApiError from "../../errorr/ApiError"
 import { IParkingCreate, IParkingUpdate } from "./parkingplace.interface"
 
 
 const createParkingPlace = async (userId:string, placeData:IParkingCreate)=>{
 
-    const place = await prisma.parkingPlace.create({data:{...placeData,ownerId:userId}})
+    const place = await prisma.parkingPlace.create({data:{...placeData, ownerId:userId}})
 
     for (let i = 0;i<place.totalSpots;i++){
         await prisma.parkingSpot.create({data:{parking_place_id:place.id,spot_name:`${i+1}P`}})
     }
 
     return place
-
+ 
 }
 
 
@@ -22,7 +24,7 @@ const getParkingPlaces  = async ()=>{
     return places
 }
 
-const getUserparkingPlaces = async (userId:string)=>{
+const getUserParkingPlaces = async (userId:string)=>{
 
     const places  = await prisma.parkingPlace.findMany({where:{ownerId:userId}})
 
@@ -35,6 +37,24 @@ const getParkingDetails = async (placeId:string)=>{
     return details
 
 
+}
+
+const getPendingParkingPlace = async ()=>{
+    const pendingPlaces = await prisma.parkingPlace.findMany({where:{status:PlaceStatus.Pending}})
+
+    return pendingPlaces
+}
+
+const resolveParkingPlaceRequest = async (placeId:string, status:PlaceStatus)=>{
+
+    let place = await prisma.parkingPlace.findUnique({where:{id:placeId, status:PlaceStatus.Pending}})
+    if (!place){
+        throw new ApiError(httpStatus.NOT_FOUND, "Place not found")
+    }
+
+    let updatedPlace = await prisma.parkingPlace.update({where:{id:place.id}, data:{status}})
+
+    return updatedPlace
 }
 
 const getParkingSpots = async (placeId:string)=>{
@@ -58,4 +78,14 @@ const addToFavourite = async (userId:string, placeId:string)=>{
     const favourite = await prisma.favourite.create({data:{user_id:userId, parking_place_id:placeId}})
 
     return favourite
+}
+
+export const parkingPlaceService = {
+    createParkingPlace,
+    getParkingPlaces,
+    getUserParkingPlaces,
+    getParkingDetails,
+    getParkingSpots,
+    updateParkingDetails,
+    addToFavourite
 }

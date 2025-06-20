@@ -44,6 +44,11 @@ export type ParkingSpot = $Result.DefaultSelection<Prisma.$ParkingSpotPayload>
  */
 export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
 /**
+ * Model Booking
+ * 
+ */
+export type Booking = $Result.DefaultSelection<Prisma.$BookingPayload>
+/**
  * Model Favourite
  * 
  */
@@ -78,6 +83,16 @@ export const UserRole: {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const BookingStatus: {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELED: 'CANCELED'
+};
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
+
 }
 
 export type cords = $Enums.cords
@@ -91,6 +106,10 @@ export const PlaceStatus: typeof $Enums.PlaceStatus
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type BookingStatus = $Enums.BookingStatus
+
+export const BookingStatus: typeof $Enums.BookingStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +262,16 @@ export class PrismaClient<
     * ```
     */
   get review(): Prisma.ReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.booking`: Exposes CRUD operations for the **Booking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Bookings
+    * const bookings = await prisma.booking.findMany()
+    * ```
+    */
+  get booking(): Prisma.BookingDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.favourite`: Exposes CRUD operations for the **Favourite** model.
@@ -699,6 +728,7 @@ export namespace Prisma {
     ParkingPlace: 'ParkingPlace',
     ParkingSpot: 'ParkingSpot',
     Review: 'Review',
+    Booking: 'Booking',
     Favourite: 'Favourite'
   };
 
@@ -718,7 +748,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "otp" | "vehicle" | "parkingPlace" | "parkingSpot" | "review" | "favourite"
+      modelProps: "user" | "otp" | "vehicle" | "parkingPlace" | "parkingSpot" | "review" | "booking" | "favourite"
       txIsolationLevel: never
     }
     model: {
@@ -1166,6 +1196,80 @@ export namespace Prisma {
           }
         }
       }
+      Booking: {
+        payload: Prisma.$BookingPayload<ExtArgs>
+        fields: Prisma.BookingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BookingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BookingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          findFirst: {
+            args: Prisma.BookingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BookingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          findMany: {
+            args: Prisma.BookingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>[]
+          }
+          create: {
+            args: Prisma.BookingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          createMany: {
+            args: Prisma.BookingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.BookingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          update: {
+            args: Prisma.BookingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          deleteMany: {
+            args: Prisma.BookingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BookingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BookingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BookingPayload>
+          }
+          aggregate: {
+            args: Prisma.BookingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBooking>
+          }
+          groupBy: {
+            args: Prisma.BookingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BookingGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.BookingFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.BookingAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.BookingCountArgs<ExtArgs>
+            result: $Utils.Optional<BookingCountAggregateOutputType> | number
+          }
+        }
+      }
       Favourite: {
         payload: Prisma.$FavouritePayload<ExtArgs>
         fields: Prisma.FavouriteFieldRefs
@@ -1317,6 +1421,7 @@ export namespace Prisma {
     parkingPlace?: ParkingPlaceOmit
     parkingSpot?: ParkingSpotOmit
     review?: ReviewOmit
+    booking?: BookingOmit
     favourite?: FavouriteOmit
   }
 
@@ -1416,6 +1521,7 @@ export namespace Prisma {
     reviews: number
     favourites: number
     parkingPlaces: number
+    bookings: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1423,6 +1529,7 @@ export namespace Prisma {
     reviews?: boolean | UserCountOutputTypeCountReviewsArgs
     favourites?: boolean | UserCountOutputTypeCountFavouritesArgs
     parkingPlaces?: boolean | UserCountOutputTypeCountParkingPlacesArgs
+    bookings?: boolean | UserCountOutputTypeCountBookingsArgs
   }
 
   // Custom InputTypes
@@ -1462,6 +1569,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountParkingPlacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ParkingPlaceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
   }
 
 
@@ -1515,6 +1629,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ParkingSpotCountOutputType
+   */
+
+  export type ParkingSpotCountOutputType = {
+    parkingBookings: number
+  }
+
+  export type ParkingSpotCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parkingBookings?: boolean | ParkingSpotCountOutputTypeCountParkingBookingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ParkingSpotCountOutputType without action
+   */
+  export type ParkingSpotCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ParkingSpotCountOutputType
+     */
+    select?: ParkingSpotCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ParkingSpotCountOutputType without action
+   */
+  export type ParkingSpotCountOutputTypeCountParkingBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1537,6 +1682,8 @@ export namespace Prisma {
     fcmToken: string | null
     accessToken: string | null
     avatarUrl: string | null
+    address: string | null
+    cords: $Enums.cords | null
     googleId: string | null
     appleId: string | null
     role: $Enums.UserRole | null
@@ -1553,6 +1700,8 @@ export namespace Prisma {
     fcmToken: string | null
     accessToken: string | null
     avatarUrl: string | null
+    address: string | null
+    cords: $Enums.cords | null
     googleId: string | null
     appleId: string | null
     role: $Enums.UserRole | null
@@ -1569,6 +1718,8 @@ export namespace Prisma {
     fcmToken: number
     accessToken: number
     avatarUrl: number
+    address: number
+    cords: number
     googleId: number
     appleId: number
     role: number
@@ -1587,6 +1738,8 @@ export namespace Prisma {
     fcmToken?: true
     accessToken?: true
     avatarUrl?: true
+    address?: true
+    cords?: true
     googleId?: true
     appleId?: true
     role?: true
@@ -1603,6 +1756,8 @@ export namespace Prisma {
     fcmToken?: true
     accessToken?: true
     avatarUrl?: true
+    address?: true
+    cords?: true
     googleId?: true
     appleId?: true
     role?: true
@@ -1619,6 +1774,8 @@ export namespace Prisma {
     fcmToken?: true
     accessToken?: true
     avatarUrl?: true
+    address?: true
+    cords?: true
     googleId?: true
     appleId?: true
     role?: true
@@ -1708,6 +1865,8 @@ export namespace Prisma {
     fcmToken: string | null
     accessToken: string | null
     avatarUrl: string | null
+    address: string | null
+    cords: $Enums.cords | null
     googleId: string | null
     appleId: string | null
     role: $Enums.UserRole
@@ -1741,6 +1900,8 @@ export namespace Prisma {
     fcmToken?: boolean
     accessToken?: boolean
     avatarUrl?: boolean
+    address?: boolean
+    cords?: boolean
     googleId?: boolean
     appleId?: boolean
     role?: boolean
@@ -1750,6 +1911,7 @@ export namespace Prisma {
     reviews?: boolean | User$reviewsArgs<ExtArgs>
     favourites?: boolean | User$favouritesArgs<ExtArgs>
     parkingPlaces?: boolean | User$parkingPlacesArgs<ExtArgs>
+    bookings?: boolean | User$bookingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1764,6 +1926,8 @@ export namespace Prisma {
     fcmToken?: boolean
     accessToken?: boolean
     avatarUrl?: boolean
+    address?: boolean
+    cords?: boolean
     googleId?: boolean
     appleId?: boolean
     role?: boolean
@@ -1771,12 +1935,13 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "avatarUrl" | "googleId" | "appleId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "fullName" | "phone" | "password" | "fcmToken" | "accessToken" | "avatarUrl" | "address" | "cords" | "googleId" | "appleId" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicles?: boolean | User$vehiclesArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
     favourites?: boolean | User$favouritesArgs<ExtArgs>
     parkingPlaces?: boolean | User$parkingPlacesArgs<ExtArgs>
+    bookings?: boolean | User$bookingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1787,6 +1952,7 @@ export namespace Prisma {
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
       favourites: Prisma.$FavouritePayload<ExtArgs>[]
       parkingPlaces: Prisma.$ParkingPlacePayload<ExtArgs>[]
+      bookings: Prisma.$BookingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1797,6 +1963,8 @@ export namespace Prisma {
       fcmToken: string | null
       accessToken: string | null
       avatarUrl: string | null
+      address: string | null
+      cords: $Enums.cords | null
       googleId: string | null
       appleId: string | null
       role: $Enums.UserRole
@@ -2169,6 +2337,7 @@ export namespace Prisma {
     reviews<T extends User$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favourites<T extends User$favouritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favouritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavouritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     parkingPlaces<T extends User$parkingPlacesArgs<ExtArgs> = {}>(args?: Subset<T, User$parkingPlacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2206,6 +2375,8 @@ export namespace Prisma {
     readonly fcmToken: FieldRef<"User", 'String'>
     readonly accessToken: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly address: FieldRef<"User", 'String'>
+    readonly cords: FieldRef<"User", 'cords'>
     readonly googleId: FieldRef<"User", 'String'>
     readonly appleId: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
@@ -2674,6 +2845,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ParkingPlaceScalarFieldEnum | ParkingPlaceScalarFieldEnum[]
+  }
+
+  /**
+   * User.bookings
+   */
+  export type User$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    cursor?: BookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
   }
 
   /**
@@ -4671,7 +4866,7 @@ export namespace Prisma {
   export type ParkingPlaceMinAggregateOutputType = {
     id: string | null
     title: string | null
-    location: $Enums.cords | null
+    cords: $Enums.cords | null
     status: $Enums.PlaceStatus | null
     address: string | null
     description: string | null
@@ -4687,7 +4882,7 @@ export namespace Prisma {
   export type ParkingPlaceMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    location: $Enums.cords | null
+    cords: $Enums.cords | null
     status: $Enums.PlaceStatus | null
     address: string | null
     description: string | null
@@ -4703,7 +4898,7 @@ export namespace Prisma {
   export type ParkingPlaceCountAggregateOutputType = {
     id: number
     title: number
-    location: number
+    cords: number
     status: number
     address: number
     amenities: number
@@ -4733,7 +4928,7 @@ export namespace Prisma {
   export type ParkingPlaceMinAggregateInputType = {
     id?: true
     title?: true
-    location?: true
+    cords?: true
     status?: true
     address?: true
     description?: true
@@ -4749,7 +4944,7 @@ export namespace Prisma {
   export type ParkingPlaceMaxAggregateInputType = {
     id?: true
     title?: true
-    location?: true
+    cords?: true
     status?: true
     address?: true
     description?: true
@@ -4765,7 +4960,7 @@ export namespace Prisma {
   export type ParkingPlaceCountAggregateInputType = {
     id?: true
     title?: true
-    location?: true
+    cords?: true
     status?: true
     address?: true
     amenities?: true
@@ -4870,7 +5065,7 @@ export namespace Prisma {
   export type ParkingPlaceGroupByOutputType = {
     id: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status: $Enums.PlaceStatus
     address: string
     amenities: string[]
@@ -4907,7 +5102,7 @@ export namespace Prisma {
   export type ParkingPlaceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    location?: boolean
+    cords?: boolean
     status?: boolean
     address?: boolean
     amenities?: boolean
@@ -4932,7 +5127,7 @@ export namespace Prisma {
   export type ParkingPlaceSelectScalar = {
     id?: boolean
     title?: boolean
-    location?: boolean
+    cords?: boolean
     status?: boolean
     address?: boolean
     amenities?: boolean
@@ -4947,7 +5142,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ParkingPlaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "location" | "status" | "address" | "amenities" | "description" | "gallery" | "ownerId" | "price" | "priceUnit" | "billingCycle" | "totalSpots" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingPlace"]>
+  export type ParkingPlaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "cords" | "status" | "address" | "amenities" | "description" | "gallery" | "ownerId" | "price" | "priceUnit" | "billingCycle" | "totalSpots" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingPlace"]>
   export type ParkingPlaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     reviews?: boolean | ParkingPlace$reviewsArgs<ExtArgs>
@@ -4967,7 +5162,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      location: $Enums.cords
+      cords: $Enums.cords
       status: $Enums.PlaceStatus
       address: string
       amenities: string[]
@@ -5378,7 +5573,7 @@ export namespace Prisma {
   interface ParkingPlaceFieldRefs {
     readonly id: FieldRef<"ParkingPlace", 'String'>
     readonly title: FieldRef<"ParkingPlace", 'String'>
-    readonly location: FieldRef<"ParkingPlace", 'cords'>
+    readonly cords: FieldRef<"ParkingPlace", 'cords'>
     readonly status: FieldRef<"ParkingPlace", 'PlaceStatus'>
     readonly address: FieldRef<"ParkingPlace", 'String'>
     readonly amenities: FieldRef<"ParkingPlace", 'String[]'>
@@ -6024,6 +6219,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     parkingPlace?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+    parkingBookings?: boolean | ParkingSpot$parkingBookingsArgs<ExtArgs>
+    _count?: boolean | ParkingSpotCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["parkingSpot"]>
 
 
@@ -6040,12 +6237,15 @@ export namespace Prisma {
   export type ParkingSpotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "spot_name" | "parking_place_id" | "availability" | "createdAt" | "updatedAt", ExtArgs["result"]["parkingSpot"]>
   export type ParkingSpotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parkingPlace?: boolean | ParkingPlaceDefaultArgs<ExtArgs>
+    parkingBookings?: boolean | ParkingSpot$parkingBookingsArgs<ExtArgs>
+    _count?: boolean | ParkingSpotCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $ParkingSpotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ParkingSpot"
     objects: {
       parkingPlace: Prisma.$ParkingPlacePayload<ExtArgs>
+      parkingBookings: Prisma.$BookingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6418,6 +6618,7 @@ export namespace Prisma {
   export interface Prisma__ParkingSpotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     parkingPlace<T extends ParkingPlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParkingPlaceDefaultArgs<ExtArgs>>): Prisma__ParkingPlaceClient<$Result.GetResult<Prisma.$ParkingPlacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parkingBookings<T extends ParkingSpot$parkingBookingsArgs<ExtArgs> = {}>(args?: Subset<T, ParkingSpot$parkingBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6820,6 +7021,30 @@ export namespace Prisma {
      * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
      */
     options?: InputJsonValue
+  }
+
+  /**
+   * ParkingSpot.parkingBookings
+   */
+  export type ParkingSpot$parkingBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    cursor?: BookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
   }
 
   /**
@@ -7881,6 +8106,1000 @@ export namespace Prisma {
 
 
   /**
+   * Model Booking
+   */
+
+  export type AggregateBooking = {
+    _count: BookingCountAggregateOutputType | null
+    _min: BookingMinAggregateOutputType | null
+    _max: BookingMaxAggregateOutputType | null
+  }
+
+  export type BookingMinAggregateOutputType = {
+    id: string | null
+    spot_id: string | null
+    user_id: string | null
+    status: $Enums.BookingStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookingMaxAggregateOutputType = {
+    id: string | null
+    spot_id: string | null
+    user_id: string | null
+    status: $Enums.BookingStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BookingCountAggregateOutputType = {
+    id: number
+    spot_id: number
+    user_id: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BookingMinAggregateInputType = {
+    id?: true
+    spot_id?: true
+    user_id?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookingMaxAggregateInputType = {
+    id?: true
+    spot_id?: true
+    user_id?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BookingCountAggregateInputType = {
+    id?: true
+    spot_id?: true
+    user_id?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BookingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Booking to aggregate.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Bookings
+    **/
+    _count?: true | BookingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BookingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BookingMaxAggregateInputType
+  }
+
+  export type GetBookingAggregateType<T extends BookingAggregateArgs> = {
+        [P in keyof T & keyof AggregateBooking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBooking[P]>
+      : GetScalarType<T[P], AggregateBooking[P]>
+  }
+
+
+
+
+  export type BookingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookingWhereInput
+    orderBy?: BookingOrderByWithAggregationInput | BookingOrderByWithAggregationInput[]
+    by: BookingScalarFieldEnum[] | BookingScalarFieldEnum
+    having?: BookingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BookingCountAggregateInputType | true
+    _min?: BookingMinAggregateInputType
+    _max?: BookingMaxAggregateInputType
+  }
+
+  export type BookingGroupByOutputType = {
+    id: string
+    spot_id: string
+    user_id: string
+    status: $Enums.BookingStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: BookingCountAggregateOutputType | null
+    _min: BookingMinAggregateOutputType | null
+    _max: BookingMaxAggregateOutputType | null
+  }
+
+  type GetBookingGroupByPayload<T extends BookingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BookingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BookingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BookingGroupByOutputType[P]>
+            : GetScalarType<T[P], BookingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    spot_id?: boolean
+    user_id?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    spot?: boolean | ParkingSpotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["booking"]>
+
+
+
+  export type BookingSelectScalar = {
+    id?: boolean
+    spot_id?: boolean
+    user_id?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "spot_id" | "user_id" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["booking"]>
+  export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    spot?: boolean | ParkingSpotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BookingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Booking"
+    objects: {
+      spot: Prisma.$ParkingSpotPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      spot_id: string
+      user_id: string
+      status: $Enums.BookingStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["booking"]>
+    composites: {}
+  }
+
+  type BookingGetPayload<S extends boolean | null | undefined | BookingDefaultArgs> = $Result.GetResult<Prisma.$BookingPayload, S>
+
+  type BookingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BookingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BookingCountAggregateInputType | true
+    }
+
+  export interface BookingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Booking'], meta: { name: 'Booking' } }
+    /**
+     * Find zero or one Booking that matches the filter.
+     * @param {BookingFindUniqueArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BookingFindUniqueArgs>(args: SelectSubset<T, BookingFindUniqueArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Booking that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BookingFindUniqueOrThrowArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BookingFindUniqueOrThrowArgs>(args: SelectSubset<T, BookingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Booking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindFirstArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BookingFindFirstArgs>(args?: SelectSubset<T, BookingFindFirstArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Booking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindFirstOrThrowArgs} args - Arguments to find a Booking
+     * @example
+     * // Get one Booking
+     * const booking = await prisma.booking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BookingFindFirstOrThrowArgs>(args?: SelectSubset<T, BookingFindFirstOrThrowArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Bookings
+     * const bookings = await prisma.booking.findMany()
+     * 
+     * // Get first 10 Bookings
+     * const bookings = await prisma.booking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bookingWithIdOnly = await prisma.booking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BookingFindManyArgs>(args?: SelectSubset<T, BookingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Booking.
+     * @param {BookingCreateArgs} args - Arguments to create a Booking.
+     * @example
+     * // Create one Booking
+     * const Booking = await prisma.booking.create({
+     *   data: {
+     *     // ... data to create a Booking
+     *   }
+     * })
+     * 
+     */
+    create<T extends BookingCreateArgs>(args: SelectSubset<T, BookingCreateArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Bookings.
+     * @param {BookingCreateManyArgs} args - Arguments to create many Bookings.
+     * @example
+     * // Create many Bookings
+     * const booking = await prisma.booking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BookingCreateManyArgs>(args?: SelectSubset<T, BookingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Booking.
+     * @param {BookingDeleteArgs} args - Arguments to delete one Booking.
+     * @example
+     * // Delete one Booking
+     * const Booking = await prisma.booking.delete({
+     *   where: {
+     *     // ... filter to delete one Booking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BookingDeleteArgs>(args: SelectSubset<T, BookingDeleteArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Booking.
+     * @param {BookingUpdateArgs} args - Arguments to update one Booking.
+     * @example
+     * // Update one Booking
+     * const booking = await prisma.booking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BookingUpdateArgs>(args: SelectSubset<T, BookingUpdateArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Bookings.
+     * @param {BookingDeleteManyArgs} args - Arguments to filter Bookings to delete.
+     * @example
+     * // Delete a few Bookings
+     * const { count } = await prisma.booking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BookingDeleteManyArgs>(args?: SelectSubset<T, BookingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Bookings
+     * const booking = await prisma.booking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BookingUpdateManyArgs>(args: SelectSubset<T, BookingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Booking.
+     * @param {BookingUpsertArgs} args - Arguments to update or create a Booking.
+     * @example
+     * // Update or create a Booking
+     * const booking = await prisma.booking.upsert({
+     *   create: {
+     *     // ... data to create a Booking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Booking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BookingUpsertArgs>(args: SelectSubset<T, BookingUpsertArgs<ExtArgs>>): Prisma__BookingClient<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Bookings that matches the filter.
+     * @param {BookingFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const booking = await prisma.booking.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: BookingFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Booking.
+     * @param {BookingAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const booking = await prisma.booking.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: BookingAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingCountArgs} args - Arguments to filter Bookings to count.
+     * @example
+     * // Count the number of Bookings
+     * const count = await prisma.booking.count({
+     *   where: {
+     *     // ... the filter for the Bookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends BookingCountArgs>(
+      args?: Subset<T, BookingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BookingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Booking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BookingAggregateArgs>(args: Subset<T, BookingAggregateArgs>): Prisma.PrismaPromise<GetBookingAggregateType<T>>
+
+    /**
+     * Group by Booking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BookingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BookingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BookingGroupByArgs['orderBy'] }
+        : { orderBy?: BookingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BookingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBookingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Booking model
+   */
+  readonly fields: BookingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Booking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BookingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    spot<T extends ParkingSpotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ParkingSpotDefaultArgs<ExtArgs>>): Prisma__ParkingSpotClient<$Result.GetResult<Prisma.$ParkingSpotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Booking model
+   */
+  interface BookingFieldRefs {
+    readonly id: FieldRef<"Booking", 'String'>
+    readonly spot_id: FieldRef<"Booking", 'String'>
+    readonly user_id: FieldRef<"Booking", 'String'>
+    readonly status: FieldRef<"Booking", 'BookingStatus'>
+    readonly createdAt: FieldRef<"Booking", 'DateTime'>
+    readonly updatedAt: FieldRef<"Booking", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Booking findUnique
+   */
+  export type BookingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking findUniqueOrThrow
+   */
+  export type BookingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking findFirst
+   */
+  export type BookingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookings.
+     */
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking findFirstOrThrow
+   */
+  export type BookingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Booking to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Bookings.
+     */
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking findMany
+   */
+  export type BookingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter, which Bookings to fetch.
+     */
+    where?: BookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Bookings to fetch.
+     */
+    orderBy?: BookingOrderByWithRelationInput | BookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Bookings.
+     */
+    cursor?: BookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Bookings.
+     */
+    skip?: number
+    distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Booking create
+   */
+  export type BookingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Booking.
+     */
+    data: XOR<BookingCreateInput, BookingUncheckedCreateInput>
+  }
+
+  /**
+   * Booking createMany
+   */
+  export type BookingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Bookings.
+     */
+    data: BookingCreateManyInput | BookingCreateManyInput[]
+  }
+
+  /**
+   * Booking update
+   */
+  export type BookingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Booking.
+     */
+    data: XOR<BookingUpdateInput, BookingUncheckedUpdateInput>
+    /**
+     * Choose, which Booking to update.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking updateMany
+   */
+  export type BookingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Bookings.
+     */
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyInput>
+    /**
+     * Filter which Bookings to update
+     */
+    where?: BookingWhereInput
+    /**
+     * Limit how many Bookings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Booking upsert
+   */
+  export type BookingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Booking to update in case it exists.
+     */
+    where: BookingWhereUniqueInput
+    /**
+     * In case the Booking found by the `where` argument doesn't exist, create a new Booking with this data.
+     */
+    create: XOR<BookingCreateInput, BookingUncheckedCreateInput>
+    /**
+     * In case the Booking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BookingUpdateInput, BookingUncheckedUpdateInput>
+  }
+
+  /**
+   * Booking delete
+   */
+  export type BookingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+    /**
+     * Filter which Booking to delete.
+     */
+    where: BookingWhereUniqueInput
+  }
+
+  /**
+   * Booking deleteMany
+   */
+  export type BookingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bookings to delete
+     */
+    where?: BookingWhereInput
+    /**
+     * Limit how many Bookings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Booking findRaw
+   */
+  export type BookingFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Booking aggregateRaw
+   */
+  export type BookingAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Booking without action
+   */
+  export type BookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Booking
+     */
+    select?: BookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Booking
+     */
+    omit?: BookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Favourite
    */
 
@@ -8876,6 +10095,8 @@ export namespace Prisma {
     fcmToken: 'fcmToken',
     accessToken: 'accessToken',
     avatarUrl: 'avatarUrl',
+    address: 'address',
+    cords: 'cords',
     googleId: 'googleId',
     appleId: 'appleId',
     role: 'role',
@@ -8915,7 +10136,7 @@ export namespace Prisma {
   export const ParkingPlaceScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    location: 'location',
+    cords: 'cords',
     status: 'status',
     address: 'address',
     amenities: 'amenities',
@@ -8956,6 +10177,18 @@ export namespace Prisma {
   };
 
   export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+  export const BookingScalarFieldEnum: {
+    id: 'id',
+    spot_id: 'spot_id',
+    user_id: 'user_id',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
   export const FavouriteScalarFieldEnum: {
@@ -9005,6 +10238,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'cords'
+   */
+  export type EnumcordsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'cords'>
+    
+
+
+  /**
+   * Reference to a field of type 'cords[]'
+   */
+  export type ListEnumcordsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'cords[]'>
+    
+
+
+  /**
    * Reference to a field of type 'UserRole'
    */
   export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
@@ -9029,20 +10276,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'cords'
-   */
-  export type EnumcordsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'cords'>
-    
-
-
-  /**
-   * Reference to a field of type 'cords[]'
-   */
-  export type ListEnumcordsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'cords[]'>
     
 
 
@@ -9093,6 +10326,20 @@ export namespace Prisma {
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
+
+
+  /**
+   * Reference to a field of type 'BookingStatus'
+   */
+  export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'BookingStatus[]'
+   */
+  export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -9110,6 +10357,8 @@ export namespace Prisma {
     fcmToken?: StringNullableFilter<"User"> | string | null
     accessToken?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    address?: StringNullableFilter<"User"> | string | null
+    cords?: EnumcordsNullableFilter<"User"> | $Enums.cords | null
     googleId?: StringNullableFilter<"User"> | string | null
     appleId?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
@@ -9119,6 +10368,7 @@ export namespace Prisma {
     reviews?: ReviewListRelationFilter
     favourites?: FavouriteListRelationFilter
     parkingPlaces?: ParkingPlaceListRelationFilter
+    bookings?: BookingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9130,6 +10380,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    address?: SortOrder
+    cords?: SortOrder
     googleId?: SortOrder
     appleId?: SortOrder
     role?: SortOrder
@@ -9139,6 +10391,7 @@ export namespace Prisma {
     reviews?: ReviewOrderByRelationAggregateInput
     favourites?: FavouriteOrderByRelationAggregateInput
     parkingPlaces?: ParkingPlaceOrderByRelationAggregateInput
+    bookings?: BookingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9153,6 +10406,8 @@ export namespace Prisma {
     fcmToken?: StringNullableFilter<"User"> | string | null
     accessToken?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    address?: StringNullableFilter<"User"> | string | null
+    cords?: EnumcordsNullableFilter<"User"> | $Enums.cords | null
     googleId?: StringNullableFilter<"User"> | string | null
     appleId?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
@@ -9162,6 +10417,7 @@ export namespace Prisma {
     reviews?: ReviewListRelationFilter
     favourites?: FavouriteListRelationFilter
     parkingPlaces?: ParkingPlaceListRelationFilter
+    bookings?: BookingListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9173,6 +10429,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    address?: SortOrder
+    cords?: SortOrder
     googleId?: SortOrder
     appleId?: SortOrder
     role?: SortOrder
@@ -9195,6 +10453,8 @@ export namespace Prisma {
     fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     accessToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    cords?: EnumcordsNullableWithAggregatesFilter<"User"> | $Enums.cords | null
     googleId?: StringNullableWithAggregatesFilter<"User"> | string | null
     appleId?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
@@ -9335,7 +10595,7 @@ export namespace Prisma {
     NOT?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
     id?: StringFilter<"ParkingPlace"> | string
     title?: StringFilter<"ParkingPlace"> | string
-    location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
+    cords?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
@@ -9357,7 +10617,7 @@ export namespace Prisma {
   export type ParkingPlaceOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    location?: SortOrder
+    cords?: SortOrder
     status?: SortOrder
     address?: SortOrder
     amenities?: SortOrder
@@ -9382,7 +10642,7 @@ export namespace Prisma {
     OR?: ParkingPlaceWhereInput[]
     NOT?: ParkingPlaceWhereInput | ParkingPlaceWhereInput[]
     title?: StringFilter<"ParkingPlace"> | string
-    location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
+    cords?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
@@ -9404,7 +10664,7 @@ export namespace Prisma {
   export type ParkingPlaceOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    location?: SortOrder
+    cords?: SortOrder
     status?: SortOrder
     address?: SortOrder
     amenities?: SortOrder
@@ -9430,7 +10690,7 @@ export namespace Prisma {
     NOT?: ParkingPlaceScalarWhereWithAggregatesInput | ParkingPlaceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ParkingPlace"> | string
     title?: StringWithAggregatesFilter<"ParkingPlace"> | string
-    location?: EnumcordsWithAggregatesFilter<"ParkingPlace"> | $Enums.cords
+    cords?: EnumcordsWithAggregatesFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusWithAggregatesFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringWithAggregatesFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
@@ -9456,6 +10716,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ParkingSpot"> | Date | string
     updatedAt?: DateTimeFilter<"ParkingSpot"> | Date | string
     parkingPlace?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+    parkingBookings?: BookingListRelationFilter
   }
 
   export type ParkingSpotOrderByWithRelationInput = {
@@ -9466,6 +10727,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     parkingPlace?: ParkingPlaceOrderByWithRelationInput
+    parkingBookings?: BookingOrderByRelationAggregateInput
   }
 
   export type ParkingSpotWhereUniqueInput = Prisma.AtLeast<{
@@ -9479,6 +10741,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ParkingSpot"> | Date | string
     updatedAt?: DateTimeFilter<"ParkingSpot"> | Date | string
     parkingPlace?: XOR<ParkingPlaceScalarRelationFilter, ParkingPlaceWhereInput>
+    parkingBookings?: BookingListRelationFilter
   }, "id">
 
   export type ParkingSpotOrderByWithAggregationInput = {
@@ -9575,6 +10838,69 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
   }
 
+  export type BookingWhereInput = {
+    AND?: BookingWhereInput | BookingWhereInput[]
+    OR?: BookingWhereInput[]
+    NOT?: BookingWhereInput | BookingWhereInput[]
+    id?: StringFilter<"Booking"> | string
+    spot_id?: StringFilter<"Booking"> | string
+    user_id?: StringFilter<"Booking"> | string
+    status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
+    createdAt?: DateTimeFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    spot?: XOR<ParkingSpotScalarRelationFilter, ParkingSpotWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BookingOrderByWithRelationInput = {
+    id?: SortOrder
+    spot_id?: SortOrder
+    user_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    spot?: ParkingSpotOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BookingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BookingWhereInput | BookingWhereInput[]
+    OR?: BookingWhereInput[]
+    NOT?: BookingWhereInput | BookingWhereInput[]
+    spot_id?: StringFilter<"Booking"> | string
+    user_id?: StringFilter<"Booking"> | string
+    status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
+    createdAt?: DateTimeFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+    spot?: XOR<ParkingSpotScalarRelationFilter, ParkingSpotWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type BookingOrderByWithAggregationInput = {
+    id?: SortOrder
+    spot_id?: SortOrder
+    user_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BookingCountOrderByAggregateInput
+    _max?: BookingMaxOrderByAggregateInput
+    _min?: BookingMinOrderByAggregateInput
+  }
+
+  export type BookingScalarWhereWithAggregatesInput = {
+    AND?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
+    OR?: BookingScalarWhereWithAggregatesInput[]
+    NOT?: BookingScalarWhereWithAggregatesInput | BookingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Booking"> | string
+    spot_id?: StringWithAggregatesFilter<"Booking"> | string
+    user_id?: StringWithAggregatesFilter<"Booking"> | string
+    status?: EnumBookingStatusWithAggregatesFilter<"Booking"> | $Enums.BookingStatus
+    createdAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  }
+
   export type FavouriteWhereInput = {
     AND?: FavouriteWhereInput | FavouriteWhereInput[]
     OR?: FavouriteWhereInput[]
@@ -9643,6 +10969,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -9652,6 +10980,7 @@ export namespace Prisma {
     reviews?: ReviewCreateNestedManyWithoutReviewerInput
     favourites?: FavouriteCreateNestedManyWithoutUserInput
     parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9663,6 +10992,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -9672,6 +11003,7 @@ export namespace Prisma {
     reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
     parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9682,6 +11014,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -9691,6 +11025,7 @@ export namespace Prisma {
     reviews?: ReviewUpdateManyWithoutReviewerNestedInput
     favourites?: FavouriteUpdateManyWithoutUserNestedInput
     parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9701,6 +11036,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -9710,6 +11047,7 @@ export namespace Prisma {
     reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
     parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9721,6 +11059,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -9736,6 +11076,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -9751,6 +11093,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -9892,7 +11236,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -9913,7 +11257,7 @@ export namespace Prisma {
   export type ParkingPlaceUncheckedCreateInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -9933,7 +11277,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -9953,7 +11297,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -9974,7 +11318,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateManyInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -9991,7 +11335,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -10007,7 +11351,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateManyInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -10029,6 +11373,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     parkingPlace: ParkingPlaceCreateNestedOneWithoutParking_spotsInput
+    parkingBookings?: BookingCreateNestedManyWithoutSpotInput
   }
 
   export type ParkingSpotUncheckedCreateInput = {
@@ -10038,6 +11383,7 @@ export namespace Prisma {
     availability?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    parkingBookings?: BookingUncheckedCreateNestedManyWithoutSpotInput
   }
 
   export type ParkingSpotUpdateInput = {
@@ -10046,6 +11392,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     parkingPlace?: ParkingPlaceUpdateOneRequiredWithoutParking_spotsNestedInput
+    parkingBookings?: BookingUpdateManyWithoutSpotNestedInput
   }
 
   export type ParkingSpotUncheckedUpdateInput = {
@@ -10054,6 +11401,7 @@ export namespace Prisma {
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parkingBookings?: BookingUncheckedUpdateManyWithoutSpotNestedInput
   }
 
   export type ParkingSpotCreateManyInput = {
@@ -10144,6 +11492,63 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BookingCreateInput = {
+    id?: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    spot: ParkingSpotCreateNestedOneWithoutParkingBookingsInput
+    user: UserCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateInput = {
+    id?: string
+    spot_id: string
+    user_id: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingUpdateInput = {
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    spot?: ParkingSpotUpdateOneRequiredWithoutParkingBookingsNestedInput
+    user?: UserUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateInput = {
+    spot_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateManyInput = {
+    id?: string
+    spot_id: string
+    user_id: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingUpdateManyMutationInput = {
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUncheckedUpdateManyInput = {
+    spot_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FavouriteCreateInput = {
     id?: string
     createdAt?: Date | string
@@ -10225,6 +11630,14 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type EnumcordsNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel> | null
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcordsNullableFilter<$PrismaModel> | $Enums.cords | null
+    isSet?: boolean
+  }
+
   export type EnumUserRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
@@ -10267,6 +11680,12 @@ export namespace Prisma {
     none?: ParkingPlaceWhereInput
   }
 
+  export type BookingListRelationFilter = {
+    every?: BookingWhereInput
+    some?: BookingWhereInput
+    none?: BookingWhereInput
+  }
+
   export type VehicleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -10283,6 +11702,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type BookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -10292,6 +11715,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    address?: SortOrder
+    cords?: SortOrder
     googleId?: SortOrder
     appleId?: SortOrder
     role?: SortOrder
@@ -10308,6 +11733,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    address?: SortOrder
+    cords?: SortOrder
     googleId?: SortOrder
     appleId?: SortOrder
     role?: SortOrder
@@ -10324,6 +11751,8 @@ export namespace Prisma {
     fcmToken?: SortOrder
     accessToken?: SortOrder
     avatarUrl?: SortOrder
+    address?: SortOrder
+    cords?: SortOrder
     googleId?: SortOrder
     appleId?: SortOrder
     role?: SortOrder
@@ -10365,6 +11794,17 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type EnumcordsNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel> | null
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcordsNullableWithAggregatesFilter<$PrismaModel> | $Enums.cords | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumcordsNullableFilter<$PrismaModel>
+    _max?: NestedEnumcordsNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -10539,7 +11979,7 @@ export namespace Prisma {
   export type ParkingPlaceCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    location?: SortOrder
+    cords?: SortOrder
     status?: SortOrder
     address?: SortOrder
     amenities?: SortOrder
@@ -10562,7 +12002,7 @@ export namespace Prisma {
   export type ParkingPlaceMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    location?: SortOrder
+    cords?: SortOrder
     status?: SortOrder
     address?: SortOrder
     description?: SortOrder
@@ -10578,7 +12018,7 @@ export namespace Prisma {
   export type ParkingPlaceMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    location?: SortOrder
+    cords?: SortOrder
     status?: SortOrder
     address?: SortOrder
     description?: SortOrder
@@ -10731,6 +12171,55 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
+  export type EnumBookingStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
+  }
+
+  export type ParkingSpotScalarRelationFilter = {
+    is?: ParkingSpotWhereInput
+    isNot?: ParkingSpotWhereInput
+  }
+
+  export type BookingCountOrderByAggregateInput = {
+    id?: SortOrder
+    spot_id?: SortOrder
+    user_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    spot_id?: SortOrder
+    user_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BookingMinOrderByAggregateInput = {
+    id?: SortOrder
+    spot_id?: SortOrder
+    user_id?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBookingStatusFilter<$PrismaModel>
+    _max?: NestedEnumBookingStatusFilter<$PrismaModel>
+  }
+
   export type FavouriteUser_idParking_place_idCompoundUniqueInput = {
     user_id: string
     parking_place_id: string
@@ -10788,6 +12277,13 @@ export namespace Prisma {
     connect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
   }
 
+  export type BookingCreateNestedManyWithoutUserInput = {
+    create?: XOR<BookingCreateWithoutUserInput, BookingUncheckedCreateWithoutUserInput> | BookingCreateWithoutUserInput[] | BookingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutUserInput | BookingCreateOrConnectWithoutUserInput[]
+    createMany?: BookingCreateManyUserInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
   export type VehicleUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<VehicleCreateWithoutOwnerInput, VehicleUncheckedCreateWithoutOwnerInput> | VehicleCreateWithoutOwnerInput[] | VehicleUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutOwnerInput | VehicleCreateOrConnectWithoutOwnerInput[]
@@ -10816,12 +12312,24 @@ export namespace Prisma {
     connect?: ParkingPlaceWhereUniqueInput | ParkingPlaceWhereUniqueInput[]
   }
 
+  export type BookingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BookingCreateWithoutUserInput, BookingUncheckedCreateWithoutUserInput> | BookingCreateWithoutUserInput[] | BookingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutUserInput | BookingCreateOrConnectWithoutUserInput[]
+    createMany?: BookingCreateManyUserInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+    unset?: boolean
+  }
+
+  export type NullableEnumcordsFieldUpdateOperationsInput = {
+    set?: $Enums.cords | null
     unset?: boolean
   }
 
@@ -10889,6 +12397,20 @@ export namespace Prisma {
     deleteMany?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
   }
 
+  export type BookingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BookingCreateWithoutUserInput, BookingUncheckedCreateWithoutUserInput> | BookingCreateWithoutUserInput[] | BookingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutUserInput | BookingCreateOrConnectWithoutUserInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutUserInput | BookingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BookingCreateManyUserInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutUserInput | BookingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutUserInput | BookingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
   export type VehicleUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<VehicleCreateWithoutOwnerInput, VehicleUncheckedCreateWithoutOwnerInput> | VehicleCreateWithoutOwnerInput[] | VehicleUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutOwnerInput | VehicleCreateOrConnectWithoutOwnerInput[]
@@ -10943,6 +12465,20 @@ export namespace Prisma {
     update?: ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput | ParkingPlaceUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: ParkingPlaceUpdateManyWithWhereWithoutOwnerInput | ParkingPlaceUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
+  }
+
+  export type BookingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BookingCreateWithoutUserInput, BookingUncheckedCreateWithoutUserInput> | BookingCreateWithoutUserInput[] | BookingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutUserInput | BookingCreateOrConnectWithoutUserInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutUserInput | BookingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BookingCreateManyUserInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutUserInput | BookingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutUserInput | BookingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -11161,6 +12697,20 @@ export namespace Prisma {
     connect?: ParkingPlaceWhereUniqueInput
   }
 
+  export type BookingCreateNestedManyWithoutSpotInput = {
+    create?: XOR<BookingCreateWithoutSpotInput, BookingUncheckedCreateWithoutSpotInput> | BookingCreateWithoutSpotInput[] | BookingUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutSpotInput | BookingCreateOrConnectWithoutSpotInput[]
+    createMany?: BookingCreateManySpotInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type BookingUncheckedCreateNestedManyWithoutSpotInput = {
+    create?: XOR<BookingCreateWithoutSpotInput, BookingUncheckedCreateWithoutSpotInput> | BookingCreateWithoutSpotInput[] | BookingUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutSpotInput | BookingCreateOrConnectWithoutSpotInput[]
+    createMany?: BookingCreateManySpotInputEnvelope
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -11171,6 +12721,34 @@ export namespace Prisma {
     upsert?: ParkingPlaceUpsertWithoutParking_spotsInput
     connect?: ParkingPlaceWhereUniqueInput
     update?: XOR<XOR<ParkingPlaceUpdateToOneWithWhereWithoutParking_spotsInput, ParkingPlaceUpdateWithoutParking_spotsInput>, ParkingPlaceUncheckedUpdateWithoutParking_spotsInput>
+  }
+
+  export type BookingUpdateManyWithoutSpotNestedInput = {
+    create?: XOR<BookingCreateWithoutSpotInput, BookingUncheckedCreateWithoutSpotInput> | BookingCreateWithoutSpotInput[] | BookingUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutSpotInput | BookingCreateOrConnectWithoutSpotInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutSpotInput | BookingUpsertWithWhereUniqueWithoutSpotInput[]
+    createMany?: BookingCreateManySpotInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutSpotInput | BookingUpdateWithWhereUniqueWithoutSpotInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutSpotInput | BookingUpdateManyWithWhereWithoutSpotInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type BookingUncheckedUpdateManyWithoutSpotNestedInput = {
+    create?: XOR<BookingCreateWithoutSpotInput, BookingUncheckedCreateWithoutSpotInput> | BookingCreateWithoutSpotInput[] | BookingUncheckedCreateWithoutSpotInput[]
+    connectOrCreate?: BookingCreateOrConnectWithoutSpotInput | BookingCreateOrConnectWithoutSpotInput[]
+    upsert?: BookingUpsertWithWhereUniqueWithoutSpotInput | BookingUpsertWithWhereUniqueWithoutSpotInput[]
+    createMany?: BookingCreateManySpotInputEnvelope
+    set?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    disconnect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    delete?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+    update?: BookingUpdateWithWhereUniqueWithoutSpotInput | BookingUpdateWithWhereUniqueWithoutSpotInput[]
+    updateMany?: BookingUpdateManyWithWhereWithoutSpotInput | BookingUpdateManyWithWhereWithoutSpotInput[]
+    deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutReviewsInput = {
@@ -11199,6 +12777,38 @@ export namespace Prisma {
     upsert?: ParkingPlaceUpsertWithoutReviewsInput
     connect?: ParkingPlaceWhereUniqueInput
     update?: XOR<XOR<ParkingPlaceUpdateToOneWithWhereWithoutReviewsInput, ParkingPlaceUpdateWithoutReviewsInput>, ParkingPlaceUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type ParkingSpotCreateNestedOneWithoutParkingBookingsInput = {
+    create?: XOR<ParkingSpotCreateWithoutParkingBookingsInput, ParkingSpotUncheckedCreateWithoutParkingBookingsInput>
+    connectOrCreate?: ParkingSpotCreateOrConnectWithoutParkingBookingsInput
+    connect?: ParkingSpotWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumBookingStatusFieldUpdateOperationsInput = {
+    set?: $Enums.BookingStatus
+  }
+
+  export type ParkingSpotUpdateOneRequiredWithoutParkingBookingsNestedInput = {
+    create?: XOR<ParkingSpotCreateWithoutParkingBookingsInput, ParkingSpotUncheckedCreateWithoutParkingBookingsInput>
+    connectOrCreate?: ParkingSpotCreateOrConnectWithoutParkingBookingsInput
+    upsert?: ParkingSpotUpsertWithoutParkingBookingsInput
+    connect?: ParkingSpotWhereUniqueInput
+    update?: XOR<XOR<ParkingSpotUpdateToOneWithWhereWithoutParkingBookingsInput, ParkingSpotUpdateWithoutParkingBookingsInput>, ParkingSpotUncheckedUpdateWithoutParkingBookingsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookingsInput
+    upsert?: UserUpsertWithoutBookingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBookingsInput, UserUpdateWithoutBookingsInput>, UserUncheckedUpdateWithoutBookingsInput>
   }
 
   export type UserCreateNestedOneWithoutFavouritesInput = {
@@ -11255,6 +12865,14 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumcordsNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel> | null
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcordsNullableFilter<$PrismaModel> | $Enums.cords | null
     isSet?: boolean
   }
 
@@ -11331,6 +12949,17 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedEnumcordsNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.cords | EnumcordsFieldRefInput<$PrismaModel> | null
+    in?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.cords[] | ListEnumcordsFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcordsNullableWithAggregatesFilter<$PrismaModel> | $Enums.cords | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumcordsNullableFilter<$PrismaModel>
+    _max?: NestedEnumcordsNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -11475,6 +13104,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumBookingStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBookingStatusFilter<$PrismaModel> | $Enums.BookingStatus
+  }
+
+  export type NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BookingStatus | EnumBookingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BookingStatus[] | ListEnumBookingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBookingStatusWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBookingStatusFilter<$PrismaModel>
+    _max?: NestedEnumBookingStatusFilter<$PrismaModel>
+  }
+
   export type VehicleCreateWithoutOwnerInput = {
     id?: string
     company: string
@@ -11557,7 +13203,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateWithoutOwnerInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -11577,7 +13223,7 @@ export namespace Prisma {
   export type ParkingPlaceUncheckedCreateWithoutOwnerInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -11601,6 +13247,31 @@ export namespace Prisma {
 
   export type ParkingPlaceCreateManyOwnerInputEnvelope = {
     data: ParkingPlaceCreateManyOwnerInput | ParkingPlaceCreateManyOwnerInput[]
+  }
+
+  export type BookingCreateWithoutUserInput = {
+    id?: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    spot: ParkingSpotCreateNestedOneWithoutParkingBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutUserInput = {
+    id?: string
+    spot_id: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateOrConnectWithoutUserInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutUserInput, BookingUncheckedCreateWithoutUserInput>
+  }
+
+  export type BookingCreateManyUserInputEnvelope = {
+    data: BookingCreateManyUserInput | BookingCreateManyUserInput[]
   }
 
   export type VehicleUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -11711,7 +13382,7 @@ export namespace Prisma {
     NOT?: ParkingPlaceScalarWhereInput | ParkingPlaceScalarWhereInput[]
     id?: StringFilter<"ParkingPlace"> | string
     title?: StringFilter<"ParkingPlace"> | string
-    location?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
+    cords?: EnumcordsFilter<"ParkingPlace"> | $Enums.cords
     status?: EnumPlaceStatusFilter<"ParkingPlace"> | $Enums.PlaceStatus
     address?: StringFilter<"ParkingPlace"> | string
     amenities?: StringNullableListFilter<"ParkingPlace">
@@ -11726,6 +13397,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ParkingPlace"> | Date | string
   }
 
+  export type BookingUpsertWithWhereUniqueWithoutUserInput = {
+    where: BookingWhereUniqueInput
+    update: XOR<BookingUpdateWithoutUserInput, BookingUncheckedUpdateWithoutUserInput>
+    create: XOR<BookingCreateWithoutUserInput, BookingUncheckedCreateWithoutUserInput>
+  }
+
+  export type BookingUpdateWithWhereUniqueWithoutUserInput = {
+    where: BookingWhereUniqueInput
+    data: XOR<BookingUpdateWithoutUserInput, BookingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BookingUpdateManyWithWhereWithoutUserInput = {
+    where: BookingScalarWhereInput
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BookingScalarWhereInput = {
+    AND?: BookingScalarWhereInput | BookingScalarWhereInput[]
+    OR?: BookingScalarWhereInput[]
+    NOT?: BookingScalarWhereInput | BookingScalarWhereInput[]
+    id?: StringFilter<"Booking"> | string
+    spot_id?: StringFilter<"Booking"> | string
+    user_id?: StringFilter<"Booking"> | string
+    status?: EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus
+    createdAt?: DateTimeFilter<"Booking"> | Date | string
+    updatedAt?: DateTimeFilter<"Booking"> | Date | string
+  }
+
   export type UserCreateWithoutVehiclesInput = {
     id?: string
     email: string
@@ -11735,6 +13434,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -11743,6 +13444,7 @@ export namespace Prisma {
     reviews?: ReviewCreateNestedManyWithoutReviewerInput
     favourites?: FavouriteCreateNestedManyWithoutUserInput
     parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVehiclesInput = {
@@ -11754,6 +13456,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -11762,6 +13466,7 @@ export namespace Prisma {
     reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
     parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVehiclesInput = {
@@ -11788,6 +13493,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -11796,6 +13503,7 @@ export namespace Prisma {
     reviews?: ReviewUpdateManyWithoutReviewerNestedInput
     favourites?: FavouriteUpdateManyWithoutUserNestedInput
     parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVehiclesInput = {
@@ -11806,6 +13514,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -11814,6 +13524,7 @@ export namespace Prisma {
     reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
     parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutParkingPlacesInput = {
@@ -11825,6 +13536,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -11833,6 +13546,7 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutOwnerInput
     reviews?: ReviewCreateNestedManyWithoutReviewerInput
     favourites?: FavouriteCreateNestedManyWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutParkingPlacesInput = {
@@ -11844,6 +13558,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -11852,6 +13568,7 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutParkingPlacesInput = {
@@ -11915,6 +13632,7 @@ export namespace Prisma {
     availability?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    parkingBookings?: BookingCreateNestedManyWithoutSpotInput
   }
 
   export type ParkingSpotUncheckedCreateWithoutParkingPlaceInput = {
@@ -11923,6 +13641,7 @@ export namespace Prisma {
     availability?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    parkingBookings?: BookingUncheckedCreateNestedManyWithoutSpotInput
   }
 
   export type ParkingSpotCreateOrConnectWithoutParkingPlaceInput = {
@@ -11953,6 +13672,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -11961,6 +13682,7 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
     reviews?: ReviewUpdateManyWithoutReviewerNestedInput
     favourites?: FavouriteUpdateManyWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutParkingPlacesInput = {
@@ -11971,6 +13693,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -11979,6 +13703,7 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ReviewUpsertWithWhereUniqueWithoutParkingPlaceInput = {
@@ -12044,7 +13769,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateWithoutParking_spotsInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12064,7 +13789,7 @@ export namespace Prisma {
   export type ParkingPlaceUncheckedCreateWithoutParking_spotsInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12086,6 +13811,31 @@ export namespace Prisma {
     create: XOR<ParkingPlaceCreateWithoutParking_spotsInput, ParkingPlaceUncheckedCreateWithoutParking_spotsInput>
   }
 
+  export type BookingCreateWithoutSpotInput = {
+    id?: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutBookingsInput
+  }
+
+  export type BookingUncheckedCreateWithoutSpotInput = {
+    id?: string
+    user_id: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateOrConnectWithoutSpotInput = {
+    where: BookingWhereUniqueInput
+    create: XOR<BookingCreateWithoutSpotInput, BookingUncheckedCreateWithoutSpotInput>
+  }
+
+  export type BookingCreateManySpotInputEnvelope = {
+    data: BookingCreateManySpotInput | BookingCreateManySpotInput[]
+  }
+
   export type ParkingPlaceUpsertWithoutParking_spotsInput = {
     update: XOR<ParkingPlaceUpdateWithoutParking_spotsInput, ParkingPlaceUncheckedUpdateWithoutParking_spotsInput>
     create: XOR<ParkingPlaceCreateWithoutParking_spotsInput, ParkingPlaceUncheckedCreateWithoutParking_spotsInput>
@@ -12099,7 +13849,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUpdateWithoutParking_spotsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12118,7 +13868,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateWithoutParking_spotsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12135,6 +13885,22 @@ export namespace Prisma {
     favourites?: FavouriteUncheckedUpdateManyWithoutSpotNestedInput
   }
 
+  export type BookingUpsertWithWhereUniqueWithoutSpotInput = {
+    where: BookingWhereUniqueInput
+    update: XOR<BookingUpdateWithoutSpotInput, BookingUncheckedUpdateWithoutSpotInput>
+    create: XOR<BookingCreateWithoutSpotInput, BookingUncheckedCreateWithoutSpotInput>
+  }
+
+  export type BookingUpdateWithWhereUniqueWithoutSpotInput = {
+    where: BookingWhereUniqueInput
+    data: XOR<BookingUpdateWithoutSpotInput, BookingUncheckedUpdateWithoutSpotInput>
+  }
+
+  export type BookingUpdateManyWithWhereWithoutSpotInput = {
+    where: BookingScalarWhereInput
+    data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutSpotInput>
+  }
+
   export type UserCreateWithoutReviewsInput = {
     id?: string
     email: string
@@ -12144,6 +13910,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -12152,6 +13920,7 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutOwnerInput
     favourites?: FavouriteCreateNestedManyWithoutUserInput
     parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
@@ -12163,6 +13932,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -12171,6 +13942,7 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
     favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
     parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewsInput = {
@@ -12181,7 +13953,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateWithoutReviewsInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12201,7 +13973,7 @@ export namespace Prisma {
   export type ParkingPlaceUncheckedCreateWithoutReviewsInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12242,6 +14014,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -12250,6 +14024,7 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
     favourites?: FavouriteUpdateManyWithoutUserNestedInput
     parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -12260,6 +14035,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -12268,6 +14045,7 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
     favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
     parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ParkingPlaceUpsertWithoutReviewsInput = {
@@ -12283,7 +14061,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUpdateWithoutReviewsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12302,7 +14080,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateWithoutReviewsInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12319,6 +14097,158 @@ export namespace Prisma {
     parking_spots?: ParkingSpotUncheckedUpdateManyWithoutParkingPlaceNestedInput
   }
 
+  export type ParkingSpotCreateWithoutParkingBookingsInput = {
+    id?: string
+    spot_name: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parkingPlace: ParkingPlaceCreateNestedOneWithoutParking_spotsInput
+  }
+
+  export type ParkingSpotUncheckedCreateWithoutParkingBookingsInput = {
+    id?: string
+    spot_name: string
+    parking_place_id: string
+    availability?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ParkingSpotCreateOrConnectWithoutParkingBookingsInput = {
+    where: ParkingSpotWhereUniqueInput
+    create: XOR<ParkingSpotCreateWithoutParkingBookingsInput, ParkingSpotUncheckedCreateWithoutParkingBookingsInput>
+  }
+
+  export type UserCreateWithoutBookingsInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
+    googleId?: string | null
+    appleId?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutBookingsInput = {
+    id?: string
+    email: string
+    fullName?: string | null
+    phone?: string | null
+    password: string
+    fcmToken?: string | null
+    accessToken?: string | null
+    avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
+    googleId?: string | null
+    appleId?: string | null
+    role: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
+    favourites?: FavouriteUncheckedCreateNestedManyWithoutUserInput
+    parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutBookingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type ParkingSpotUpsertWithoutParkingBookingsInput = {
+    update: XOR<ParkingSpotUpdateWithoutParkingBookingsInput, ParkingSpotUncheckedUpdateWithoutParkingBookingsInput>
+    create: XOR<ParkingSpotCreateWithoutParkingBookingsInput, ParkingSpotUncheckedCreateWithoutParkingBookingsInput>
+    where?: ParkingSpotWhereInput
+  }
+
+  export type ParkingSpotUpdateToOneWithWhereWithoutParkingBookingsInput = {
+    where?: ParkingSpotWhereInput
+    data: XOR<ParkingSpotUpdateWithoutParkingBookingsInput, ParkingSpotUncheckedUpdateWithoutParkingBookingsInput>
+  }
+
+  export type ParkingSpotUpdateWithoutParkingBookingsInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parkingPlace?: ParkingPlaceUpdateOneRequiredWithoutParking_spotsNestedInput
+  }
+
+  export type ParkingSpotUncheckedUpdateWithoutParkingBookingsInput = {
+    spot_name?: StringFieldUpdateOperationsInput | string
+    parking_place_id?: StringFieldUpdateOperationsInput | string
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutBookingsInput = {
+    update: XOR<UserUpdateWithoutBookingsInput, UserUncheckedUpdateWithoutBookingsInput>
+    create: XOR<UserCreateWithoutBookingsInput, UserUncheckedCreateWithoutBookingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBookingsInput, UserUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type UserUpdateWithoutBookingsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBookingsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    appleId?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    favourites?: FavouriteUncheckedUpdateManyWithoutUserNestedInput
+    parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
   export type UserCreateWithoutFavouritesInput = {
     id?: string
     email: string
@@ -12328,6 +14258,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -12336,6 +14268,7 @@ export namespace Prisma {
     vehicles?: VehicleCreateNestedManyWithoutOwnerInput
     reviews?: ReviewCreateNestedManyWithoutReviewerInput
     parkingPlaces?: ParkingPlaceCreateNestedManyWithoutOwnerInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFavouritesInput = {
@@ -12347,6 +14280,8 @@ export namespace Prisma {
     fcmToken?: string | null
     accessToken?: string | null
     avatarUrl?: string | null
+    address?: string | null
+    cords?: $Enums.cords | null
     googleId?: string | null
     appleId?: string | null
     role: $Enums.UserRole
@@ -12355,6 +14290,7 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedCreateNestedManyWithoutOwnerInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutReviewerInput
     parkingPlaces?: ParkingPlaceUncheckedCreateNestedManyWithoutOwnerInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavouritesInput = {
@@ -12365,7 +14301,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateWithoutFavouritesInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12385,7 +14321,7 @@ export namespace Prisma {
   export type ParkingPlaceUncheckedCreateWithoutFavouritesInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12426,6 +14362,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -12434,6 +14372,7 @@ export namespace Prisma {
     vehicles?: VehicleUpdateManyWithoutOwnerNestedInput
     reviews?: ReviewUpdateManyWithoutReviewerNestedInput
     parkingPlaces?: ParkingPlaceUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavouritesInput = {
@@ -12444,6 +14383,8 @@ export namespace Prisma {
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    cords?: NullableEnumcordsFieldUpdateOperationsInput | $Enums.cords | null
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     appleId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
@@ -12452,6 +14393,7 @@ export namespace Prisma {
     vehicles?: VehicleUncheckedUpdateManyWithoutOwnerNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutReviewerNestedInput
     parkingPlaces?: ParkingPlaceUncheckedUpdateManyWithoutOwnerNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ParkingPlaceUpsertWithoutFavouritesInput = {
@@ -12467,7 +14409,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUpdateWithoutFavouritesInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12486,7 +14428,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateWithoutFavouritesInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12532,7 +14474,7 @@ export namespace Prisma {
   export type ParkingPlaceCreateManyOwnerInput = {
     id?: string
     title: string
-    location: $Enums.cords
+    cords: $Enums.cords
     status?: $Enums.PlaceStatus
     address: string
     amenities?: ParkingPlaceCreateamenitiesInput | string[]
@@ -12542,6 +14484,14 @@ export namespace Prisma {
     priceUnit: string
     billingCycle: string
     totalSpots: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingCreateManyUserInput = {
+    id?: string
+    spot_id: string
+    status?: $Enums.BookingStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12617,7 +14567,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUpdateWithoutOwnerInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12636,7 +14586,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateWithoutOwnerInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12655,7 +14605,7 @@ export namespace Prisma {
 
   export type ParkingPlaceUncheckedUpdateManyWithoutOwnerInput = {
     title?: StringFieldUpdateOperationsInput | string
-    location?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
+    cords?: EnumcordsFieldUpdateOperationsInput | $Enums.cords
     status?: EnumPlaceStatusFieldUpdateOperationsInput | $Enums.PlaceStatus
     address?: StringFieldUpdateOperationsInput | string
     amenities?: ParkingPlaceUpdateamenitiesInput | string[]
@@ -12665,6 +14615,27 @@ export namespace Prisma {
     priceUnit?: StringFieldUpdateOperationsInput | string
     billingCycle?: StringFieldUpdateOperationsInput | string
     totalSpots?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUpdateWithoutUserInput = {
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    spot?: ParkingSpotUpdateOneRequiredWithoutParkingBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutUserInput = {
+    spot_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUncheckedUpdateManyWithoutUserInput = {
+    spot_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12740,6 +14711,7 @@ export namespace Prisma {
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parkingBookings?: BookingUpdateManyWithoutSpotNestedInput
   }
 
   export type ParkingSpotUncheckedUpdateWithoutParkingPlaceInput = {
@@ -12747,11 +14719,41 @@ export namespace Prisma {
     availability?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parkingBookings?: BookingUncheckedUpdateManyWithoutSpotNestedInput
   }
 
   export type ParkingSpotUncheckedUpdateManyWithoutParkingPlaceInput = {
     spot_name?: StringFieldUpdateOperationsInput | string
     availability?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingCreateManySpotInput = {
+    id?: string
+    user_id: string
+    status?: $Enums.BookingStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookingUpdateWithoutSpotInput = {
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type BookingUncheckedUpdateWithoutSpotInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BookingUncheckedUpdateManyWithoutSpotInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -24,6 +24,10 @@ model User {
   accessToken String? 
   avatarUrl   String?
 
+  address     String?
+  cords       cords?
+  walletId    String    @db.ObjectId    @unique
+
   googleId    String?
   appleId     String?
   role       UserRole
@@ -31,11 +35,24 @@ model User {
   reviews    Review[]
   favourites Favourite[]
   parkingPlaces   ParkingPlace[]
+  bookings        Booking[]
+  wallet         Wallet @relation(fields: [walletId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+
+model Wallet {
+  id          String @id @default(auto()) @map("_id")  @db.ObjectId
+  balance     Float  @default(0.0)
+  
+  user User?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model Otp {
@@ -73,7 +90,7 @@ model Vehicle {
 model ParkingPlace {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title String
-  location  cords
+  cords  cords
   status    PlaceStatus  @default(Pending)
   address   String
   amenities String[]
@@ -103,6 +120,7 @@ model ParkingSpot {
   availability    Boolean @default(true)
 
   parkingPlace ParkingPlace @relation(fields: [parking_place_id], references: [id])
+  parkingBookings Booking[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -124,6 +142,23 @@ model Review {
   @@map("reviews")
 }
 
+
+model Booking {
+
+  id          String      @id @default(auto())  @map("_id")  @db.ObjectId
+  spot_id     String    @db.ObjectId
+  user_id    String     @db.ObjectId
+  status     BookingStatus  @default(PENDING)
+
+  spot      ParkingSpot   @relation(fields: [spot_id], references: [id])
+  user      User          @relation(fields: [user_id], references: [id])
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("bookings")
+}
+
 model Favourite {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
   user_id          String @db.ObjectId
@@ -140,6 +175,7 @@ model Favourite {
   @@map("favourites")
 }
 
+
 enum cords {
   lat
   long
@@ -155,4 +191,12 @@ enum UserRole {
   BUYER
   SELLER
   ADMIN
+}
+
+
+enum BookingStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELED
 }
