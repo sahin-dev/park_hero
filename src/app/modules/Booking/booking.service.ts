@@ -15,7 +15,7 @@ const bookSpot = async (userId:string,spotId:string)=>{
 
 const getBookings = async (placeId:string)=>{
     const bookings = await prisma.parkingSpot.findMany({where:{parking_place_id:placeId, parkingBookings:{every:{status:BookingStatus.ACTIVE}}}, include:{parkingBookings:true}})
-    return bookings
+    return bookings           
 }
 
 
