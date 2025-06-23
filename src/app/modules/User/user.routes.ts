@@ -10,7 +10,7 @@ const router = Router()
 
 router.post('/register', userController.register)
 router.post('/', authMiddleware(), userController.updateUser)
-router.route("/favourite").post(authMiddleware(), )
+router.route("/favourite").post(authMiddleware(),  userController.toggoleFavourite)
 
 router.post('/add/info',authMiddleware(), fileUploader.uploadAvatar, userController.addInformation)
 router.post("/add/vehicle", authMiddleware(), userController.addVehicle)

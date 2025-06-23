@@ -5,8 +5,8 @@ import sendResponse from "../../../shared/sendResponse";
 import httpStatus  from "http-status";
 
 const handleSignin = catchAsync(async (req:Request, res:Response)=>{
-    const {email, password}  = req.body
-    const result = await  signin(email, password)
+    const {email, password, role}  = req.body
+    const result = await  signin(email, password, role)
 
 
     sendResponse(res, {

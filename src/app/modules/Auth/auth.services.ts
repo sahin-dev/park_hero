@@ -3,11 +3,12 @@ import ApiError from "../../errorr/ApiError"
 import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
 import { generateToken } from "../../../helpers/jwt"
+import { UserRole } from "../../../generated/prisma"
 
 
-const signin = async (email:string, password:string) => {
+const signin = async (email:string, password:string, role:UserRole) => {
 
-    const user = await prisma.user.findUnique({where:{email}})
+    const user = await prisma.user.findFirst({where:{email,role}})
 
     if (!user){
         throw new ApiError(httpStatus.NOT_FOUND, 'User not found')
@@ -24,6 +25,7 @@ const signin = async (email:string, password:string) => {
         throw new ApiError(httpStatus.BAD_REQUEST, "User creadentials are not matched")
     }
 }
+
 
 const signOut = async (userId:string) => {
     const user = await prisma.user.findUnique({where:{id:userId}})

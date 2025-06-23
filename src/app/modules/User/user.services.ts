@@ -57,7 +57,7 @@ const addInformation = async (userId: string, userInfo: IUserInformation, file:E
         throw new ApiError(httpStatus.NOT_FOUND, "User not found");
     }
 
-    let avatarUrl = null;
+    let avatarUrl: string | null = null;
 
     if (file){
          const uploadedFile = await uploadToDigitalOcean(file)

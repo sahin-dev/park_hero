@@ -1,4 +1,4 @@
-import { UserRole } from "../../../generated/prisma"
+import { cords, UserRole } from "../../../generated/prisma"
 
 export interface IUserCreate {
 
@@ -16,6 +16,7 @@ export interface IUserInformation {
 
 export interface IUserUpdate {
     fullName?: string,
+    location?:cords,
     phoneNumber?: string,
     email?: string,
     password?:string,

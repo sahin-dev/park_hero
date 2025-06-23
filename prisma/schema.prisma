@@ -25,7 +25,7 @@ model User {
   avatarUrl   String?
 
   address     String?
-  cords       cords?
+  location       cords?
   walletId    String    @db.ObjectId    @unique
 
   googleId    String?
